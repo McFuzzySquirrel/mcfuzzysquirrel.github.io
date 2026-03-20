@@ -2,6 +2,20 @@
 layout: home
 ---
 
+<section class="playground-hero">
+	<div>
+		<h1>McFuzzySquirrel's Playground</h1>
+		<p class="playground-tagline">AI experiments, useful tools, strange prototypes, and honest notes from learning by doing.</p>
+		<span class="playground-chip">learning in public</span>
+		<span class="playground-chip">agent systems</span>
+		<span class="playground-chip">practical tools</span>
+		<span class="playground-chip">creative tech</span>
+	</div>
+	<div>
+		<img src="/assets/images/squirrel-blacksmith.jpeg" alt="Playful squirrel mascot blacksmith forging in a cozy workshop" />
+	</div>
+</section>
+
 McFuzzySquirrel's Playground is where I turn questions into working software.
 
 Some projects start with a real problem. Others begin with a simple thought: "Is this possible?" or "I wonder if...?" Either way, this site is my playground for learning by doing, building in public, and sharing whatever comes out of the experiment.
