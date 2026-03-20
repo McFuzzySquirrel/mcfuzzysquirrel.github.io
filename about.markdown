@@ -4,15 +4,32 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+McFuzzySquirrel's Playground is my learning playground.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+All of my projects exist for one main reason: learning through experimentation.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Each repository usually starts with a question.
 
+- Is this possible?
+- I wonder if this would work?
+- What happens if I combine these ideas?
 
-[jekyll-organization]: https://github.com/jekyll
+Sometimes the result is a practical tool for a real problem. Sometimes it is a creative prototype. Sometimes it is just me following curiosity down a rabbit hole to see what is on the other side.
+
+That is the point.
+
+I learn best by building, testing, iterating, and sharing the results. Some projects are well-structured, others are gloriously experimental, and all of them are honest reflections of learning in progress.
+
+The themes that show up most often in my work are:
+
+- AI agents and orchestration
+- Practical developer tooling
+- Local-first and workflow-focused experiments
+- Creative technology prototypes
+
+## Contact
+
+- GitHub: [McFuzzySquirrel](https://github.com/McFuzzySquirrel)
+- LinkedIn: [Doug McCusker](https://www.linkedin.com/in/doug-mccusker-05054a21/)
+
+If something here helps, sparks an idea, or sends you off on your own rabbit hole, then it is doing its job.
