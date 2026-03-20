@@ -7,6 +7,12 @@ categories: personal update
 
 > *How a simple question: "What if AI could work like a real team?", became a framework that turns ideas into coordinated agent teams.*
 
+Agent Forge started as a practical response to a recurring problem: one AI assistant can do many things, but complex projects still need specialist thinking, clear ownership, and coordinated execution.
+
+This post shares how I designed a PRD-first, multi-agent workflow that turns an idea into a structured team of AI specialists with an orchestrator that keeps delivery moving in the right order.
+
+<!--more-->
+
 
 ## The Spark
 
