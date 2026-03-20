@@ -369,4 +369,3 @@ And thats the story, **and here is the repo**: https://github.com/McFuzzySquirre
 ---
 
 **Made with ❤️ and a lot of research documents by [McFuzzySquirrel](https://github.com/McFuzzySquirrel)**
-
