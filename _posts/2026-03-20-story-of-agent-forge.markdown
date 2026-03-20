@@ -24,7 +24,7 @@ A practical one: *Can we actually build this, today, with the tools we have?*
 
 We know the answer is yes, beacuse orchestrated multi-agent systems are in place and there are many ways people, and systems are doing this today. The journey to get there, after exploring all the options out there, and expanding on that, is what this document is about.
 
----
+
 
 ## Chapter 1: Starting with the Problem, Not the Solution
 
@@ -104,7 +104,7 @@ This isn't just documentation, this is the contract that makes multi-agent coord
 
 
 
-## Chapter 4: The Orchestrator — Conducting the Symphony
+## Chapter 4: The Orchestrator: Conducting the Symphony
 
 This is cricital: Individual agents can do individual tasks. But who decides *what* to build *when*? Who makes sure the database schema exists before the API engineer tries to query it? Who verifies that Phase 1 is actually complete before Phase 2 begins?
 
@@ -242,7 +242,7 @@ It served three practical purposes:
 
 
 
-## Chapter 8: The Meta-Lesson — Building Tools That Build Tools
+## Chapter 8: The Meta-Lesson: Building Tools That Build Tools
 
 Here's the most interesting thing about Agent Forge: **it's a framework that uses AI to create AI teams that build software**. That recursion isn't accidental, it's the whole point.
 
@@ -261,7 +261,7 @@ The sweet spot, as discovered through building Agent Forge, is:
 
 
 
-## Chapter 9: Your Turn — A Framework for Building Frameworks
+## Chapter 9: Your Turn: A Framework for Building Frameworks
 
 This story isn't just about Agent Forge. It's about a *process* for building any framework that coordinates AI agents, or, really, any complex system where multiple components need to work together.
 
@@ -360,12 +360,12 @@ If you take nothing else from this story, take these:
 
 And thats the story, **and here is the repo**: https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge
 
----
+
 
 *This is the story of how my Agent Forge came to be. But more importantly, it's a playbook. Take it. Adapt it. Build your own version. The patterns work whether you're building AI agent teams, data pipelines, content systems, or anything else where multiple specialized components need to work together toward a shared goal.*
 
 *The tools will change. The process won't.*
 
----
+
 
 **Made with ❤️ and a lot of research documents by [McFuzzySquirrel](https://github.com/McFuzzySquirrel)**
