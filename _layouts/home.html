@@ -75,8 +75,8 @@ layout: default
       chip.classList.add('active');
       var filter = chip.getAttribute('data-filter');
       posts.forEach(function(post) {
-        var tags = (post.getAttribute('data-tags') || '').toLowerCase();
-        if (filter === 'all' || tags.indexOf(filter.toLowerCase()) !== -1) {
+        var tags = (post.getAttribute('data-tags') || '').split(',');
+        if (filter === 'all' || tags.indexOf(filter) !== -1) {
           post.style.display = '';
         } else {
           post.style.display = 'none';
