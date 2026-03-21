@@ -3,6 +3,7 @@ layout: post
 title:  "The Story of Agent Forge: Building an AI Development Team from Scratch"
 date:   2026-03-20 21:45:00 +0200
 categories: personal update
+tags: [agent systems, frameworks, AI orchestration]
 ---
 
 > *How a simple question: "What if AI could work like a real team?", became a framework that turns ideas into coordinated agent teams.*

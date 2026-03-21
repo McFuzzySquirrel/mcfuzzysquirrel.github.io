@@ -145,15 +145,6 @@ blockquote {
   filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.45));
 }
 
-.home .post-list > li {
-  background: rgba(24, 15, 12, 0.85);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1rem 1.1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
-}
-
 .post {
   background: rgba(24, 15, 12, 0.9);
   border: 1px solid var(--border);
@@ -165,7 +156,12 @@ blockquote {
   margin-right: auto;
 }
 
-.post .post-title,
+.post .post-title {
+  font-size: 1.55rem;
+  line-height: 1.3;
+  color: var(--text-soft);
+}
+
 .post .post-content,
 .post .post-content p,
 .post .post-content li {
@@ -259,6 +255,108 @@ blockquote {
   line-height: 1.35;
 }
 
+/* Post browser: filter bar */
+.post-browser {
+  margin-bottom: 1rem;
+}
+
+.post-browser-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.post-filter-chip {
+  display: inline-block;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.82rem;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.post-filter-chip:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.post-filter-chip.active {
+  background: rgba(255, 154, 69, 0.22);
+  border-color: var(--accent);
+  color: #ffe4cb;
+  font-weight: 600;
+}
+
+/* Scrollable post card area */
+.post-cards-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.post-cards-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.post-cards-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.post-cards-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* Compact post cards */
+.home .post-list > li {
+  background: rgba(24, 15, 12, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.2s;
+}
+
+.home .post-list > li:hover {
+  border-color: var(--accent-strong);
+}
+
+.home .post-list > li p {
+  margin-bottom: 0.4rem;
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.home .post-list > li p:last-child {
+  margin-bottom: 0;
+}
+
+/* Tag pills on post cards */
+.post-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-card-tag {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 154, 69, 0.08);
+}
+
 @media (max-width: 760px) {
   .post {
     padding: 1rem 0.95rem;
@@ -313,6 +411,14 @@ blockquote {
   .playground-hero {
     grid-template-columns: 1fr;
     text-align: left;
+  }
+
+  .post .post-title {
+    font-size: 1.3rem;
+  }
+
+  .post-cards-scroll {
+    max-height: 500px;
   }
 }
 

@@ -3,6 +3,7 @@ layout: post
 title: "What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything"
 date: 2026-03-17 23:10:00 +0200
 categories: personal update
+tags: [edge AI, education, practical tools]
 ---
 
 *Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am learning that may be useful to others, so this will evolve as the project evolves.*

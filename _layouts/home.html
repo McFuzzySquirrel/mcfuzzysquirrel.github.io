@@ -11,26 +11,80 @@ layout: default
 
   {%- if site.posts.size > 0 -%}
     <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }} • {%- include reading-time.html content=post.content -%}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
+
+    {%- comment -%} Collect all unique tags across posts {%- endcomment -%}
+    {%- assign all_tags = "" | split: "" -%}
+    {%- for post in site.posts -%}
+      {%- for tag in post.tags -%}
+        {%- unless all_tags contains tag -%}
+          {%- assign all_tags = all_tags | push: tag -%}
+        {%- endunless -%}
       {%- endfor -%}
-    </ul>
+    {%- endfor -%}
+    {%- assign all_tags = all_tags | sort -%}
+
+    <div class="post-browser" aria-label="Filter posts">
+      <div class="post-browser-filters">
+        <button class="post-filter-chip active" data-filter="all">All</button>
+        {%- for tag in all_tags -%}
+        <button class="post-filter-chip" data-filter="{{ tag }}">{{ tag }}</button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="post-cards-scroll">
+      <ul class="post-list">
+        {%- for post in site.posts -%}
+        <li data-tags="{{ post.tags | join: ',' }}">
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <span class="post-meta">{{ post.date | date: date_format }} · {%- include reading-time.html content=post.content -%}</span>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          {%- if post.tags.size > 0 -%}
+          <div class="post-card-tags">
+            {%- for tag in post.tags -%}
+            <span class="post-card-tag">{{ tag }}</span>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
+          {%- if site.show_excerpts -%}
+            {{ post.excerpt }}
+          {%- endif -%}
+        </li>
+        {%- endfor -%}
+      </ul>
+    </div>
 
     <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
   {%- endif -%}
 
 </div>
+
+<script>
+(function() {
+  var chips = document.querySelectorAll('.post-filter-chip');
+  var posts = document.querySelectorAll('.post-list > li');
+  if (!chips.length || !posts.length) return;
+
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      chips.forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var filter = chip.getAttribute('data-filter');
+      posts.forEach(function(post) {
+        var tags = (post.getAttribute('data-tags') || '').toLowerCase();
+        if (filter === 'all' || tags.indexOf(filter.toLowerCase()) !== -1) {
+          post.style.display = '';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
 
 {%- include back-to-top.html -%}
