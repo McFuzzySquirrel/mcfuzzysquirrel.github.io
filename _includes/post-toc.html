@@ -1,0 +1,21 @@
+{%- assign content = include.content -%}
+{%- assign hasH2 = content | split: '<h2' -%}
+{%- if hasH2.size > 2 -%}
+<nav class="post-toc" aria-label="Table of contents">
+  <details open>
+    <summary>Table of Contents</summary>
+    <ul>
+      {%- assign nodes = content | split: '<h2 id="' -%}
+      {%- for node in nodes -%}
+        {%- if forloop.first -%}{%- continue -%}{%- endif -%}
+        {%- assign headingId = node | split: '"' | first -%}
+        {%- assign afterId = node | split: '>' | slice: 1, 1 -%}
+        {%- assign headingTitle = afterId[0] | split: '</h2' | first | strip_html | strip -%}
+        {%- if headingTitle.size > 0 -%}
+      <li><a href="#{{ headingId }}">{{ headingTitle }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </details>
+</nav>
+{%- endif -%}
