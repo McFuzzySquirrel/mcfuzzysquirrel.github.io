@@ -126,7 +126,7 @@ Now it is all coming together. Once research is done and implementation is appro
 
 This creates a **knowledge graph** of my project's evolution. No more am I digging around in message  threads, or finding they are lost in closed PRs, or hidden in code comments. This is knowledge that is structured, searchable, and connected.
 
----
+
 
 ## Why This Changes Everything
 
