@@ -384,9 +384,33 @@ blockquote {
   background: rgba(255, 154, 69, 0.08);
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
+  .page-content .wrapper {
+    max-width: 1160px;
+  }
+
   .post {
-    max-width: 980px;
+    max-width: 1040px;
+  }
+
+  .post-toc,
+  .post-nav {
+    max-width: 1040px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .page-content .wrapper {
+    max-width: 1260px;
+  }
+
+  .post {
+    max-width: 1120px;
+  }
+
+  .post-toc,
+  .post-nav {
+    max-width: 1120px;
   }
 }
 
@@ -398,6 +422,25 @@ blockquote {
   .post .post-content {
     font-size: 1.02rem;
     line-height: 1.72;
+  }
+
+  .highlighter-rouge,
+  .highlighter-rouge .highlight,
+  .highlighter-rouge pre,
+  .highlight,
+  .highlight pre,
+  .highlight code,
+  .highlight span,
+  .post .post-content table,
+  .post .post-content table th,
+  .post .post-content table td,
+  .post .post-content table tr,
+  .post-content table,
+  .post-content table th,
+  .post-content table td,
+  .post-content table tr {
+    background: transparent !important;
+    color: var(--text-soft) !important;
   }
 }
 
