@@ -74,19 +74,19 @@ h3,
 }
 
 code {
-  background: var(--surface-soft);
-  border-color: var(--border);
-  color: #ffd7b1;
+  background: none;
+  border: none;
+  color: var(--text-soft);
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }
 
 pre {
-  background: #110b08;
-  border: 1px solid var(--border);
+  background: none;
+  border: none;
   border-radius: 8px;
   padding: 1rem 1.1rem;
-  color: #f5e8da;
+  color: var(--text-soft);
   overflow-x: auto;
   line-height: 1.5;
 }
@@ -151,7 +151,7 @@ blockquote {
   border-radius: 14px;
   padding: 1.25rem 1.3rem;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32);
-  max-width: 760px;
+  max-width: 920px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -208,7 +208,7 @@ blockquote {
 }
 
 .post .post-content table th {
-  background: #2e1e17;
+  background: none;
   color: var(--text);
   border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
@@ -224,15 +224,24 @@ blockquote {
 }
 
 .post .post-content table tr:nth-child(odd) td {
-  background: rgba(255, 255, 255, 0.025);
+  background: none;
 }
 
 .post .post-content table tr:nth-child(even) td {
-  background: rgba(0, 0, 0, 0.18);
+  background: none;
 }
 
 .post .post-content table tr:hover td {
-  background: rgba(255, 154, 69, 0.07);
+  background: none;
+}
+
+.highlight,
+.highlight pre,
+.post .post-content .highlight,
+.post .post-content .highlight pre {
+  background: none;
+  border: none;
+  color: var(--text-soft);
 }
 
 .post .post-content a,
@@ -355,6 +364,12 @@ blockquote {
   border-radius: 999px;
   color: var(--muted);
   background: rgba(255, 154, 69, 0.08);
+}
+
+@media (min-width: 1280px) {
+  .post {
+    max-width: 980px;
+  }
 }
 
 @media (max-width: 760px) {
