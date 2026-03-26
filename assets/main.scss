@@ -73,29 +73,34 @@ h3,
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
 }
 
-code {
-  background: none;
-  border: none;
-  color: var(--text-soft);
+.post .post-content code,
+.post-content code {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-soft) !important;
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }
 
+.post .post-content pre,
+.post-content pre,
 pre {
-  background: none;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   border-radius: 8px;
   padding: 1rem 1.1rem;
-  color: var(--text-soft);
+  color: var(--text-soft) !important;
   overflow-x: auto;
   line-height: 1.5;
 }
 
+.post .post-content pre code,
+.post-content pre code,
 pre code {
-  background: none;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   padding: 0;
-  color: inherit;
+  color: inherit !important;
   border-radius: 0;
 }
 
@@ -207,8 +212,9 @@ blockquote {
   font-size: 0.97rem;
 }
 
-.post .post-content table th {
-  background: none;
+.post .post-content table th,
+.post-content table th {
+  background: transparent !important;
   color: var(--text);
   border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
@@ -216,7 +222,9 @@ blockquote {
   font-weight: 600;
 }
 
-.post .post-content table td {
+.post .post-content table td,
+.post-content table td {
+  background: transparent !important;
   border: 1px solid var(--border);
   padding: 0.45rem 0.75rem;
   color: var(--text-soft);
@@ -224,24 +232,34 @@ blockquote {
 }
 
 .post .post-content table tr:nth-child(odd) td {
-  background: none;
+  background: transparent !important;
 }
 
 .post .post-content table tr:nth-child(even) td {
-  background: none;
+  background: transparent !important;
 }
 
 .post .post-content table tr:hover td {
-  background: none;
+  background: transparent !important;
+}
+
+.post .post-content table tr,
+.post-content table tr,
+.post .post-content table tbody tr:nth-child(even),
+.post-content table tbody tr:nth-child(even) {
+  background: transparent !important;
 }
 
 .highlight,
 .highlight pre,
+.highlighter-rouge,
+.highlighter-rouge .highlight,
+.highlighter-rouge pre,
 .post .post-content .highlight,
 .post .post-content .highlight pre {
-  background: none;
-  border: none;
-  color: var(--text-soft);
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-soft) !important;
 }
 
 .post .post-content a,
