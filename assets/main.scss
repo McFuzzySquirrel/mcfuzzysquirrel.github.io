@@ -384,6 +384,11 @@ blockquote {
   background: rgba(255, 154, 69, 0.08);
 }
 
+/* Break Minima's 740px wrapper ceiling on all desktop sizes */
+.page-content .wrapper {
+  max-width: 1100px !important;
+}
+
 @media (min-width: 1024px) {
   .page-content .wrapper {
     max-width: 1160px;
