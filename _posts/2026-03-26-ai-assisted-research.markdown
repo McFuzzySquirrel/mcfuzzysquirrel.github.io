@@ -26,7 +26,7 @@ I have these all the time, sometimes while I am busy, more often just after or b
 
 Now this is not about a specific tool or project. It is about a *process* that works for me regardless of what I am building or what AI tools I am using, and maybe something you the reader could benefit from (hence this post). The pattern is what matters.
 
-## The Two-Phase Dance: Research, Then Build
+## The Three-Phase Dance: Research, Build, Record
 
 So I have been doing this for a while, and everytime I change it a little bit (I even do it on the train). So here is the workflow that has emerged from months of iteration:
 
