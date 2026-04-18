@@ -14,19 +14,6 @@ Seventeen months later, I finally had the answer, and the tools to build it. Thi
 
 <!--more-->
 
-## Table of Contents
-
-- [The Original: A Hackathon Challenge (November 2024)](#the-original-a-hackathon-challenge-november-2024)
-- [The Question That Changed Everything](#the-question-that-changed-everything)
-- [Bringing Agent Forge to a Real Project](#bringing-agent-forge-to-a-real-project)
-- [What Got Built: Vib'N Rocket to the Moon](#what-got-built-vibn-rocket-to-the-moon)
-- [The Human in the Loop: Iterating After Launch](#the-human-in-the-loop-iterating-after-launch)
-- [By the Numbers](#by-the-numbers)
-- [What I'd Do Next](#what-id-do-next)
-- [The Takeaway](#the-takeaway)
-
-
-
 ## The Original: A Hackathon Challenge (November 2024)
 
 It started with a challenge. I was hosting a hackathon, and someone threw down the gauntlet: *"Can you build an app that helps people sing, in an afternoon?"*
