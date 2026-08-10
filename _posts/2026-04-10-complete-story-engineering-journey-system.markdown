@@ -6,12 +6,11 @@ categories: personal tools
 tags: [engineering journey, AI agents, knowledge management, workflow]
 ---
 
-> *65 days. 23 sessions. 9 architectural decisions. This is the complete story of how I built a system to stop losing context between AI sessions — and how it ended up documenting its own construction.*
+> *65 days. 23 sessions. 9 architectural decisions. This is the complete story of how I built a system to stop losing context between AI sessions, and how it ended up documenting its own construction.*
 
-The Engineering Journey System (EJS) started as a frustration: every AI coding session began from scratch, losing all the reasoning, decisions, and dead ends from the sessions before. This post traces the full arc of building EJS — from the first decision to make interaction capture mandatory, through sub-agent blindness, SQLite-backed ADR indexing, a four-layer architecture, and 79% context reduction — all the way to a system that is now reusable, non-invasive, and provably works at scale.
+The Engineering Journey System (EJS) started as a frustration: every AI coding session began from scratch, losing all the reasoning, decisions, and dead ends from the sessions before. This post traces the full arc of building EJS, from the first decision to make interaction capture mandatory, through sub-agent blindness, SQLite-backed ADR indexing, a four-layer architecture, and 79% context reduction, all the way to a system that is now reusable, non-invasive, and provably works at scale.
 
 <!--more-->
-
 
 ## A Chronicle of Building Agent-Collaborative Learning Infrastructure
 

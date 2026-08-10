@@ -1,24 +1,25 @@
 ---
 layout: post
 title: "The unexpected journey of building Skill Forge"
-date:   2026-09-10 16:40:00 +0200
+date:   2026-08-10 16:40:00 +0200
 categories: [personal, project]
 tags: [ai, agents, skill-forge, llm, automation, knowledge-systems, software-engineering]
 ---
 
 > What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement.
 
-<img
-	src="/assets/images/2026-08-10-the-unexpected-journey/inception.png"
-	alt="McFuzzySquirrelr character looking at a spinning top"
-	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
-/>
 
 <!--more-->
 
 ## The Unexpected Journey of Building Skill Forge 
   
 So I have been quite recently, but only because I been on an exciting journey.  
+
+<img
+	src="/assets/images/2026-08-10-the-unexpected-journey/inception.png"
+	alt="McFuzzySquirrelr character looking at a spinning top"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/>
   
 A really interesting side quest I’ve been exploring recently is something I’m calling **Skill Forge**. Initially I had a simple goal: make it easier to build high-quality reusable AI skills, but during this journey it turned into an experiment in self-improving systems.  
   
