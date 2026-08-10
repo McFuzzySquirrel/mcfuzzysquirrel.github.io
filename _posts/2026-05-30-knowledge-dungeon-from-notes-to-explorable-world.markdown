@@ -14,12 +14,6 @@ It started with a question: what if your notes, study material, and knowledge ba
 
 The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading.
 
-<img
-	src="/assets/images/2026-05-30-knowledge-dungeon-from-notes-to-explorable-world/knowledge-squirrel.png"
-	alt="Knowledge Dungeon explorer character in a dungeon with map and torch"
-	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
-/>
-
 <!--more-->
 
 ## From Repo-Dungeon Idea to Playable Learning World
@@ -31,6 +25,12 @@ The earliest concept was "repo-dungeon": turning structured information from Git
 As the prototype evolved, it became a playable system with game loops, progression patterns, and interaction mechanics that made learning feel active.
 
 **Knowledge Dungeon** did not start from zero. It was built on top of my earlier experiment, [repo-dungeon](https://github.com/McFuzzySquirrel/repo-dungeon), where I explored how structured information could be transformed into explorable spatial layouts.
+
+<img
+	src="/assets/images/2026-05-30-knowledge-dungeon-from-notes-to-explorable-world/knowledge-squirrel.png"
+	alt="Knowledge Dungeon explorer character in a dungeon with map and torch"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/>
 
 That experiment provided the foundation for several core ideas that now power this project:
 
