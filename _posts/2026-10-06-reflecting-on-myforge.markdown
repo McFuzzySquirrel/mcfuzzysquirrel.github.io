@@ -179,13 +179,13 @@ Humans set direction, constraints, architecture, and acceptance criteria. The fa
 
 ### Working positioning
 
-- **MyForge is not primarily another coding agent; it is the coordination,contract, and evidence layer that makes multiple coding agents usable as a repeatable software-delivery system.**
+**MyForge is not primarily another coding agent; it is the coordination,contract, and evidence layer that makes multiple coding agents usable as a repeatable software-delivery system.**
 
-Its long-term success should be measured by outcomes—quality, lead time, rework, review burden, recovery from failure, and traceability—not by the number of agents or automation steps it can produce.
+Its long-term success should be measured by outcomes: quality, lead time, rework, review burden, recovery from failure, and traceability; not by the number of agents or automation steps it can produce.
 
 ## Conclusion
 
 It still worth working on and learning from, there are learnings and concepts we pickup that can be applied individually to other future problems or endevours, not specificallt this one, but MyForge still has its place.
 
-And thats the story, **and here is the repo**: https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge
+And thats the story, **and here is the repo**: [MyForge](https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge)
 
