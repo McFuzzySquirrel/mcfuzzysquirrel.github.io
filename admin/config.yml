@@ -1,0 +1,111 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: McFuzzySquirrel/mcfuzzysquirrel.github.io
+
+media_folder: assets/images
+public_folder: /assets/images
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: _posts
+    extension: markdown
+    create: true
+    slug: "{{date | date('YYYY-MM-DD')}}-{{slug}}"
+    fields:
+      - name: layout
+        label: Layout
+        widget: hidden
+        default: post
+      - name: title
+        label: Title
+        widget: string
+      - name: date
+        label: Date
+        widget: datetime
+        input_timezone: Africa/Johannesburg
+        output_utc: false
+        default: "{{now}}"
+      - name: categories
+        label: Categories
+        widget: list
+        required: false
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+      - name: body
+        label: Body
+        widget: markdown
+
+  - name: drafts
+    label: Drafts
+    label_singular: Draft
+    folder: _drafts
+    extension: markdown
+    create: true
+    fields:
+      - name: layout
+        label: Layout
+        widget: hidden
+        default: post
+      - name: title
+        label: Title
+        widget: string
+      - name: date
+        label: Date
+        widget: datetime
+        input_timezone: Africa/Johannesburg
+        output_utc: false
+        default: "{{now}}"
+      - name: categories
+        label: Categories
+        widget: list
+        required: false
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+      - name: body
+        label: Body
+        widget: markdown
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: _projects
+    extension: md
+    create: true
+    identifier_field: title
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: order
+        label: Display order
+        widget: number
+      - name: description
+        label: Description
+        widget: text
+      - name: repository_url
+        label: Repository URL
+        widget: string
+      - name: demo_url
+        label: Demo URL
+        widget: string
+        required: false
+      - name: story_url
+        label: Related story URL
+        widget: string
+        required: false
+      - name: collaboration
+        label: Collaboration
+        widget: string
+        required: false
+      - name: role
+        label: Role
+        widget: string
+        required: false
