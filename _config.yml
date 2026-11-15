@@ -29,6 +29,21 @@ github_username: McFuzzySquirrel
 linkedin_url: https://www.linkedin.com/in/doug-mccusker-05054a21/
 excerpt_separator: "<!--more-->"
 show_excerpts: true
+header_pages:
+  - blog.markdown
+  - projects.markdown
+  - about.markdown
+
+collections:
+  projects:
+    output: false
+
+# Keep the authoring UI out of normal and production builds.
+exclude:
+  - admin
+  - scripts
+  - tests
+  - docs
 
 # Build settings
 theme: minima

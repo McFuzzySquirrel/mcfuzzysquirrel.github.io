@@ -4,32 +4,20 @@ title: About
 permalink: /about/
 ---
 
-McFuzzySquirrel's Playground is my learning playground.
+McFuzzySquirrel's Playground is my place to build in public: a friendly workshop for AI experiments, useful tools, creative prototypes, and the lessons that come with making them.
 
-All of my projects exist for one main reason: learning through experimentation.
+I'm Doug McCusker. I learn by turning questions into working software, then sharing the process—not just the polished result. Here you'll find what worked, what didn't, and what I learned along the way.
 
-Each repository usually starts with a question.
+Most of my projects explore AI agents, practical developer tools, local-first workflows, and creative technology. Some are useful answers to real problems; others are experiments pursued out of curiosity. All are part of learning by doing.
 
-- Is this possible?
-- I wonder if this would work?
-- What happens if I combine these ideas?
+## Explore
 
-Sometimes the result is a practical tool for a real problem. Sometimes it is a creative prototype. Sometimes it is just me following curiosity down a rabbit hole to see what is on the other side.
+- Browse [Projects]({{ "/projects/" | relative_url }}) for a curated look at what I'm building.
+- Read the [Blog]({{ "/blog/" | relative_url }}) for the stories, decisions, and discoveries behind the work.
 
-That is the point.
-
-I learn best by building, testing, iterating, and sharing the results. Some projects are well-structured, others are gloriously experimental, and all of them are honest reflections of learning in progress.
-
-The themes that show up most often in my work are:
-
-- AI agents and orchestration
-- Practical developer tooling
-- Local-first and workflow-focused experiments
-- Creative technology prototypes
-
-## Contact
+## Find me elsewhere
 
 - GitHub: [McFuzzySquirrel](https://github.com/McFuzzySquirrel)
 - LinkedIn: [Doug McCusker](https://www.linkedin.com/in/doug-mccusker-05054a21/)
 
-If something here helps, sparks an idea, or sends you off on your own rabbit hole, then it is doing its job.
+If a project sparks a question or gives you an idea to try, I'd be glad to hear about it.
