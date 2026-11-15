@@ -64,10 +64,6 @@ def _git_path(repository, name):
     return path
 
 
-def _tracked_path(repository, name):
-    git(repository, "ls-files", "--error-unmatch", "--", name)
-
-
 def _status_entries(repository):
     status = git(
         repository,
@@ -171,11 +167,13 @@ def inspect(repository):
             raise PublishError("Resolve conflicts and unsupported changes before publishing.")
         if not _is_content_path(path):
             raise PublishError("Only post and project content may be published.")
+        if worktree_status == b"D":
+            raise PublishError(
+                "Only additions and edits to post or project content are publishable."
+            )
         if worktree_status == b"?":
             _git_path(repository, path)
             untracked.add(path)
-        elif worktree_status == b"D":
-            _tracked_path(repository, path)
         else:
             _git_path(repository, path)
         paths.append(path)

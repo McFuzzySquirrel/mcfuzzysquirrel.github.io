@@ -196,20 +196,60 @@ class LocalPublishTests(unittest.TestCase):
         self.assertIn("synchronize", review["reason"].lower())
         self.assertEqual(self._remote_paths(), set())
 
-    def test_publish_can_remove_an_existing_content_entry(self):
-        (self.repository / "_projects" / "project.md").unlink()
-        _, review = self._json("/publish/status")
+    def test_publish_rejects_content_deletion_without_changing_test_remote(self):
+        project = self.repository / "_projects" / "project.md"
+        project.unlink()
+        remote_head_before = git(self.repository, "rev-parse", "origin/gh-pages").stdout.strip()
 
-        status, published = self._json(
-            "/publish", {"confirmed": True, "review_id": review["review_id"]}
+        status, review = self._json("/publish/status")
+
+        self.assertEqual(status, 409)
+        self.assertFalse(review["ready"])
+        self.assertIn("only additions and edits", review["reason"].lower())
+        self.assertFalse(project.exists())
+        self.assertEqual(
+            git(self.repository, "rev-parse", "origin/gh-pages").stdout.strip(),
+            remote_head_before,
         )
-
-        self.assertEqual(status, 200, published)
-        self.assertEqual(self._remote_paths(), {"_projects/project.md"})
-        self.assertNotEqual(
-            git(self.repository, "cat-file", "-e", "origin/gh-pages:_projects/project.md", check=False).returncode,
+        self.assertEqual(
+            git(self.repository, "ls-remote", "origin", "refs/heads/gh-pages").stdout.split()[0],
+            remote_head_before,
+        )
+        self.assertEqual(
+            git(
+                self.repository,
+                "cat-file",
+                "-e",
+                "origin/gh-pages:_projects/project.md",
+                check=False,
+            ).returncode,
             0,
         )
+        self.assertEqual(
+            git(
+                self.repository,
+                "log",
+                "--format=%H",
+                f"{remote_head_before}..origin/gh-pages",
+            ).stdout,
+            "",
+        )
+
+        publish_status, result = self._json(
+            "/publish", {"confirmed": True, "review_id": "a" * 64}
+        )
+
+        self.assertEqual(publish_status, 409)
+        self.assertIn("only additions and edits", result["reason"].lower())
+        self.assertEqual(
+            git(self.repository, "rev-parse", "origin/gh-pages").stdout.strip(),
+            remote_head_before,
+        )
+        self.assertEqual(
+            git(self.repository, "ls-remote", "origin", "refs/heads/gh-pages").stdout.split()[0],
+            remote_head_before,
+        )
+        self.assertEqual(self._remote_paths(), set())
 
     def test_publish_rejects_unrelated_or_staged_changes(self):
         cases = (

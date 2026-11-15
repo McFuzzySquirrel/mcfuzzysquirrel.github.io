@@ -15,7 +15,7 @@ collections:
     extension: markdown
     create: true
     slug: "{{date | date('YYYY-MM-DD')}}-{{slug}}"
-    fields:
+    fields: &post_fields
       - name: layout
         label: Layout
         widget: hidden
@@ -47,31 +47,7 @@ collections:
     folder: _drafts
     extension: markdown
     create: true
-    fields:
-      - name: layout
-        label: Layout
-        widget: hidden
-        default: post
-      - name: title
-        label: Title
-        widget: string
-      - name: date
-        label: Date
-        widget: datetime
-        input_timezone: Africa/Johannesburg
-        output_utc: false
-        default: "{{now}}"
-      - name: categories
-        label: Categories
-        widget: list
-        required: false
-      - name: tags
-        label: Tags
-        widget: list
-        required: false
-      - name: body
-        label: Body
-        widget: markdown
+    fields: *post_fields
 
   - name: projects
     label: Projects

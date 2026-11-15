@@ -45,8 +45,11 @@ directory. The preview is served at <http://127.0.0.1:4000/>.
 
 The Publish button remains disabled unless the local `gh-pages` branch matches
 `origin/gh-pages` and the only working-tree changes are regular post or project
-content files. Staged changes, unrelated edits or untracked files, conflicts,
-and stale reviews stop publishing. Review the preview and full diff, click
+content files. Only additions and edits are publishable; deleting a post or
+project file stops the review before any commit or push, and the companion
+explains that deletions are not supported. Staged changes, unrelated edits or
+untracked files, conflicts, and stale reviews also stop publishing. Review the
+preview and full diff, click
 **Publish reviewed content**, then confirm the browser prompt. The companion
 commits only the reviewed paths and pushes only `HEAD` to
 `origin:refs/heads/gh-pages`; it uses the Git remote and credentials already
@@ -75,6 +78,7 @@ The browser checks require Firefox and `geckodriver`; they run headlessly agains
 the generated sites and an isolated repository with a local bare test remote.
 They verify rendered routes, responsive layout, keyboard focus, archive
 filtering, the local preview/diff/confirmation flow, and that only reviewed
-content reaches the test remote. They do not use or push to the production
+content reaches the test remote. A deleted content file is rejected while the
+test remote remains unchanged. They do not use or push to the production
 remote. They also do not automate Sveltia's browser-specific local-folder
 picker; exercise that manually in Chromium when testing the CMS itself.
