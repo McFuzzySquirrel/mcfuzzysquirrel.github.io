@@ -38,6 +38,10 @@ collections:
   projects:
     output: false
 
+# Keep the authoring UI out of normal and production builds.
+exclude:
+  - admin
+
 # Build settings
 theme: minima
 plugins:

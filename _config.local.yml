@@ -1,0 +1,4 @@
+include:
+  - admin
+
+show_drafts: true
