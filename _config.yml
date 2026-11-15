@@ -40,6 +40,9 @@ collections:
 # Keep the authoring UI out of normal and production builds.
 exclude:
   - admin
+  - scripts
+  - tests
+  - docs
 
 # Build settings
 theme: minima
