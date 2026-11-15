@@ -23,10 +23,10 @@ class LocalEditorTests(unittest.TestCase):
         public_config = (ROOT / "_config.yml").read_text()
         local_config = (ROOT / "_config.local.yml").read_text()
 
-        self.assertRegex(
-            public_config,
-            r"(?m)^exclude:\s*\n(?:\s+- .*\n)*\s+- admin\s*$",
-        )
+        excluded_paths = public_config.split("exclude:", 1)[1].split("\n\n", 1)[0]
+        for path in ("admin", "scripts", "tests", "docs"):
+            with self.subTest(excluded_path=path):
+                self.assertRegex(excluded_paths, rf"(?m)^\s+- {path}\s*$")
         self.assertRegex(local_config, r"(?m)^include:\s*\n\s+- admin\s*$")
         self.assertRegex(local_config, r"(?m)^show_drafts:\s*true\s*$")
 

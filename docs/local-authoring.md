@@ -15,24 +15,48 @@ categories; changing a saved post's date alone does not rename its file.
 - A Git clone of this repository. No access token, OAuth setup, or proxy server
   is needed for local-repository mode.
 
-## Start the editor and draft preview
+## Start the editor, preview, and Publish control
 
-From the repository root, run:
+Start the local Jekyll preview from the repository root:
 
 ```sh
 bundle install
 bundle exec jekyll serve --drafts --host 127.0.0.1 --config _config.yml,_config.local.yml
 ```
 
-In Chromium, open <http://localhost:4000/admin/index.html>, choose **Work with
-Local Repository**, and select this repository's root directory. Save edits in
-Sveltia, then preview the rendered site and drafts at <http://localhost:4000/>.
-The selected directory must be a Git repository.
+Before publishing, check out and synchronize the deployment branch while the
+working tree is clean:
 
-The admin page is excluded from a normal Jekyll build. The local-only config
-overlay includes it and enables drafts for the authoring server. Review and
-manage changes with Git as usual. This setup does not add a Publish action;
-publishing is outside this local-editor ticket.
+```sh
+git switch gh-pages
+git pull --ff-only origin gh-pages
+```
+
+In another terminal, start the companion from the repository root:
+
+```sh
+python3 scripts/local_authoring.py
+```
+
+Open <http://127.0.0.1:8765/> in Chromium. The page places Sveltia beside the
+local Jekyll preview and shows the exact proposed content diff. In Sveltia,
+choose **Work with Local Repository** and select this repository's root
+directory. The preview is served at <http://127.0.0.1:4000/>.
+
+The Publish button remains disabled unless the local `gh-pages` branch matches
+`origin/gh-pages` and the only working-tree changes are regular post or project
+content files. Staged changes, unrelated edits or untracked files, conflicts,
+and stale reviews stop publishing. Review the preview and full diff, click
+**Publish reviewed content**, then confirm the browser prompt. The companion
+commits only the reviewed paths and pushes only `HEAD` to
+`origin:refs/heads/gh-pages`; it uses the Git remote and credentials already
+configured on this machine. Nothing pushes during tests.
+
+The server binds only to `127.0.0.1`. Stop it with Ctrl-C when finished. The
+admin UI, companion script, tests, and setup guide are excluded from normal
+Jekyll builds; the local config overlay includes the editor and enables drafts.
+No access token, OAuth setup, or proxy server is needed for Sveltia's local
+repository mode.
 
 Sveltia is pre-1.0, so verify post metadata and URLs in the diff before relying
 on an edited post. The CMS script is pinned to version `0.266.0`.
