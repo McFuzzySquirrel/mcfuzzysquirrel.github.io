@@ -1,0 +1,26 @@
+- name: McFuzzy Agent Forge
+  description: Turn an idea or research into a spec and a team of specialist agents.
+  url: https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge
+  story: /2026/03/20/story-of-agent-forge.html
+- name: Skill Loom
+  description: Chain agent skills with a local CLI and visual editor.
+  url: https://github.com/McFuzzySquirrel/skill-loom
+- name: Skill Forge
+  description: A rubric-based toolkit for reviewing and creating agent skills.
+  url: https://github.com/McFuzzySquirrel/skill-forge
+- name: Squirrels Toolbox
+  description: A collection of useful skills and tools.
+  url: https://github.com/McFuzzySquirrel/squirrels-toolbox
+- name: Study Detective
+  url: https://github.com/McFuzzySquirrel/study-detective
+- name: Engineering Journey System
+  description: Search architecture and session decisions from a rebuildable local index.
+  url: https://github.com/McFuzzySquirrel/Engineering-Journey-System
+  story: /2026/04/10/complete-story-engineering-journey-system.html
+- name: Knowledge Dungeon
+  url: https://github.com/McFuzzySquirrel/knowledge-dungeon
+  story: /2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html
+- name: Stalwart Tailnet Mail
+  description: A one-script private mail server for a Tailscale tailnet.
+  url: https://github.com/Untethered-Explorers/stalwart-tailnet-mail
+  credit: Untethered Explorers · Creator and Maintainer

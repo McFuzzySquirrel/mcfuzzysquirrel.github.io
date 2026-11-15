@@ -1,0 +1,63 @@
+---
+layout: default
+---
+
+<div class="prototype-home">
+  {{ content }}
+</div>
+
+{% unless jekyll.environment == "production" %}
+<nav class="prototype-switcher" aria-label="Prototype layouts">
+  <button type="button" class="prototype-switcher-arrow" data-step="-1" aria-label="Previous layout">←</button>
+  <span class="prototype-switcher-current" aria-live="polite"></span>
+  <button type="button" class="prototype-switcher-arrow" data-step="1" aria-label="Next layout">→</button>
+</nav>
+{% endunless %}
+
+<link rel="stylesheet" href="{{ '/assets/prototype-home.css' | relative_url }}">
+<script>
+(function() {
+  var variants = [
+    { key: 'A', name: 'The Workbench' },
+    { key: 'B', name: 'Field Notes' },
+    { key: 'C', name: 'The Project Board' }
+  ];
+  var root = document.querySelector('.prototype-home');
+  var switcher = document.querySelector('.prototype-switcher');
+  var current = document.querySelector('.prototype-switcher-current');
+  if (!root) return;
+
+  function show(key) {
+    var selected = variants.find(function(variant) { return variant.key === key; }) || variants[0];
+    root.setAttribute('data-variant', selected.key);
+    if (current) current.textContent = selected.key + ' · ' + selected.name;
+  }
+
+  var requested = new URLSearchParams(window.location.search).get('variant');
+  show(requested);
+
+  if (switcher) {
+    switcher.addEventListener('click', function(event) {
+      var button = event.target.closest('[data-step]');
+      if (!button) return;
+
+      var index = variants.findIndex(function(variant) {
+        return variant.key === root.getAttribute('data-variant');
+      });
+      index = (index + Number(button.getAttribute('data-step')) + variants.length) % variants.length;
+      var url = new URL(window.location.href);
+      url.searchParams.set('variant', variants[index].key);
+      window.history.replaceState(null, '', url);
+      show(variants[index].key);
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.target.closest('input, textarea, [contenteditable="true"]')) return;
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      var button = switcher.querySelector('[data-step="' + (event.key === 'ArrowLeft' ? '-1' : '1') + '"]');
+      button.click();
+    });
+  }
+})();
+</script>
