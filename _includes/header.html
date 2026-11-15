@@ -3,7 +3,7 @@
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
     <nav class="site-nav" aria-label="Primary">
-      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" aria-label="Toggle site navigation" aria-controls="primary-navigation" />
       <label for="nav-trigger">
         <span class="menu-icon">
           <svg viewBox="0 0 18 15" width="18px" height="15px" aria-hidden="true">
@@ -12,7 +12,7 @@
         </span>
       </label>
 
-      <div class="trigger">
+      <div class="trigger" id="primary-navigation">
         <a class="page-link" href="{{ "/" | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>Home</a>
         {%- for path in site.header_pages -%}
           {%- assign nav_page = site.pages | where: "path", path | first -%}

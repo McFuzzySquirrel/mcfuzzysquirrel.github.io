@@ -388,8 +388,8 @@ PAGE = """<!doctype html>
           body: JSON.stringify({ confirmed: true, review_id: reviewId })
         });
         const result = await response.json();
-        message.textContent = response.ok ? "Published to origin/gh-pages." : result.reason;
         await refresh();
+        message.textContent = response.ok ? "Published to origin/gh-pages." : result.reason;
       } catch {
         message.textContent = "The publish request failed. Review Git state before retrying.";
       }
@@ -416,7 +416,8 @@ class AuthoringHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/":
-            return self._respond(200, PAGE.encode(), "text/html; charset=utf-8")
+            page = PAGE.replace(PREVIEW_URL, self.preview_url)
+            return self._respond(200, page.encode(), "text/html; charset=utf-8")
         if self.path in ("/admin/index.html", "/admin/config.yml"):
             path = PROJECT_ROOT / self.path.lstrip("/")
             return self._respond(
@@ -427,6 +428,7 @@ class AuthoringHandler(BaseHTTPRequestHandler):
         if self.path == "/publish/status":
             try:
                 review = inspect(self.repository)
+                review["preview_url"] = self.preview_url
                 return self._respond(200, review)
             except PublishError as error:
                 return self._respond(
@@ -434,7 +436,7 @@ class AuthoringHandler(BaseHTTPRequestHandler):
                     {
                         "ready": False,
                         "destination": DESTINATION,
-                        "preview_url": PREVIEW_URL,
+                        "preview_url": self.preview_url,
                         "diff": "",
                         "reason": str(error),
                     },
@@ -474,8 +476,17 @@ class AuthoringHandler(BaseHTTPRequestHandler):
         return
 
 
-def create_server(repository, port):
-    handler = type("RepositoryAuthoringHandler", (AuthoringHandler,), {"repository": repository})
+def create_server(repository, port, preview_port=None):
+    preview_url = PREVIEW_URL
+    if preview_port is not None:
+        if type(preview_port) is not int or not 1 <= preview_port <= 65535:
+            raise ValueError("The preview port must be a valid TCP port.")
+        preview_url = f"http://127.0.0.1:{preview_port}/"
+    handler = type(
+        "RepositoryAuthoringHandler",
+        (AuthoringHandler,),
+        {"repository": repository, "preview_url": preview_url},
+    )
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
 

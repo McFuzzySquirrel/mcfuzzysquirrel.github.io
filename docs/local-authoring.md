@@ -60,3 +60,21 @@ repository mode.
 
 Sveltia is pre-1.0, so verify post metadata and URLs in the diff before relying
 on an edited post. The CMS script is pinned to version `0.266.0`.
+
+## Verify the launch and publish workflow
+
+Build both site variants, then run the focused Python checks:
+
+```sh
+bundle exec jekyll build
+bundle exec jekyll build --config _config.yml,_config.local.yml --destination _site/local-preview
+python3 -m unittest discover -s tests -v
+```
+
+The browser checks require Firefox and `geckodriver`; they run headlessly against
+the generated sites and an isolated repository with a local bare test remote.
+They verify rendered routes, responsive layout, keyboard focus, archive
+filtering, the local preview/diff/confirmation flow, and that only reviewed
+content reaches the test remote. They do not use or push to the production
+remote. They also do not automate Sveltia's browser-specific local-folder
+picker; exercise that manually in Chromium when testing the CMS itself.

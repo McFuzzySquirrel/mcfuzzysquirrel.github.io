@@ -982,3 +982,25 @@ blockquote {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .site-nav .nav-trigger {
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .site-nav .nav-trigger:focus-visible + label {
+    outline: 3px solid #ffc98d;
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+}
