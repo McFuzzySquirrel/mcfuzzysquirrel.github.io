@@ -326,6 +326,36 @@ blockquote {
   line-height: 1.35;
 }
 
+.blog-intro {
+  color: var(--muted);
+  font-size: 1.08rem;
+  max-width: 48rem;
+}
+
+.blog-archive .post-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.blog-archive .post-list > li {
+  background: rgba(24, 15, 12, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+.blog-archive .post-list > li h2 {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  margin: 0.4rem 0 0.65rem;
+}
+
+.blog-archive .post-list > li p {
+  color: var(--text-soft);
+  margin-bottom: 0;
+}
+
 /* Post browser: filter bar */
 .post-browser {
   margin-bottom: 1rem;
@@ -505,25 +535,6 @@ blockquote {
   background: linear-gradient(90deg, #6c3d20 0%, #4f2f1f 55%, #3e261b 100%);
   border-top: 4px solid var(--accent);
   border-bottom: 1px solid var(--border);
-}
-
-.site-header .site-title,
-.site-header .site-title:visited {
-  font-size: 0;
-}
-
-.site-header .site-title::after {
-  content: "Home";
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #fff1e4;
-  letter-spacing: 0.3px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
-}
-
-.site-header .site-title:hover::after,
-.site-header .site-title:focus::after {
-  color: #ffffff;
 }
 
 .site-header .site-nav .page-link,
