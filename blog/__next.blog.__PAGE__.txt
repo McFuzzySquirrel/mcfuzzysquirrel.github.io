@@ -1,0 +1,1771 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3k0w55c8q_zhq.js"
+3:I[25731,["$2"],"default"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[64079,["$2"],"default"]
+d:"/_next/static/chunks/0vg2got1-_e4m.js"
+e:I[37522,["$2","$d"],"default"]
+1a:"ViewportBoundary"
+1b:I[97367,["$2"],"$1a"]
+1c:"MetadataBoundary"
+1d:I[97367,["$2"],"$1c"]
+1e:"$Sreact.suspense"
+:HL["/assets/main.css","style"]
+8:X
+b:X
+b:C
+f:T2f55,<blockquote>
+<p>A reflection on how MyForge has evolved from Agent Forge, what it does, and where it fits in the broader value chain.</p>
+</blockquote>
+<h1 id="myforge-in-the-agentic-development-value-chain">MyForge in the Agentic Development Value Chain</h1>
+<p>We (yes, I have collaborators!) have been spending a lot of time and effort in building out MyForge in amongst all the rapid changes happening in both the model and harness world. So it was time for a small pause and reflection: What is MyForge&#39;s role in agent-assisted software development, and how does it relate to the growing category of agent harnesses, and, is this something to continue pursuing?</p>
+<h2 id="reflection">Reflection</h2>
+<p>If we think about MyForge and what it was originally build to solve for, it&#39;s still worthwhile, both as something to help build solutions and as platform to learn by doing (which may not be for everyones benefit, but is for the creators and collaborators)/</p>
+<h3 id="myforge-and-where-it-sits-in-the-ecosystem-and-value-chain">MyForge and where it sits in the ecosystem and value chain</h3>
+<p>Well, MyForge could best be described as an <strong>agentic software-development control plane</strong>, or a <strong>meta-harness</strong>. It is not primarily the model/tool loop that powers an individual coding agent. Instead, it sits above harnesses such as GitHub Copilot, Claude Code, and OpenCode and coordinates them around a structured software-delivery process, it is a harness for the development process, implemented on top of agent harnesses.</p>
+<p>There are so many harnesses out there, and each offers unique capabilities and can be argued over forever on &quot;what is the best&quot;, but what if we could decide to use any one of them, at any stage, depending on the need - what is important is the way in which we want to execute:</p>
+<pre><code class="language-text">Product intent
+    ↓
+PRD and feature requirements
+    ↓
+Agent-team and skill design
+    ↓
+Execution manifest / task graph
+    ↓
+MyForge workflow engine
+    ↓
+Harness adapter
+    ↓
+Copilot / Claude / OpenCode / API model
+    ↓
+Tools, shell, repository, tests
+    ↓
+Artifacts, commits, audit trail, human review
+</code></pre>
+<p>The underlying harness generally owns model invocation, tool access, the workspace, and the agent loop. MyForge owns the development workflow around those primitives: requirements, decomposition, workforce design, scheduling, state, verification, evidence, and escalation.</p>
+<p>You can find this reflected in the repository architecture: the launcher handles intake and bootstrapping, the execution adapter compiles a neutral manifest, the workflow engine executes it, and the Console observes and controls the run
+(<a href="../../ARCHITECTURE.md"><code>ARCHITECTURE.md</code></a>).</p>
+<p>This is what MyForge adds:</p>
+<h4 id="1-requirements-discipline">1. Requirements discipline</h4>
+<p>The PRD and canonical feature documents provide a quality gate before
+implementation. They make the intended outcome explicit instead of requiring
+every downstream agent to reinterpret a large, ambiguous prompt.</p>
+<h4 id="2-workforce-design">2. Workforce design</h4>
+<p>MyForge generates specialist agents and skills for the project rather than
+assuming one generic assistant can handle every concern. This makes ownership,
+constraints, and expected outputs visible before execution starts.</p>
+<h4 id="3-a-neutral-execution-contract">3. A neutral execution contract</h4>
+<p>The execution adapter compiles authored requirements and ownership into
+<code>docs/EXECUTION-MANIFEST.json</code>. The manifest separates the description of the
+work from the runtime that performs it. That boundary is what makes alternate
+harnesses and future external runners possible.</p>
+<h4 id="4-operational-autonomy">4. Operational autonomy</h4>
+<p>The workflow engine turns the manifest into a dependency-aware run. It persists
+state, dispatches tasks, verifies outputs, retries failures, supports resume and
+replay, and records audit events. This is materially different from a
+conversation that appears autonomous while a human remains available to steer
+each step. See <a href="../workflow-engine.md"><code>docs/workflow-engine.md</code></a>.</p>
+<h4 id="5-evidence-and-control">5. Evidence and control</h4>
+<p>Artifacts, validation results, commits, progress, audit events, and human-review
+decisions make the run inspectable. The goal is not just to produce code, but
+to preserve enough evidence to understand how the code was produced and why a
+task was considered complete.</p>
+<h3 id="why-this-continues-to-be-valuable">Why this continues to be valuable</h3>
+<p>It is easy to just say “more agents”, its harder and more complex to make agent work repeatable enough to become close to an engineering process.</p>
+<ul>
+<li><strong>Context becomes structured.</strong> Agents consume task contracts and relevant
+artifacts instead of inheriting an ever-growing conversation.</li>
+<li><strong>Work becomes composable.</strong> Independent tasks can run in parallel; dependent
+tasks can consume deliberately narrow outputs.</li>
+<li><strong>Failures become operational events.</strong> A failed invocation can be retried,
+inspected, replayed, or escalated instead of disappearing in a chat history.</li>
+<li><strong>Runtime choice becomes less permanent.</strong> Requirements and workflow logic do
+not have to be rewritten whenever a model or harness changes.</li>
+<li><strong>Human attention can move upward.</strong> People can focus on scope, architecture,
+acceptance criteria, and consequential review rather than manually relaying
+every task.</li>
+</ul>
+<p>The earlier research reached a related conclusion: token efficiency comes primarily from designing narrow information boundaries, not from sequential execution by itself. The useful unit is therefore <code>task → agent → artifact → task</code>, not an unrestricted chain of conversations
+(<a href="Forge%20Research.md"><code>Forge Research</code></a>).</p>
+<h4 id="how-it-differs-from-adjacent-categories">How it differs from adjacent categories</h4>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Primary abstraction</th>
+<th>MyForge&#39;s relationship</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Coding assistant</td>
+<td>Synchronous developer interaction</td>
+<td>MyForge can use one as a worker</td>
+</tr>
+<tr>
+<td>Agent harness</td>
+<td>Agent loop, tools, workspace, model/runtime integration</td>
+<td>MyForge dispatches through it</td>
+</tr>
+<tr>
+<td>Agent SDK</td>
+<td>APIs for agents, tools, handoffs, guardrails, and tracing</td>
+<td>MyForge is a higher-level process built from similar primitives</td>
+</tr>
+<tr>
+<td>Workflow engine</td>
+<td>Durable execution of steps and state</td>
+<td>MyForge includes one specialized for software delivery</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>Deterministic build, test, and deployment automation</td>
+<td>MyForge adds probabilistic workers before and alongside CI</td>
+</tr>
+<tr>
+<td>Project management</td>
+<td>Planning, ownership, and status</td>
+<td>MyForge executes the plan and verifies outputs</td>
+</tr>
+<tr>
+<td>Software factory</td>
+<td>Repeatable conversion of intent into software</td>
+<td>This is the closest long-term product metaphor</td>
+</tr>
+</tbody></table>
+<h3 id="assessment-after-reflection">Assessment after reflection</h3>
+<p>MyForge should not be treated as automatically valuable for every task.</p>
+<h4 id="it-shifts-work-it-does-not-eliminate-thinking">It shifts work; it <strong>does not eliminate thinking</strong></h4>
+<p>A PRD-first process reduces ambiguity downstream, but a flawed PRD can produce
+the wrong result very efficiently. Human effort moves toward scoping, prioritization, architecture, acceptance criteria, and review.</p>
+<h4 id="orchestration-has-a-cost">Orchestration has a cost</h4>
+<p>For a small bug fix, creating requirements, manifests, artifacts, and multiple
+agent boundaries may cost more than using a single coding agent directly.
+MyForge is most compelling for work that is multi-step, cross-cutting, long-running, parallelizable, repeated, or subject to evidence requirements.</p>
+<h4 id="verification-remains-the-hard-problem">Verification remains the hard problem</h4>
+<p>An exit code, changed file, or passing test does not prove that the implementation satisfies the user&#39;s intent. MyForge can require validation and make weak evidence visible, but semantic correctness still needs stronger tests, domain checks, and human judgment.</p>
+<h4 id="portability-is-not-behavioral-equivalence">Portability is not behavioral equivalence</h4>
+<p>Harness adapters can standardize invocation, but different runtimes still vary in context handling, tools, permissions, output formats, and reliability.
+MyForge can provide workflow portability; it cannot guarantee identical model behavior across providers.</p>
+<h4 id="platform-vendors-may-absorb-generic-features">Platform vendors may absorb generic features</h4>
+<p>Agent platforms are adding background execution, custom agents, planning, approvals, logs, and repository workflows. MyForge&#39;s durable differentiation therefore needs to be more than task dispatch. Likely differentiators include requirements quality, cross-harness neutrality, domain-specific workflows, measured outcomes, organizational memory, and evidence/governance.</p>
+<h3 id="the-future">The future?</h3>
+<p>What could this become still</p>
+<h4 id="agentic-cicd">Agentic CI/CD</h4>
+<p>The task could become the unit of a new layer beside conventional CI: an agent task with an owner, contract, expected outputs, validation rules, retry policy, and escalation conditions. Traditional CI remains the deterministic evaluator; MyForge coordinates the probabilistic work that creates or changes the code.</p>
+<h4 id="a-requirements-compiler">A requirements compiler</h4>
+<p>The PRD and feature documents can be treated as a source language:</p>
+<pre><code class="language-text">requirements → tasks → assignments → validations → execution plan
+</code></pre>
+<p>The execution manifest then becomes an intermediate representation that different runtimes can consume.</p>
+<h4 id="organizational-memory">Organizational memory</h4>
+<p>Completed artifacts, review decisions, failures, and validation results could show which agents and workflows work well for particular task types. Over time, the forge could recommend safer decompositions, better validators, and appropriate autonomy levels.</p>
+<h4 id="evidence-infrastructure">Evidence infrastructure</h4>
+<p>For regulated or high-risk development, the valuable output may include proof that requirements were approved, boundaries were followed, validations ran, and consequential decisions received human review.</p>
+<h4 id="a-software-factory">A software factory</h4>
+<p>The long-term vision is less “one smart coding agent” and more:</p>
+<ul>
+<li>A repeatable factory that converts approved intent into verified software using interchangeable AI workers.</li>
+</ul>
+<p>Humans set direction, constraints, architecture, and acceptance criteria. The factory handles decomposition, implementation, testing, documentation, and routine iteration within those boundaries.</p>
+<h3 id="working-positioning">Working positioning</h3>
+<p><strong>MyForge is not primarily another coding agent; it is the coordination,contract, and evidence layer that makes multiple coding agents usable as a repeatable software-delivery system.</strong></p>
+<p>Its long-term success should be measured by outcomes: quality, lead time, rework, review burden, recovery from failure, and traceability; not by the number of agents or automation steps it can produce.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It still worth working on and learning from, there are learnings and concepts we pickup that can be applied individually to other future problems or endevours, not specificallt this one, but MyForge still has its place.</p>
+<p>And thats the story, <strong>and here is the repo</strong>: <a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">MyForge</a></p>
+10:T27d1,<blockquote>
+<p>What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement.</p>
+</blockquote>
+<h2 id="the-unexpected-journey-of-building-skill-forge">The Unexpected Journey of Building Skill Forge</h2>
+<p>So I have been quite recently, but only because I been on an exciting journey.  </p>
+<p><img
+	src="/assets/images/2026-08-10-the-unexpected-journey/inception.png"
+	alt="McFuzzySquirrelr character looking at a spinning top"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>A really interesting side quest I’ve been exploring recently is something I’m calling <strong>Skill Forge</strong>. Initially I had a simple goal: make it easier to build high-quality reusable AI skills, but during this journey it turned into an experiment in self-improving systems.  </p>
+<p>The first thing I wanted was obvious: if AI agents are going to rely on skills, then those skills need to be consistent, well structured, documented, and follow agreed best practices. So rather than expecting someone (including me) to remember everything, I wondered…  </p>
+<p><em>What if the AI could help enforce those standards itself, reliably?</em>  </p>
+<p>So that led to the first piece of the puzzle (and one that was going to be the key to everything): a <strong>Skill Reviewer</strong> skill which analyses a skill against a growing set of best practices and provides feedback on what could be improved. Once I had that working, the next step felt natural: why not build a <strong>Skill Creator</strong> that uses those same best practices from the outset, producing better skills automatically instead of relying on review afterwards? </p>
+<p>And then things became slightly more… interesting.  </p>
+<p>The first thing to remember is that best practices aren’t static forever. As we learn more, they evolve and when they evolve, then we need to ask: <strong>who keeps the reviewer up to date?</strong>  </p>
+<p>Amusingly the answer, was…<em>A skill.</em>  </p>
+<p>So I went on and built an administrative skill whose job is to review and improve the best practices themselves. Those improvements feed back into the Skill Reviewer, which in turn improves the Skill Creator.  </p>
+<p>Now if you have ever watched the movie Inception, at this point it started feeling a little like AI inception:  </p>
+<ul>
+<li>A reviewer reviews skills.  </li>
+<li>A creator creates skills using the reviewer’s guidance.  </li>
+<li>An administrator updates the guidance used by the reviewer.  </li>
+<li>The improved reviewer produces better guidance for the creator.  </li>
+<li>The cycle repeats.</li>
+</ul>
+<p>So now the entire system has become capable of evolving without rewriting every individual skill, pretty cool.  </p>
+<p>One of the biggest hands-on learning experience during this project came from playing with <strong>skills that invoke command-line tools</strong>.  </p>
+<p>I always knew that we could execute scripts, but never really needed them before, but what about installing and running a CLI? So I experimented, and once I successfully had a skill install and execute a CLI as part of its workflow, something clicked. Skills no longer needed to be passive instruction sets, <strong>they could orchestrate real tooling</strong>.  </p>
+<p>So know, instead of simply telling an agent <em>how</em> to perform a task, a skill can prepare its own environment, invoke specialist tools, process their output, and integrate the results back into the workflow. It becomes an executable capability rather than just documented knowledge. For me, this is a significant shift in how I think about skills.  </p>
+<p><strong>But there is more</strong>: the other concept I’m becoming increasingly interested in is the idea of a <strong>root skill</strong>.  </p>
+<p>Rather than every skill carrying its own copy of common guidance and conventions, imagine a foundational skill that defines the shared principles for a team or an organisation. Every other skill inherits from it.  </p>
+<ul>
+<li>When your standards or rules evolve, you update the root once. Every future skill automatically benefits.</li>
+</ul>
+<p>Now combine that with the administrative improvement loop, and you have a mechanism for continuously refining your team or organisational knowledge. Over time, teams could build their own opinionated best practices while still keeping every generated skill aligned - it’s still an experiment, and I suspect I’ll discover plenty of flaws along the way, but that’s exactly what makes it fun.  </p>
+<p>I always find that the most valuable projects I do aren’t the ones that solve today’s problem, but the ones that change how I think about tomorrow’s from what I learn from them.  </p>
+<p>I’m excited to see where this leads. Right now it feels less like building individual skills and more like building a system that learns how to build better skills over time.  </p>
+<p>One aspect of Skill Forge that I’m particularly happy with is the distinction between <strong>mechanical validation</strong> and <strong>AI judgement</strong>.  </p>
+<p>The review process isn’t simply asking an LLM, <em>“Is this a good skill?”</em> Instead, the first layer is deliberately deterministic. It performs mechanical checks against a set of objective best practices derived from the <a href="https://agentskills.io">Agent Skills community guidance</a>. These are things that either pass or fail: </p>
+<ul>
+<li>structure</li>
+<li>required files</li>
+<li>metadata</li>
+<li>conventions</li>
+<li>documentation</li>
+<li>and other repeatable rules.</li>
+</ul>
+<p>That means the foundation is predictable and consistent. Every skill is evaluated against the same criteria every time, without the variability that naturally comes from prompting an LLM.  </p>
+<p>Only once those objective checks have been satisfied does the AI move into the more subjective space with its semantic understanding: </p>
+<ul>
+<li>helping improve wording</li>
+<li>refining instructions</li>
+<li>suggesting better approaches</li>
+<li>or generating new capabilities.</li>
+</ul>
+<p>This separation is important. AI shouldn’t be responsible for everything. Where deterministic validation is possible, we should use deterministic validation. Save the model’s reasoning for the parts where creativity, context, and judgement genuinely add value.  </p>
+<p>Another reason I chose this approach is that the mechanical review is based on the best practices emerging from the <a href="https://agentskills.io">Agent Skills community</a>. While the ecosystem is still evolving, this once feels like one of the strongest foundations available today for reusable, composable AI skills. Building on an open community standard means Skill Forge isn’t inventing its own conventions, it starts with shared practices and leaves room for you, your team or your organisations to layer specific unique standards on top.  </p>
+<p>This combination: a deterministic foundation, AI-assisted refinement, and a continuously evolving set of best practices, this is what makes the whole feedback loop work.  </p>
+<p>Skill Forge is just the first implementation of a more general architecture.  </p>
+<h3 id="so-whats-next-beyond-skill-forge">So what’s next: beyond Skill Forge</h3>
+<p>Surprisingly, the most exciting outcome of this experiment isn’t Skill Forge itself, it’s the pattern that emerged.  </p>
+<p>What started as a way to create better AI skills has become a blueprint that could be applied to almost any domain where AI and deterministic software work together.  </p>
+<p>The pattern looks something like this:  </p>
+<ol>
+<li><strong>Define a deterministic foundation.</strong> Establish the objective rules that can be mechanically validated.  </li>
+<li><strong>Use AI where reasoning adds value.</strong> Let models create, refine, or make contextual decisions rather than enforcing structure.  </li>
+<li><strong>Capture feedback.</strong> Observe what works, what fails, and where improvements can be made.  </li>
+<li><strong>Improve the guidance.</strong> Feed those learnings back into the rules, prompts, and best practices.  </li>
+<li><strong>Repeat.</strong> Every cycle produces a better system than the one before.</li>
+</ol>
+<p>Once I started looking for it, I realised this pattern extends well beyond skills.  </p>
+<p>Imagine applying it to software engineering. Coding standards evolve through feedback, code reviews become increasingly aligned with organisational practices, and new projects automatically inherit those improvements.  </p>
+<p>Or documentation. AI drafts content, deterministic validation ensures required sections and formatting are present, reviewers refine the guidance, and every future document benefits.  </p>
+<p>The same idea could apply to architecture decision records, security reviews, infra as code, educational content, business processes, or even organisational policies.  </p>
+<p>In each case, the objective checks remain deterministic while AI focuses on reasoning, synthesis, and creativity. It’s a system that continuously improves how it performs a task.  </p>
+<p>Skill Forge started as a destination but became a journey where I discovered along the way, proof that the pattern works.  </p>
+<p>If you’re interested, the repositories are public:  </p>
+<ul>
+<li><strong>Skill Forge</strong> explores the skill creation and review pipeline: <a href="https://github.com/McFuzzySquirrel/skill-forge">Skill Forge</a>.  </li>
+<li><strong>McFuzzy Agent Forge</strong> integrates these capabilities into a broader agent engineering workflow, including the architecture decision describing the integration <a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">McFuzzy Agent Forge</a></li>
+</ul>
+<p>This became a much bigger idea than Skill Forge, and I thought  it’s was one worth telling.  </p>
+<hr>
+<p><strong>Project:</strong> <a href="https://github.com/McFuzzySquirrel/skill-forge">Skill Forge on GitHub</a></p>
+11:T1850,<blockquote>
+<p><em>What if notes were not pages to read, but a world to explore?</em></p>
+</blockquote>
+<p>I have been building a project called <strong>Knowledge Dungeon</strong>, and it has evolved far beyond a simple study tool.</p>
+<p>It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents?</p>
+<p>The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading.</p>
+<h2 id="from-repo-dungeon-idea-to-playable-learning-world">From Repo-Dungeon Idea to Playable Learning World</h2>
+<p><strong>A special note</strong>: I am in no way any good at graphics, so dont expect anything groundbreaking in that space <em><strong>but it is fun!</strong></em></p>
+<p>The earliest concept was &quot;repo-dungeon&quot;: turning structured information from GitHub public repo(s) and later local git repos into navigable space. At first, this was mostly an experiment in representation. Could content relationships become map topology? Could navigation through a world stand in for navigation through ideas?</p>
+<p>As the prototype evolved, it became a playable system with game loops, progression patterns, and interaction mechanics that made learning feel active.</p>
+<p><strong>Knowledge Dungeon</strong> did not start from zero. It was built on top of my earlier experiment, <a href="https://github.com/McFuzzySquirrel/repo-dungeon">repo-dungeon</a>, where I explored how structured information could be transformed into explorable spatial layouts.</p>
+<p><img
+	src="/assets/images/2026-05-30-knowledge-dungeon-from-notes-to-explorable-world/knowledge-squirrel.png"
+	alt="Knowledge Dungeon explorer character in a dungeon with map and torch"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>That experiment provided the foundation for several core ideas that now power this project:</p>
+<ul>
+<li>Information first, visuals second: generation starts from relationships in the source material, then maps those relationships into navigable world structures.</li>
+<li>Exploration as comprehension: movement and discovery are treated as part of understanding, not just presentation.</li>
+<li>Spatialized knowledge: related concepts are placed in ways that help reveal clusters, boundaries, and paths through a topic.</li>
+<li>Reusable generation pipeline: parsing, relationship modeling, and layout logic from the original experiment were adapted and extended for educational content.</li>
+</ul>
+<p>In short, repo-dungeon was the proof of concept. Knowledge Dungeon is the expanded version where the same principle is applied to learning experiences, gameplay systems, and deeper content interaction.</p>
+<h2 id="what-is-built-so-far">What Is Built So Far</h2>
+<p>Here are some of the core features currently in place:</p>
+<ul>
+<li>Procedurally generated dungeon layouts driven by knowledge content.</li>
+<li>A playable RPG-style exploration experience built with web technologies and packaged for desktop.</li>
+<li>Draggable and interactive minimap systems for navigating generated worlds.</li>
+<li>Biomes and themed areas representing different domains of knowledge.</li>
+<li>Artifact, scroll, signpost, and discovery mechanics that turn information into game objects.</li>
+<li>Conversational interaction patterns that let players engage with content in a more natural way.</li>
+<li>Support for transforming static study notes into an experience closer to an adventure game.</li>
+<li>An architecture designed to eventually run on low-cost hardware for education-focused use cases.</li>
+</ul>
+<h2 id="areas-this-brings-together">Areas This Brings Together</h2>
+<p>I love how many long-running interests converged in one project, I have an ongoing belief that everything is connected:</p>
+<ul>
+<li>Conversational learning.</li>
+<li>Knowledge graphs and content relationships.</li>
+<li>Procedural generation.</li>
+<li>Local and affordable computing.</li>
+<li>Educational gaming.</li>
+<li>Open-source experimentation.</li>
+</ul>
+<p>Instead of asking learners to adapt to traditional study workflows, the goal is to adapt learning to something naturally engaging: exploration, discovery, progression, and curiosity - while keeping the core benefits of not taking and structured thinking.</p>
+<h2 id="a-practical-spinout-repo-mapping-for-developers">A Practical Spinout: Repo Mapping for Developers</h2>
+<p>Of course, I cant let it just be one thing and one cool outcome was not part of the game itself, but could be valuable and definately is fun.</p>
+<p>While building Knowledge Dungeon, I created reusable SKILL.md that can analyze a software repository and generate a navigable mind map of its structure, relationships, and architecture. Instead of reading hundreds of files line by line to understand an unfamiliar codebase, developers can quickly visualize how parts connect - you can then import it into Knowledge Dungeon!</p>
+<p>This becomes a practical second application of the same core idea:</p>
+<ul>
+<li>Helping developers understand their own repositories.</li>
+<li>Accelerating onboarding into existing projects.</li>
+<li>Exploring unfamiliar open-source repositories.</li>
+<li>Discovering architectural patterns and dependencies.</li>
+<li>Creating visual maps of complex codebases.</li>
+</ul>
+<p>The underlying principle is the same in both contexts: transform information into something that can be explored instead of simply consumed.</p>
+<p>Whether the source material is study notes, a textbook, or a software repository, the objective is consistent: make understanding feel like exploration and discovery.</p>
+<p>Knowledge Dungeon is still evolving, but it already demonstrates a practical intersection of game development, knowledge mapping, and education. More importantly, it shows that study material can become a world you walk through, not just a document you read.</p>
+<hr>
+<p><strong>Project:</strong> <a href="https://github.com/McFuzzySquirrel/knowledge-dungeon">Knowledge Dungeon on GitHub</a></p>
+12:T4a44,<blockquote>
+<p><em>A hackathon challenge, a kid&#39;s idea about rockets, and seventeen months of &quot;I&#39;ll get to it eventually&quot;, this is the story of what happened when I finally did.</em></p>
+</blockquote>
+<p>It started at a hackathon in November 2024: someone challenged me to build an app that helps people sing, in an afternoon. We did it. My son play-tested it with me, the dogs lost their minds, and between the laughter he asked: <em>&quot;Can we change it into a rocket game?&quot;</em></p>
+<p>Seventeen months later, I finally had the answer, and the tools to build it. This is the story of revisiting that repo, what I found, what I built with <a href="https://mcfuzzysquirrel.github.io/personal/update/2026/03/20/story-of-agent-forge.html">Agent Forge</a>, and what I learned about the gap between &quot;technically correct&quot; and &quot;actually playable.&quot;</p>
+<h2 id="the-original-a-hackathon-challenge-november-2024">The Original: A Hackathon Challenge (November 2024)</h2>
+<p>It started with a challenge. I was hosting a hackathon, and someone threw down the gauntlet: <em>&quot;Can you build an app that helps people sing, in an afternoon?&quot;</em></p>
+<p>This was November 2024. AI-assisted coding was still in its early days, useful, but nowhere near what it is today. We took the challenge anyway and built <strong>Vib&#39;N</strong>: a simple React app that listened to your microphone, detected pitch using the YIN algorithm, and matched your voice to solfege notes (Do, Re, Mi, Fa, Sol, La, Ti). It showed a circular pitch needle, colored bars for each note, and let you adjust frequency ranges manually.</p>
+<p>It was rough, it was fun, and it proved the concept. We got something working in an afternoon. That alone felt like a win.</p>
+<p>Here&#39;s what that looked like, the landing page and the active pitch detection view:</p>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/00-original-app.png"
+	alt="Original Vib'N Landing Page"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/00-original-active.png"
+	alt="Original Vib'N Active Pitch Detection"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>A circular pitch needle, colored note bars (Do through Ti), frequency ranges displayed in the corner, and a &quot;Choose File&quot; upload that never quite worked. Simple, functional, honest.</p>
+<p><strong>The original tech stack:</strong></p>
+<ul>
+<li>React 17 with Create React App</li>
+<li>The <code>pitchfinder</code> library for pitch detection</li>
+<li>8 components, ~1,000 lines of TypeScript</li>
+<li>No routing, no game logic, no persistence</li>
+<li>A pitch needle, some colored bars, and a file upload feature that never quite worked</li>
+</ul>
+<p>It did one thing: listen to your voice and tell you which note you were singing. That was it. It worked, mostly, and then life moved on. The repo sat untouched for over a year.</p>
+<p>But looking back, that hackathon moment is what makes the rest of this story interesting. The same challenge: &quot;can you build something with voice in an afternoon?&quot;, asked today, with the tools and skills I&#39;ve picked up since, produces a dramatically different answer.</p>
+<h2 id="the-question-that-changed-everything">The Question That Changed Everything</h2>
+<p>My son play-tested the original with me right after that hackathon. We stood in the lounge singing Do, Re, Mi into a laptop while the dogs, convinced we were in some kind of distress, barked and circled us. It was such a good laugh. And somewhere between the chaos and the off-key singing, he asked:</p>
+<blockquote>
+<p><em>&quot;Can we change it into a rocket game?&quot;</em></p>
+</blockquote>
+<p>I always meant to revisit it. Life got in the way, as it does. The repo sat untouched for over a year.</p>
+<p>Fast forward to April 2026. I&#39;d spent the intervening months building <strong><a href="https://mcfuzzysquirrel.github.io/personal/update/2026/03/20/story-of-agent-forge.html">Agent Forge</a></strong>, a framework for turning ideas into coordinated AI development teams. I&#39;d been itching to test it on something real. And my son&#39;s question was still sitting there, unanswered.</p>
+<p>A rocket game. Powered by singing. The idea was immediately compelling: keep the core mechanic (sing a note, get feedback) but wrap it in something that feels like a <em>game</em>. A rocket that climbs when you hit the right notes. Hazards when you miss. A score. A reason to try again.</p>
+<p>This was the perfect test case. Not a toy demo, but a real project with audio constraints, browser APIs, game logic, and accessibility requirements.</p>
+<p>Could a team of AI specialists, orchestrated through a PRD, actually rebuild this thing into a real game?</p>
+<h2 id="bringing-agent-forge-to-a-real-project">Bringing Agent Forge to a Real Project</h2>
+<h3 id="step-1-the-prd">Step 1: The PRD</h3>
+<p>Following the Agent Forge workflow, the first step wasn&#39;t code. It was requirements.</p>
+<p>I sat down with the <code>forge-build-prd</code> skill and described the vision: a retro-inspired singing game where solfege notes control a rocket. The PRD interview process asked the right questions: who&#39;s the player, what&#39;s the core loop, what are the non-functional requirements, how does difficulty scale, what about accessibility?</p>
+<p>The output was a structured PRD covering everything: personas, user stories, 52 traceable requirements, implementation phases, and acceptance criteria. The PRD became the single source of truth that every agent would reference.</p>
+<h3 id="step-2-the-agent-team">Step 2: The Agent Team</h3>
+<p>The <code>forge-build-agent-team</code> skill analyzed the PRD and generated <strong>8 specialist agents</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Domain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Project Architect</strong></td>
+<td>Vite migration, routing, shared types, app shell</td>
+</tr>
+<tr>
+<td><strong>Audio Systems Engineer</strong></td>
+<td>Microphone capture, pitch detection, Web Audio API</td>
+</tr>
+<tr>
+<td><strong>Gameplay Systems Engineer</strong></td>
+<td>Game loop, rocket physics, hazards, boosts, prompts</td>
+</tr>
+<tr>
+<td><strong>UI/HUD Developer</strong></td>
+<td>Screens, HUD components, accessibility</td>
+</tr>
+<tr>
+<td><strong>Progression Systems Engineer</strong></td>
+<td>Difficulty, persistence, results, milestones</td>
+</tr>
+<tr>
+<td><strong>QA Test Engineer</strong></td>
+<td>Unit, integration, and acceptance tests</td>
+</tr>
+<tr>
+<td><strong>Project Orchestrator</strong></td>
+<td>Phase coordination and dependency management</td>
+</tr>
+<tr>
+<td><strong>Forge Team Builder</strong></td>
+<td>Agent team generation and evolution</td>
+</tr>
+</tbody></table>
+<p>Plus <strong>8 reusable skills</strong>, structured processes for building audio flows, game state modules, React screens, test suites, and more.</p>
+<p>Every one of the 52 PRD requirements was mapped to exactly one owning agent. No gaps, no overlaps. The orchestrator knew the dependency graph: the architect goes first, then audio, then gameplay, and so on.</p>
+<h3 id="step-3-phased-execution">Step 3: Phased Execution</h3>
+<p>The project orchestrator coordinated the build across three phases:</p>
+<p><strong>Phase 1: Foundation:</strong> The project architect migrated from Create React App to Vite, set up React Router, established the shared type system, and created shell screens for all five routes.</p>
+<p><strong>Phase 2: Core Systems:</strong> The audio engineer built real-time pitch detection. The gameplay engineer wired it into a run loop with rocket physics, hazards, and boosts. The UI developer built the HUD. The progression engineer added scoring and persistence.</p>
+<p><strong>Phase 3: Polish:</strong> Difficulty tuning, calibration presets, milestone detection, retro styling, and full acceptance testing.</p>
+<p>Each agent worked within its defined boundaries, verified its work with typecheck/test/build, and handed off to the next. The orchestrator tracked progress and ensured prerequisites were met before each phase.</p>
+<h2 id="what-got-built-vibn-rocket-to-the-moon">What Got Built: Vib&#39;N Rocket to the Moon</h2>
+<p>Here&#39;s what a run through the game looks like today:</p>
+<h3 id="homethe-launch-pad">Home:The Launch Pad</h3>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/01-home.png"
+	alt="Home Screen"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>Pick your difficulty, check your stats, and launch a mission. The retro-styled interface shows your best scores, active difficulty, and voice profile status.</p>
+<h3 id="gameactive-mission">Game:Active Mission</h3>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/02-game.png"
+	alt="Game Screen"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>The core experience. A solfege note appears (&quot;Sing: Do&quot;), you sing it, and the rocket responds. Hit the note accurately and the rocket climbs. Miss it and your stability drops. The HUD shows stability, thrust, altitude, accuracy, and the current prompt, all in a retro monospace style.</p>
+<p>Three hazards appear during the run to keep things interesting:</p>
+<ul>
+<li><strong>Asteroid Drift</strong>: pushes you off course</li>
+<li><strong>Solar Flare</strong>: drains fuel faster</li>
+<li><strong>Gravity Well</strong>: pulls the rocket down</li>
+</ul>
+<p>Two boosts reward accuracy:</p>
+<ul>
+<li><strong>Starlight Burst</strong>: altitude jump</li>
+<li><strong>Nebula Shield</strong>: temporary damage protection</li>
+</ul>
+<h3 id="voice-calibration">Voice Calibration</h3>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/03-calibration.png"
+	alt="Calibration Screen"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>This is where accessibility meets gameplay. Not everyone&#39;s voice fits standard solfege frequency ranges. The calibration screen lets you record your own Do, Re, Mi: capturing your actual vocal range. The game then builds custom frequency windows from your voice, so you&#39;re playing with <em>your</em> notes, not textbook frequencies.</p>
+<h3 id="results-run-review">Results: Run Review</h3>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/04-results.png"
+	alt="Results Screen"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>After each run: altitude reached, accuracy percentage, notes hit vs missed, stars earned. Clean breakdown of what worked and what didn&#39;t.</p>
+<h3 id="progress-history-and-milestones">Progress: History &amp; Milestones</h3>
+<p><img
+	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/05-progress.png"
+	alt="Progress Screen"
+	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>Your run history, personal bests, milestones unlocked, and trend tracking across sessions. All stored locally, no accounts, no cloud, just your browser.</p>
+<h2 id="the-human-in-the-loop-iterating-after-launch">The Human in the Loop: Iterating After Launch</h2>
+<p>Here&#39;s the part that surprised me most. The agents built a working game. But <em>playing</em> the game revealed problems that no PRD could predict.</p>
+<h3 id="easy-mode-is-too-hard">&quot;Easy Mode Is Too Hard&quot;</h3>
+<p>The first time I tried Easy difficulty, I couldn&#39;t complete a run. The note windows were too narrow for my voice, and the microphone was picking up every ambient sound. The agents had built technically correct solfege ranges, but they&#39;d never <em>sung</em> into the app.</p>
+<p><strong>Fix:</strong> Wider cents tolerance (Easy now gives ±65 cents, up from ±45 on Normal), a higher noise floor threshold, and difficulty-specific overrides that make the game genuinely forgiving for beginners.</p>
+<h3 id="classification-out-of-range">&quot;Classification Out of Range&quot;</h3>
+<p>During voice calibration, singing &quot;Do&quot; in my natural register threw an error:the system expected notes within standard solfege ranges and rejected anything outside them. But that&#39;s the whole point of calibration: capturing <em>your</em> range, even if it doesn&#39;t match the textbook.</p>
+<p><strong>Fix:</strong> Changed the capture filter to accept any frequency with a valid pitch reading, not just frequencies that already match a known note classification.</p>
+<h3 id="the-game-doesnt-use-my-calibrated-voice">&quot;The Game Doesn&#39;t Use My Calibrated Voice&quot;</h3>
+<p>After recording a voice profile, I started a game and... it used standard frequencies. The calibrated ranges were saved but never threaded into the gameplay pipeline. Three separate issues: window expansion was ignoring the captured range, the classifier was ambiguous on boundary notes, and accuracy calculations used the wrong reference windows.</p>
+<p><strong>Fix:</strong> Expanded windows using geometric midpoint clipping, a nearest-window classifier for ambiguous pitches, and proper threading of custom windows through the entire pitch target snapshot.</p>
+<h3 id="i-run-out-of-breath">&quot;I Run Out of Breath&quot;</h3>
+<p>The game prompts notes back to back with no pause. After 30 seconds, you&#39;re gasping. This is a singing game, players need to breathe.</p>
+<p><strong>Fix:</strong> Added a configurable breathing gap between notes. During the gap, the game shows &quot;Breathe...&quot; with a countdown, physics stay neutral, and no metrics are recorded. Easy gets 900ms between notes, Normal 600ms, Hard just 350ms.</p>
+<p>Every one of these fixes was something I discovered by <em>being the player</em>. The AI agents built the system correctly according to spec. But the spec didn&#39;t know what it feels like to sing into a laptop microphone with an imperfect voice in a quiet room that isn&#39;t actually quiet.</p>
+<p><strong>This is the human-in-the-loop pattern that I think matters most:</strong> AI builds the system, human tests the experience, human feeds back, AI iterates. Not human vs AI: human <em>with</em> AI, each doing what they&#39;re good at.</p>
+<h2 id="by-the-numbers">By the Numbers</h2>
+<p>A quick comparison of where this project started and where it is now:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Original (Nov 2024)</th>
+<th>Current (Apr 2026)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Source files</strong></td>
+<td>11</td>
+<td>104</td>
+</tr>
+<tr>
+<td><strong>Lines of TypeScript/CSS</strong></td>
+<td>~1,000</td>
+<td>~13,300</td>
+</tr>
+<tr>
+<td><strong>Components/modules</strong></td>
+<td>8</td>
+<td>50+</td>
+</tr>
+<tr>
+<td><strong>Tests</strong></td>
+<td>0</td>
+<td>266</td>
+</tr>
+<tr>
+<td><strong>Screens</strong></td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>Build tool</strong></td>
+<td>Create React App</td>
+<td>Vite</td>
+</tr>
+<tr>
+<td><strong>Game mechanics</strong></td>
+<td>None</td>
+<td>Full run loop, hazards, boosts, breathing</td>
+</tr>
+<tr>
+<td><strong>Persistence</strong></td>
+<td>None</td>
+<td>Local storage with versioned save format</td>
+</tr>
+<tr>
+<td><strong>Voice calibration</strong></td>
+<td>None</td>
+<td>Full capture-and-play custom frequency system</td>
+</tr>
+<tr>
+<td><strong>Difficulty levels</strong></td>
+<td>None</td>
+<td>3 (Easy, Medium, Hard)</td>
+</tr>
+<tr>
+<td><strong>AI agents involved</strong></td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Time from PRD to playable</strong></td>
+<td>N/A</td>
+<td>~1 day</td>
+</tr>
+</tbody></table>
+<p>The original was a proof of concept. The rework is a game.</p>
+<h2 id="what-id-do-next">What I&#39;d Do Next</h2>
+<p>This is a working prototype, not a finished product. Here&#39;s what&#39;s on my mind:</p>
+<h3 id="mobile-support">Mobile Support</h3>
+<p>The game currently targets desktop browsers. But singing games are inherently mobile, you&#39;re already holding your phone near your face. Touch-friendly controls, responsive layout, and mobile audio handling would make this much more accessible.</p>
+<h3 id="a-cleaner-more-focused-ui">A Cleaner, More Focused UI</h3>
+<p>The current UI works but tries to show everything at once. I&#39;d like to simplify: fewer numbers on the HUD, more visual feedback (the rocket itself telling you how you&#39;re doing), and a more guided first-time experience.</p>
+<h3 id="better-onboarding">Better Onboarding</h3>
+<p>Right now, you land on the home screen and need to figure out what to do. A brief interactive tutorial, &quot;Sing Do to launch the rocket&quot;, would make the first 30 seconds much clearer.</p>
+<h3 id="sound-design">Sound Design</h3>
+<p>The game is currently silent except for your voice. Adding launch sounds, boost effects, and ambient space audio would transform the experience. The irony of a music game with no music isn&#39;t lost on me.</p>
+<h3 id="multiplayer-comparisons">Multiplayer Comparisons</h3>
+<p>Local multiplayer is in the PRD but unimplemented. Two players, same device, trading turns and comparing scores. My son would love this.</p>
+<h2 id="the-takeaway">The Takeaway</h2>
+<p>Two things stand out from this project:</p>
+<p><strong>1. Old projects are seeds, not failures.</strong> That weekend experiment in 2024 wasn&#39;t abandoned, it was waiting. The core mechanic (browser pitch detection) was solid. It just needed a purpose. Sometimes the best thing you can do for a project is walk away and come back with fresh eyes and better tools.</p>
+<p><strong>2. Agent Forge works on real projects.</strong> This wasn&#39;t a demo or a tutorial app. It had browser APIs, real-time audio processing, game physics, accessibility requirements, and the kind of edge cases you only find by playing. Eight agents, coordinated through a PRD, built a playable game. The human still needed to be in the loop: testing, feeding back, iterating, but the agents handled the heavy lifting of structured implementation.</p>
+<p>My son hasn&#39;t beaten Hard mode yet. Neither have I. But the rocket flies, and that&#39;s a start.</p>
+<hr>
+<p><em>The source code is at <a href="https://github.com/McFuzzySquirrel/viben">github.com/McFuzzySquirrel/viben</a>. The original prototype is preserved on the <a href="https://github.com/McFuzzySquirrel/viben/tree/archive/the-original-viben"><code>archive/the-original-viben</code></a> branch. The reworked game lives on <a href="https://github.com/McFuzzySquirrel/viben/tree/main"><code>main</code></a>.</em></p>
+<p><em>Agent Forge is documented in <a href="https://mcfuzzysquirrel.github.io/personal/update/2026/03/20/story-of-agent-forge.html">The Story of Agent Forge</a>.</em></p>
+13:T7186,<blockquote>
+<p><em>65 days. 23 sessions. 9 architectural decisions. This is the complete story of how I built a system to stop losing context between AI sessions, and how it ended up documenting its own construction.</em></p>
+</blockquote>
+<p>The Engineering Journey System (EJS) started as a frustration: every AI coding session began from scratch, losing all the reasoning, decisions, and dead ends from the sessions before. This post traces the full arc of building EJS, from the first decision to make interaction capture mandatory, through sub-agent blindness, SQLite-backed ADR indexing, a four-layer architecture, and 79% context reduction, all the way to a system that is now reusable, non-invasive, and provably works at scale.</p>
+<h2 id="a-chronicle-of-building-agent-collaborative-learning-infrastructure">A Chronicle of Building Agent-Collaborative Learning Infrastructure</h2>
+<p><strong>Project:</strong> Engineering Journey System (EJS)
+<strong>Narrative spans:</strong> 2026-02-05 to 2026-04-10 (65 days)
+<strong>Sessions covered:</strong> 23 journey sessions
+<strong>ADRs documented:</strong> 9 architectural decisions (ADR 0010–0018)
+<strong>Primary human:</strong> @mcfuzzysquirrel
+<strong>Agents involved:</strong> GitHub Copilot (primary), explore agent, task agent, general-purpose agent</p>
+<hr>
+<h2 id="prologue-why-this-story-matters">Prologue: Why This Story Matters</h2>
+<p>The Engineering Journey System is both a documentation artifact and a philosophy. It captures the premise that <em>how</em> humans and AI agents collaborate is as important as <em>what</em> they build—and that this record becomes valuable infrastructure for the next session, the next developer, and the next agent. This story chronicles the journey of building EJS itself, which is itself a test of the system it creates.</p>
+<hr>
+<h2 id="the-arc-foundation-february-510">The Arc: Foundation (February 5–10)</h2>
+<p>@mcfuzzysquirrel began with a simple observation: collaboration between humans and agents was leaving an infrastructure gap. Decisions were being made, but the <em>reasoning trail</em>—the prompts, responses, outcomes, and alternatives considered—was being lost or reconstructed imperfectly from memory.</p>
+<h3 id="session-1-mandatory-interaction-capture-feb-5">Session 1: Mandatory Interaction Capture (Feb 5)</h3>
+<p>The first decision was simple but crucial: <strong>make interaction capture mandatory in every Session Journey</strong>. @mcfuzzysquirrel noticed that journeys were missing a summary of the back-and-forth between human and agent. GitHub Copilot suggested updating the journey template and agent instructions to make the interaction trail explicit.</p>
+<p><strong>The insight:</strong> A short chronological summary of prompt-response-outcome pairs preserves the &quot;why&quot; without requiring full chat transcripts. This became a core EJS principle: be structured and machine-readable, but remain human-friendly.</p>
+<p><strong>ADR 0010</strong> was created, capturing this as the foundation of the Engineering Journey System.</p>
+<h3 id="session-2-shift-to-continuous-updates-feb-7">Session 2: Shift to Continuous Updates (Feb 7)</h3>
+<p>The second decision was architectural: <strong>shift from end-of-session reconstruction to start-of-session initialization with continuous updates</strong>.</p>
+<p>@mcfuzzysquirrel provided evidence from another project (photo-jumper) showing that real-time documentation during multi-step sessions produced far better quality than end-of-session reconstruction. GitHub Copilot designed and implemented a three-phase lifecycle:</p>
+<ul>
+<li><strong>Phase 1 (Session Start):</strong> Initialize the journey file with metadata and problem statement</li>
+<li><strong>Phase 2 (During Session):</strong> Update incrementally as exchanges occur</li>
+<li><strong>Phase 3 (Session End):</strong> Finalize with coherent summaries and machine extracts</li>
+</ul>
+<p>This change rippled through the entire EJS stack: agent profile, skill, instructions, and documentation all updated to reflect the new workflow. <strong>ADR 0011</strong> documented this as a major process change validated by real-world evidence.</p>
+<h3 id="session-3-sub-agent-decision-capture-protocol-feb-10-session-1">Session 3: Sub-Agent Decision Capture Protocol (Feb 10, Session 1)</h3>
+<p>When @mcfuzzysquirrel asked &quot;How do we ensure sub-agents capture their decisions in multi-agent processes?&quot;, GitHub Copilot identified a critical gap: sub-agents&#39; reasoning was lost. The agent delegated repository exploration to the explore sub-agent, which revealed the issue precisely: existing EJS contracts documented multi-agent scenarios but had no structured protocol for sub-agent decision capture or inter-agent handoff tracking.</p>
+<p>GitHub Copilot designed <strong>Sub-Agent Contributions</strong> section for the journey template with per-agent fields: task delegated, decisions made, alternatives considered, outcome, and handoffs to other agents. This was paired with a new machine extract (<code>SUB_AGENT_EXTRACT</code>) to enable downstream tools to analyze sub-agent collaboration patterns.</p>
+<p><strong>ADR 0012</strong> captured this as a distinct decision category: sub-agent reasoning is as important as main-agent reasoning.</p>
+<h3 id="session-4-proof-of-concept3d-asteroids-game-feb-10-session-2">Session 4: Proof of Concept—3D Asteroids Game (Feb 10, Session 2)</h3>
+<p>To validate the Sub-Agent Decision Capture Protocol in a real scenario, @mcfuzzysquirrel asked GitHub Copilot to build a 3D Asteroids game using Babylon.js with multiple specialized sub-agents. This was brilliant test design—a task that <em>naturally</em> required:</p>
+<ul>
+<li><strong>explore agent:</strong> Game architecture design (single-file, procedural meshes, chase camera)</li>
+<li><strong>general-purpose agent:</strong> Complete game implementation (715-line index.html with SolidParticleSystem starfield, collision detection, wave progression)</li>
+<li><strong>task agent:</strong> Build validation (server setup, CDN verification)</li>
+</ul>
+<p>The handoff chain was clean: explore agent&#39;s design decisions → general-purpose agent used them as context → general-purpose agent&#39;s implementation → task agent validated. Each sub-agent&#39;s reasoning was captured as it happened. When the main agent discovered the CDN was blocked in the sandbox, it pivoted to local npm-installed Babylon.js files—a decision point that the protocol captured precisely.</p>
+<p><strong>Result:</strong> The protocol worked. Sub-agent decisions, alternatives, and handoff chains were fully captured for the first time.</p>
+<hr>
+<h2 id="the-arc-infrastructure-march-24">The Arc: Infrastructure (March 2–4)</h2>
+<h3 id="session-5-sqlite-backed-adr-index-march-2">Session 5: SQLite-Backed ADR Index (March 2)</h3>
+<p>As the number of ADRs and session journeys grew, @mcfuzzysquirrel identified a new constraint: agents reading full markdown files to reference past decisions consumed significant context window space. GitHub Copilot and the explore sub-agent designed a Python CLI tool using SQLite + FTS5 full-text search.</p>
+<p>The implementation was pragmatic: a single <code>scripts/adr-db.py</code> file using only Python stdlib (sqlite3), with 8 commands (<code>sync</code>, <code>list</code>, <code>get</code>, <code>search</code>, <code>summary</code>, <code>list-journeys</code>, <code>get-journey</code>, <code>summary-journeys</code>).</p>
+<p>But the implementation surfaced two subtle bugs:</p>
+<ol>
+<li><strong>YAML octal parsing:</strong> PyYAML interprets zero-padded numbers like <code>0042</code> as octal (= 34). The fix: extract <code>adr_id</code> from raw frontmatter text.</li>
+<li><strong>f-string regex conflict:</strong> Python f-strings consume <code>{1,2}</code> as format expressions. The fix: escape as <code>{{1,2}}</code>.</li>
+</ol>
+<p><strong>ADR 0013</strong> documented this as a context-efficiency layer: agents could now query specific ADRs in 50–100 words instead of reading full 1,200+ word markdown files.</p>
+<h3 id="session-6-reframe-as-observer-march-4">Session 6: Reframe as Observer (March 4)</h3>
+<p>GitHub Copilot raised a crucial contradiction: the EJS agent profile claimed implementation responsibility (&quot;assist with implementation&quot;, &quot;propose solutions&quot;) while the README described an observability layer. For a system designed to be bootstrapped into repos with <em>existing agents</em>, this was a false positioning.</p>
+<p>@mcfuzzysquirrel agreed: <strong>EJS must be a non-competing observer/recorder, not an implementer</strong>.</p>
+<p>GitHub Copilot researched the GitHub Copilot platform and discovered three tiers of adoption:</p>
+<ul>
+<li><strong>Tier 1 (always-on):</strong> Via <code>.github/copilot-instructions.md</code> (appended to existing), auto-injected into every interaction</li>
+<li><strong>Tier 2 (explicit invocation):</strong> User says &quot;start EJS session&quot; or explicitly selects the agent</li>
+<li><strong>Tier 3 (coordinator mode):</strong> EJS as orchestrator, delegating to specialized sub-agents</li>
+</ul>
+<p>The implementation included bootstrap scripts (<code>scripts/bootstrap-ejs.sh</code> for bash, <code>scripts/bootstrap-ejs.ps1</code> for PowerShell) that append the EJS recording contract to existing <code>copilot-instructions.md</code> files without replacing them.</p>
+<p><strong>Key learning:</strong> Custom agents cannot persist across agent switches—they&#39;re session-scoped. So Tier 1 (always-on via instructions) became the most reliable layer, supported by optional Tier 2/3 invocations.</p>
+<hr>
+<h2 id="the-arc-platform-understanding-march-1130">The Arc: Platform Understanding (March 11–30)</h2>
+<h3 id="session-7-agent-vs-skill-concepts-march-11">Session 7: Agent vs. Skill Concepts (March 11)</h3>
+<p>@mcfuzzysquirrel asked GitHub Copilot to research whether EJS should use GitHub&#39;s &quot;agent&quot; or &quot;skill&quot; concepts. The repository had 533 references to &quot;agent&quot; but 21 references to &quot;skill&quot;—with the skill files planned but unimplemented.</p>
+<p>GitHub Copilot and the explore sub-agent discovered that GitHub explicitly designed these as <em>complementary</em> mechanisms:</p>
+<ul>
+<li><strong>Custom Instructions</strong> (<code>.github/copilot-instructions.md</code>): Always-on, lightweight behavior</li>
+<li><strong>Custom Agents</strong> (<code>.github/agents/ejs-journey.agent.md</code>): Manual selection, persona and coordination</li>
+<li><strong>Agent Skills</strong> (<code>.github/skills/&lt;name&gt;/SKILL.md</code>): Automatic loading, task-specific workflows</li>
+</ul>
+<p>The research revealed GitHub&#39;s official stance: use all three layers together, each for its purpose. <strong>ADR 0014</strong> recorded the decision to implement both agents and skills.</p>
+<h3 id="session-8-research-copilot-hooks-layer-0-march-30-session-1">Session 8: Research - Copilot Hooks Layer 0 (March 30, Session 1)</h3>
+<p>GitHub Copilot then investigated whether GitHub&#39;s new <strong>Copilot Coding Agent hooks</strong> (<code>.github/hooks/*.json</code>) could address reliability gaps in EJS. These are platform-managed shell scripts that execute deterministically at defined points in an agent&#39;s lifecycle (<code>sessionStart</code>, <code>sessionEnd</code>, <code>subagentStop</code>, <code>userPromptSubmitted</code>).</p>
+<p>The key insight: <strong>deterministic ≠ semantic</strong>. Hooks excel at guaranteed structural tasks (file creation, DB sync), but cannot perform semantic tasks (understanding context, writing rationale, evaluating ADR rubrics). The recommendation: use hooks as a new <strong>Layer 0</strong> below the existing instruction/skill/agent layers.</p>
+<h3 id="session-9-implement-copilot-hooks-as-layer-0-march-30-session-2">Session 9: Implement Copilot Hooks as Layer 0 (March 30, Session 2)</h3>
+<p>@mcfuzzysquirrel selected <strong>Option B: Lifecycle Bookends + Sub-Agent Capture</strong>—four hooks to handle session initialization, validation, and sub-agent event logging. <strong>ADR 0016</strong> documented this as a layered reliability architecture:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Mechanism</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>Copilot hooks</td>
+<td>Guaranteed structure (file creation, DB sync, validation)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Always-on instructions</td>
+<td>Silent automatic recording</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Skills</td>
+<td>Task-specific workflows (session init, wrap-up)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Agent</td>
+<td>Persona and coordination</td>
+</tr>
+</tbody></table>
+<p>The hooks layer guaranteed that every session would have a journey file scaffold and database sync, regardless of agent compliance.</p>
+<hr>
+<h2 id="the-arc-simplification-march-13-and-march-30april-8">The Arc: Simplification (March 13, and March 30–April 8)</h2>
+<h3 id="session-10-research-simplify-always-on-instructions-march-13-part-1">Session 10: Research - Simplify Always-On Instructions (March 13, Part 1)</h3>
+<p>@mcfuzzysquirrel asked: could the EJS instruction surface be simplified? Measurements showed <code>.github/copilot-instructions.md</code> had grown to 112 lines (~940 words), consuming significant context budget in <em>every</em> agent interaction. And much of that content was duplicated across templates and skills.</p>
+<p>GitHub Copilot quantified the redundancy and presented three options:</p>
+<ul>
+<li><strong>Option A (Micro-Instruction)</strong>: Reduce to ~30 lines, move structural detail to templates</li>
+<li><strong>Option B (Consolidated)</strong>: Merge skills into instructions (increases always-on context—rejected)</li>
+<li><strong>Option C (Hybrid)</strong>: Micro-instruction + sub-agent delegation fragment</li>
+</ul>
+<p>The recommendation: <strong>Option A + sub-agent fragment from Option C</strong>. Move from &quot;tell agents everything they need to know&quot; to &quot;tell agents WHAT to capture and WHERE; templates define HOW.&quot;</p>
+<h3 id="session-11-implement-micro-instruction-simplification-march-13-part-2">Session 11: Implement Micro-Instruction Simplification (March 13, Part 2)</h3>
+<p>GitHub Copilot executed a 5-phase implementation plan:</p>
+<ol>
+<li><strong>Phase 1:</strong> Rewrote <code>copilot-instructions.md</code> from 112 lines to 33 lines (79% context reduction)</li>
+<li><strong>Phase 2:</strong> Simplified the <code>ejs-session-init</code> skill by removing redundant DB-first protocol block</li>
+<li><strong>Phase 3:</strong> Updated bootstrap scripts with new detection marker</li>
+<li><strong>Phase 4:</strong> Updated README and session lifecycle patterns documentation</li>
+<li><strong>Phase 5:</strong> Created ADR 0015</li>
+</ol>
+<p>End result: The micro-instruction now covers 6 core EJS behaviors in ~197 words. The wrapup skill and templates carry all the procedural detail. <strong>ADR 0015</strong> documented that 54/54 tests passed with zero regressions.</p>
+<h3 id="session-12-remove-git-hooks-april-8-session-2">Session 12: Remove Git Hooks (April 8, Session 2)</h3>
+<p>With Copilot hooks now handling structural automation deterministically, the old git hooks (<code>.githooks/post-commit</code>, <code>.githooks/pre-push</code>) became redundant. They only reminded developers about missing journey files—something Copilot hooks now guaranteed.</p>
+<p>@mcfuzzysquirrel made the architectural decision: <strong>remove the git hooks</strong>. When a deterministic platform mechanism supersedes an optional manual mechanism, keeping the manual one adds maintenance burden without value.</p>
+<p><strong>ADR 0017</strong> documented this as a simplification that narrowed EJS&#39;s scope: Copilot workflows only.</p>
+<hr>
+<h2 id="the-arc-reinforcement-april-910">The Arc: Reinforcement (April 9–10)</h2>
+<h3 id="session-13-research-json-journey-format-april-9-session-1">Session 13: Research - JSON Journey Format (April 9, Session 1)</h3>
+<p>@mcfuzzysquirrel asked whether converting journey files to JSON would make EJS more efficient. The hypothesis: JSON is machine-friendly → easier parsing → less context.</p>
+<p>GitHub Copilot systematically dismantled this hypothesis:</p>
+<ul>
+<li>Measured JSON encoding overhead: 20–50% <strong>larger</strong> for equivalent narrative text</li>
+<li>Confirmed SQLite database already has all query commands (<code>sync</code>, <code>list</code>, <code>get</code>, <code>search</code>, <code>summary-journeys</code>)</li>
+<li>Found that <code>summary-journeys</code> truncates intent at 300 characters—insufficient for understanding sessions</li>
+</ul>
+<p><strong>The key insight:</strong> Format doesn&#39;t matter for context efficiency. What matters is whether agents actually use the database. The DB abstraction layer decouples file format from query efficiency.</p>
+<p>Rejection: Keep Markdown (human-readable). Recommendation: Add a richer <code>story</code> command that returns full intent (up to 400 chars) plus extracted decision and learning.</p>
+<h3 id="session-14-implement-story-command-april-9-session-2">Session 14: Implement <code>story</code> Command (April 9, Session 2)</h3>
+<p>GitHub Copilot implemented the <code>story</code> command for <code>adr-db.py</code>. Per-session, it returns:</p>
+<ul>
+<li>Session ID and date</li>
+<li>Full intent (up to 400 chars)</li>
+<li>Extracted first decision</li>
+<li>Extracted first learning</li>
+<li>ADR status if one was created</li>
+</ul>
+<p>The implementation required careful regex work to handle variations in agent writing styles (e.g., <code>**Technical insights:**</code> with the closing <code>**</code> <em>after</em> the colon). Four iterations refined the extraction logic until it worked cleanly on all 16 existing session files.</p>
+<p>Updated <code>copilot-instructions.md</code> to reference <code>story</code> explicitly, making DB-first not just a principle but actionable: agents now know which command to run first.</p>
+<h3 id="session-15-create-adr-0018-april-10-session-1">Session 15: Create ADR 0018 (April 10, Session 1)</h3>
+<p>@mcfuzzysquirrel requested an ADR documenting all these changes. GitHub Copilot analyzed the diff from PR #19 (15 files modified, 1,558 insertions) and structured <strong>ADR 0018</strong> around three related decisions that together reinforce the DB-first architecture:</p>
+<ol>
+<li>Reject JSON format migration (evidence-based, with measured overhead)</li>
+<li>Add <code>story</code> command (fills capability gap)</li>
+<li>Promote <code>story</code> in all documentation (makes rule actionable)</li>
+</ol>
+<hr>
+<h2 id="key-learnings-and-themes">Key Learnings &amp; Themes</h2>
+<h3 id="theme-1-right-tool-for-right-task">Theme 1: Right Tool for Right Task</h3>
+<p>The architecture evolved to assign concerns to the right mechanism:</p>
+<ul>
+<li><strong>Hooks:</strong> Deterministic structure (emergence of Layer 0)</li>
+<li><strong>Instructions:</strong> Always-on awareness (Tier 1)</li>
+<li><strong>Skills:</strong> Task-specific workflows (automatic loading)</li>
+<li><strong>Agents:</strong> Persona and coordination (manual selection or Tier 2/3)</li>
+</ul>
+<p>Each layer has a distinct responsibility. The cleanest architecture respects these boundaries.</p>
+<h3 id="theme-2-question-assumptions-measure-first">Theme 2: Question Assumptions, Measure First</h3>
+<p>Multiple research sessions (JSON format, agent vs. skill) showed the value of asking &quot;why?&quot; and measuring before migrating:</p>
+<ul>
+<li>JSON format looked promising but measured as 20–50% <em>larger</em> for text</li>
+<li>SQLite database was already built—the gap was behavioral enforcement, not technology</li>
+<li>&quot;Format = efficiency&quot; hypothesis broke under scrutiny; the DB abstraction layer was the real efficiency play</li>
+</ul>
+<h3 id="theme-3-sub-agent-blindness-is-real">Theme 3: Sub-Agent Blindness is Real</h3>
+<p>Sessions 3–4 and later session 9 revealed a structural problem: sub-agents don&#39;t receive parent agent instructions, so their decisions vanish unless explicitly captured. The Sub-Agent Decision Capture Protocol (ADR 0012) and the <code>subagentStop</code> hook (ADR 0016) directly addressed this gap.</p>
+<h3 id="theme-4-simplification-through-separation-of-concerns">Theme 4: Simplification Through Separation of Concerns</h3>
+<p>The micro-instruction simplification (ADR 0015) succeeded because it applied a principle: <strong>instructions define behavior, templates define structure, skills provide detail</strong>. When each layer knew its job, redundancy fell away and the always-on context budget shrank 79%.</p>
+<h3 id="theme-5-platform-constraints-shape-architecture">Theme 5: Platform Constraints Shape Architecture</h3>
+<p>Research into GitHub&#39;s customization mechanisms (Session 7) revealed they were designed as three complementary layers, not alternatives. The three-tier adoption model (Session 6) and the four-layer stack (Session 9) emerged directly from understanding what the platform actually supports.</p>
+<hr>
+<h2 id="the-four-layer-architecture-in-final-form">The Four-Layer Architecture in Final Form</h2>
+<p>By April 10, EJS had stabilized into a four-layer stack:</p>
+<pre><code>┌─────────────────────────────────────────────────┐
+│ Layer 3: Agent (Persona &amp; Coordination)          │
+│ .github/agents/ejs-journey.agent.md              │
+│ (Tier 2: Explicit invocation, Tier 3: Coordinator)
+└─────────────────────────────────────────────────┘
+                        ▲
+┌─────────────────────────────────────────────────┐
+│ Layer 2: Skills (Task-Specific Workflows)        │
+│ .github/skills/ejs-session-init/SKILL.md         │
+│ .github/skills/ejs-session-wrapup/SKILL.md       │
+│ .github/skills/ejs-sub-agent-capture/SKILL.md    │
+└─────────────────────────────────────────────────┘
+                        ▲
+┌─────────────────────────────────────────────────┐
+│ Layer 1: Instructions (Always-On Recording)      │
+│ .github/copilot-instructions.md (33 lines)       │
+│ (Tier 1: Always-on via copilot-instructions)    │
+└─────────────────────────────────────────────────┘
+                        ▲
+┌─────────────────────────────────────────────────┐
+│ Layer 0: Hooks (Guaranteed Structure)            │
+│ .github/hooks/ejs-hooks.json                     │
+│ sessionStart, sessionEnd, subagentStop,          │
+│ userPromptSubmitted (shell scripts)              │
+└─────────────────────────────────────────────────┘
+</code></pre>
+<p>Each layer has a distinct mechanism:</p>
+<ul>
+<li><strong>Layer 0:</strong> Deterministic, platform-managed, runs regardless of agent compliance</li>
+<li><strong>Layer 1:</strong> LLM-based, silent, always-on for every interaction</li>
+<li><strong>Layer 2:</strong> LLM-based, auto-loading when relevant, encapsulates multi-step workflows</li>
+<li><strong>Layer 3:</strong> LLM-based, persona, explicit invocation or coordination</li>
+</ul>
+<h3 id="supporting-infrastructure">Supporting Infrastructure</h3>
+<ul>
+<li><strong>SQLite Database (<code>scripts/adr-db.py</code>):</strong> Context-efficient query interface with <code>story</code> as primary command</li>
+<li><strong>Bootstrap Scripts:</strong> <code>bootstrap-ejs.sh</code> (bash), <code>bootstrap-ejs.ps1</code> (PowerShell)—enable non-competitive adoption into existing repos</li>
+<li><strong>Journey Template &amp; ADRs:</strong> Document decisions, alternatives, and learnings</li>
+<li><strong>Session Lifecycle Patterns:</strong> Guide agents on when/how to record</li>
+</ul>
+<hr>
+<h2 id="where-it-stands-april-10-2026">Where It Stands (April 10, 2026)</h2>
+<p>@mcfuzzysquirrel and GitHub Copilot have built an infrastructure that captures the entire evolution of itself. Each decision is documented with alternatives, rationale, consequences, and learnings. Sub-agents&#39; contributions are tracked. The system is layered, with each layer knowing its job. Context efficiency has been optimized through separation of concerns—the always-on instruction budget was cut 79% while preserving all functionality.</p>
+<p>The 3D Asteroids game validated the core assumption: humans and agents <em>can</em> collaborate on non-trivial work while capturing the full reasoning trail. The SQLite database proved agents can query past decisions efficiently without reading full markdown files. The Copilot hooks proved that deterministic layer 0 guarantees can sit beneath semantic layers 1–3 without interference.</p>
+<p>Most importantly, the system is <strong>designed for reuse</strong>. The bootstrap scripts allow other repositories to adopt EJS layering into their existing instruction and agent setup. The research documents and ADRs provide evidence-based rationale for every major decision, so future agents (and humans) can understand not just <em>what</em> was built but <em>why</em>.</p>
+<hr>
+<h2 id="epilogue-the-meta-journey">Epilogue: The Meta-Journey</h2>
+<p>The Engineering Journey System was built by capturing its own engineering journey. This story is itself an artifact of the system—extracted from 23 journey sessions, 9 ADRs, and the SQLite database that indexes them all. The fact that this narrative can exist, can be queried and generated from structured data, was the entire point.</p>
+<p>The hypothesis worked: Infrastructure for capturing human-agent collaboration <em>can</em> be lightweight, reusable, and non-invasive. It can be layered from deterministic platform mechanisms (hooks) up through semantic AI reasoning (agents and skills). Most importantly, it <em>works</em> at scale—from a single decision in a single session to a complete project history across dozens of sessions and multiple specialized agents.</p>
+<p>On April 10, @mcfuzzysquirrel sat at a significant waypoint. The EJS foundation was solid. The question for the next phase is not <em>whether</em> it works, but <em>how far</em> it can scale—and whether the patterns discovered here transfer to larger teams, more complex workflows, and agents beyond Copilot.</p>
+<hr>
+<h2 id="quick-reference-the-nine-decisions-adrs-00100018">Quick Reference: The Nine Decisions (ADRs 0010–0018)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Date</th>
+<th>Status</th>
+<th>Core Decision</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0010</td>
+<td>Adopt Engineering Journey System</td>
+<td>2026-02-05</td>
+<td>Accepted</td>
+<td>Structured session journeys capture collaboration, decisions, and learnings</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>Start-of-Session Continuous Updates</td>
+<td>2026-02-07</td>
+<td>Accepted</td>
+<td>Real-time capture superior to end-of-session reconstruction</td>
+</tr>
+<tr>
+<td>0012</td>
+<td>Sub-Agent Decision Capture Protocol</td>
+<td>2026-02-10</td>
+<td>Accepted</td>
+<td>Sub-agent decisions need their own section + structured capture</td>
+</tr>
+<tr>
+<td>0013</td>
+<td>SQLite-Backed ADR Index</td>
+<td>2026-03-02</td>
+<td>Accepted</td>
+<td>Database for efficient queries; agents use <code>story</code> not raw files</td>
+</tr>
+<tr>
+<td>0014</td>
+<td>Agent Skills for Session Lifecycle</td>
+<td>2026-03-11</td>
+<td>Accepted</td>
+<td>Use agents + skills as complementary layers (both, not either/or)</td>
+</tr>
+<tr>
+<td>0015</td>
+<td>Micro-Instruction Simplification</td>
+<td>2026-03-13</td>
+<td>Accepted</td>
+<td>Reduce always-on context 79%; templates carry structural detail</td>
+</tr>
+<tr>
+<td>0016</td>
+<td>Copilot Hooks as Layer 0</td>
+<td>2026-03-30</td>
+<td>Accepted</td>
+<td>Deterministic platform hooks layer beneath semantic agent layers</td>
+</tr>
+<tr>
+<td>0017</td>
+<td>Remove Git Hooks</td>
+<td>2026-04-08</td>
+<td>Accepted</td>
+<td>Copilot hooks fully supersede git hooks; remove redundancy</td>
+</tr>
+<tr>
+<td>0018</td>
+<td>Story Command &amp; DB-First Reinforcement</td>
+<td>2026-04-09</td>
+<td>Accepted</td>
+<td>Reject JSON format; add <code>story</code> command; promote DB-first order</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Narrative compiled:</strong> April 10, 2026<br><strong>Summary:</strong> 65 days, 23 sessions, 9 decisions, 4-layer architecture, ready for scale.</p>
+14:T4739,<blockquote>
+<p><em>How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable.</em></p>
+</blockquote>
+<p>Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.</p>
+<h2 id="the-evolution-of-a-habit">The Evolution of a Habit</h2>
+<p>Everyone has their own way of researching before making decisions, and this is no different when it comes to building solutions with code. Some dive into documentation. Some experiment in branches. Some just start coding and see what breaks. But there&#39;s always this nagging feeling: <em>Am I missing something? Is there a better way I don&#39;t know about?</em></p>
+<p><img
+   src="/assets/images/2026-03-26-ai-assisted-research/research.jpeg"
+   alt="Research diagram"
+   style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>I have these all the time, sometimes while I am busy, more often just after or before. That uncertainty led me to develop a habit that had transformed how I approach any significant technical or design decision: <strong>AI-assisted research paired with AI-assisted implementation, all tied together through Architecture Decision Records (ADRs).</strong></p>
+<p>Now this is not about a specific tool or project. It is about a <em>process</em> that works for me regardless of what I am building or what AI tools I am using, and maybe something you the reader could benefit from (hence this post). The pattern is what matters.</p>
+<h2 id="the-three-phase-dance-research-build-record">The Three-Phase Dance: Research, Build, Record</h2>
+<p>So I have been doing this for a while, and everytime I change it a little bit (I even do it on the train). So here is the workflow that has emerged from months of iteration:</p>
+<h3 id="phase-1-research-with-ai-assistance">Phase 1: Research with AI Assistance</h3>
+<p>When a question arises: <em>&quot;Should I or we use this library?&quot;, &quot;How do I or we handle this edge case?&quot;, &quot;What&#39;s the best approach for this problem?&quot;</em> instead of jumping to various forums or diving into code, I start a research conversation with an AI assistant.</p>
+<p><strong>But</strong> this isn&#39;t just asking &quot;what should I do?&quot; It is a structured exploration:</p>
+<p><strong>1. Frame the Question Clearly</strong></p>
+<ul>
+<li>What exactly am I trying to solve?</li>
+<li>What constraints do I have? (technical, time, team skills)</li>
+<li>What&#39;s the current state of things?</li>
+</ul>
+<p><strong>2. Let AI Help Explore the Landscape</strong></p>
+<ul>
+<li>What approaches exist?</li>
+<li>What are the trade-offs of each?</li>
+<li>What are the risks I might not have considered?</li>
+<li>What&#39;s the current best practice (not what was best practice three years ago)?</li>
+</ul>
+<p><strong>3. Challenge and Refine</strong></p>
+<ul>
+<li>&quot;What if we have to scale this?&quot;</li>
+<li>&quot;What breaks if X changes?&quot;</li>
+<li>&quot;What are we assuming that might not be true?&quot;</li>
+</ul>
+<p>This way the AI doesn&#39;t just answer questions, it helps me <em>ask better questions</em>. It surfaces considerations I may not have looked for with my eternal optimism.</p>
+<p><strong>The Output</strong>: Not a decision, but a <strong>research document</strong>. A structured analysis that includes:</p>
+<ul>
+<li>The question and context</li>
+<li>Current state analysis</li>
+<li>Options explored with pros and cons</li>
+<li>Risk assessment</li>
+<li>Recommended approach with rationale</li>
+<li>Implementation considerations</li>
+</ul>
+<p>This is the document that becomes a snapshot of understanding. Future-me (or your teammates and collaborators) can see not just <em>what</em> was decided, but <em>why</em>, based on what information.</p>
+<h3 id="phase-2-implementation-with-ai-coding-sessions">Phase 2: Implementation with AI Coding Sessions</h3>
+<p>Now comes the powerful part. With the research document as a foundation, I engage a coding AI assistant, <strong>but not blindly</strong>.</p>
+<p><strong>The Coding Session Workflow:</strong></p>
+<p><strong>1. Start with Context</strong></p>
+<ul>
+<li>Share the research document</li>
+<li>Point to relevant parts of the codebase</li>
+<li>Clarify the specific task</li>
+</ul>
+<p><strong>2. Let AI Do Its Research</strong></p>
+<ul>
+<li>The AI assistant explores the codebase</li>
+<li>It looks outside for inspiration</li>
+<li>It identifies what files need changes</li>
+<li>It spots dependencies and impacts</li>
+<li>It considers edge cases based on the research</li>
+</ul>
+<p><strong>3. Review the Plan</strong></p>
+<ul>
+<li>AI proposes changes across multiple files</li>
+<li>Shows how pieces fit together</li>
+<li>Highlights potential issues</li>
+<li>Explains the reasoning</li>
+</ul>
+<p><strong>4. Iterate and Refine</strong></p>
+<ul>
+<li>I, my team and even the agent review each proposed change</li>
+<li>We question assumptions</li>
+<li>We adjust approaches</li>
+<li>We add missing considerations</li>
+</ul>
+<p><strong>5. Implement with Understanding</strong></p>
+<ul>
+<li>Changes are made with full context</li>
+<li>No mysterious <em>&quot;why did we do it this way?&quot;</em> moments</li>
+<li>Every decision traceable back to research</li>
+</ul>
+<p><strong>The Magic</strong>: The AI coding assistant has access to:</p>
+<ul>
+<li>Your research findings</li>
+<li>Its own exploration of the codebase and outside insights</li>
+<li>Understanding of how changes interconnect</li>
+<li>Awareness of testing implications</li>
+</ul>
+<p>It&#39;s not just writing code, it is presenting a <em>holistic solution</em> that you I understand, review, and approve with confidence.</p>
+<h3 id="phase-3-codify-in-architecture-decision-records">Phase 3: Codify in Architecture Decision Records</h3>
+<p>Now it is all coming together. Once research is done and implementation is approved, the decision gets immortalized in an ADR (I really love these).</p>
+<p><strong>The ADR captures:</strong></p>
+<ul>
+<li>What was decided</li>
+<li>Why (linking back to the research)</li>
+<li>Alternatives considered</li>
+<li>Consequences expected</li>
+<li>Status (proposed, accepted, superseded)</li>
+</ul>
+<p><strong>The Powerful Part</strong>: The ADR includes links to:</p>
+<ul>
+<li>The original research document</li>
+<li>Related code changes (PRs, commits)</li>
+<li>Other ADRs it affects or is affected by</li>
+<li>External references that informed the decision</li>
+</ul>
+<p>This creates a <strong>knowledge graph</strong> of my project&#39;s evolution. No more am I digging around in message  threads, or finding they are lost in closed PRs, or hidden in code comments. This is knowledge that is structured, searchable, and connected.</p>
+<h2 id="why-this-changes-everything">Why This Changes Everything</h2>
+<h3 id="1-decisions-are-informed-not-impulsive">1. <strong>Decisions Are Informed, Not Impulsive</strong></h3>
+<p><em>This is a big one for me personally</em>, something I struggle with daily. Now though, I am not doing things based on &quot;I think this is right.&quot; I am implementing based on researched, analyzed, documented understanding.</p>
+<h3 id="2-context-persists-beyond-memory">2. <strong>Context Persists Beyond Memory</strong></h3>
+<p>Six months later, when someone asks &quot;why did I choose this approach?&quot;, I don&#39;t rely on memory. <strong>I point to the ADR, which points to the research, which shows the full reasoning</strong>.</p>
+<h3 id="3-onboarding-becomes-learning">3. <strong>Onboarding Becomes Learning</strong></h3>
+<p>New collaborators ot team members don&#39;t just see code, they see the <em>thinking</em> behind it. ADRs become a roadmap of how the project evolved and why.</p>
+<h3 id="4-course-corrections-are-data-driven">4. <strong>Course Corrections Are Data-Driven</strong></h3>
+<p>When an ADR decision needs revisiting, you start with the original research. What&#39;s changed? What new information do we have? The ADR gets superseded with a new one, preserving history.</p>
+<h3 id="5-ai-assists-humans-decide">5. <strong>AI Assists, Humans Decide</strong></h3>
+<p>The AI tools help me explore, understand, and implement, but I am always in control. I review, I edit, I approve. The AI amplifies my capability; it doesn&#39;t replace my judgment.</p>
+<h2 id="the-pattern-agnostic-to-tools">The Pattern, Agnostic to Tools</h2>
+<p>This workflow works regardless of my stack:</p>
+<ul>
+<li><p><strong>Research AI</strong>: Could be ChatGPT, Claude, GitHub Copilot Chat, or any conversational AI that helps me explore and analyze.</p>
+</li>
+<li><p><strong>Coding AI</strong>: Could be GitHub Copilot, Cursor, Cody, or any AI coding assistant that understands codebases and can propose changes.</p>
+</li>
+<li><p><strong>ADRs</strong>: Just markdown files in a <code>/docs/adr/</code> directory (or wherever your team keeps them). Tools exist, but plain markdown works perfectly.</p>
+</li>
+</ul>
+<p><strong>The Universal Steps:</strong></p>
+<pre><code>Question arises
+    ↓
+Research with AI (document findings)
+    ↓
+Code with AI (implement with full context)
+    ↓
+Review &amp; approve changes
+    ↓
+Create/update ADR (link everything together)
+    ↓
+Knowledge graph grows
+</code></pre>
+<h2 id="real-world-example-adding-a-new-feature">Real-World Example: Adding a New Feature</h2>
+<p>Let&#39;s make this concrete with a generic example:</p>
+<p><strong>Scenario</strong>: Your project needs caching to improve performance.</p>
+<h3 id="step-1-research-session">Step 1: Research Session</h3>
+<p><em>Conversation with AI:</em></p>
+<ul>
+<li>&quot;We need to add caching. What are the common approaches?&quot;</li>
+<li>&quot;We&#39;re using [your stack]. What works best here?&quot;</li>
+<li>&quot;What about cache invalidation strategies?&quot;</li>
+<li>&quot;Whats new out there we should be looking at?&quot;</li>
+<li>&quot;What are the performance implications?&quot;</li>
+<li>&quot;What breaks if cache goes down?&quot;</li>
+<li>&quot;Consider the implications, and risk and document them&quot;</li>
+</ul>
+<p><em>Output</em>: <code>docs/research/caching-strategy.md</code></p>
+<ul>
+<li>Explores Redis, Memcached, in-memory options</li>
+<li>Analyzes trade-offs for your specific use case</li>
+<li>Recommends Redis with specific rationale</li>
+<li>Details implementation considerations</li>
+<li>Identifies risks and mitigation strategies</li>
+</ul>
+<h3 id="step-2-coding-session">Step 2: Coding Session</h3>
+<p><em>Engagement with coding AI:</em></p>
+<ul>
+<li>Share the research document</li>
+<li>&quot;Implement Redis caching based on this research&quot;</li>
+</ul>
+<p><em>AI Explores</em>:</p>
+<ul>
+<li>Reviews codebase structure</li>
+<li>Identifies where caching should be added</li>
+<li>Finds dependency injection points</li>
+<li>Considers error handling</li>
+<li>Plans configuration management</li>
+</ul>
+<p><em>AI Proposes</em>:</p>
+<ul>
+<li>Cache service implementation</li>
+<li>Integration with existing services</li>
+<li>Configuration files</li>
+<li>Error handling middleware</li>
+<li>Tests for cache hit/miss scenarios</li>
+</ul>
+<p><em>You Review</em>:</p>
+<ul>
+<li>Check each proposed change</li>
+<li>Adjust cache TTL values</li>
+<li>Add project-specific error handling</li>
+<li>Approve implementation</li>
+</ul>
+<h3 id="step-3-adr-creation">Step 3: ADR Creation</h3>
+<p>Create <code>docs/adr/NNN-redis-caching.md</code>:</p>
+<pre><code class="language-markdown"># ADR-NNN: Implement Redis for Application Caching
+
+**Date**: 2026-03-26
+**Status**: Accepted
+
+## Context
+
+Performance testing revealed response times &gt;500ms for data-heavy endpoints.
+Research (see [caching-strategy.md](../research/caching-strategy.md)) 
+explored multiple caching solutions.
+
+## Decision
+
+Implement Redis as application-level cache with:
+- Cache-aside pattern
+- 1-hour default TTL
+- Separate cache keys per tenant
+- Graceful degradation on cache failure
+
+## Alternatives Considered
+
+- Memcached: Lighter weight, but lacks persistence we may need later
+- In-memory: Simple, but doesn&#39;t scale across instances
+- CDN caching: Addresses different layer; complementary, not alternative
+
+## Consequences
+
+**Positive**:
+- Expected 80% reduction in database load for cached queries
+- Improved response times for frequently accessed data
+- Foundation for future optimizations (session storage, job queues)
+
+**Negative**:
+- Additional infrastructure dependency
+- Complexity in cache invalidation
+- Memory usage requires monitoring
+
+**Neutral**:
+- Team needs Redis knowledge (addressed via documentation)
+
+## References
+
+- [Research Document](../research/caching-strategy.md)
+- [Implementation PR](#123)
+- [Redis Official Docs](https://redis.io/docs/)
+</code></pre>
+<p><strong>Now everything is connected</strong>. The ADR links to the research. Future PRs reference the ADR. Knowledge accumulates instead of scattering.</p>
+<h2 id="the-habits-impact">The Habit&#39;s Impact</h2>
+<p>After adopting this workflow, several things changed:</p>
+<h3 id="confidence-in-decisions">Confidence in Decisions</h3>
+<p>Every significant change starts from a position of knowledge, not guesswork. The research phase ensures I have considered what I need to consider.</p>
+<h3 id="implementation-speed">Implementation Speed</h3>
+<p>Irconically, adding a research step <em>speeds up</em> implementation. Why? Because I am not spenfing time in code, then discovering issues, then refactoring, then discovering more issues. I understand the landscape before I start building (with my agent, lets not pretend I don&#39;t use one).</p>
+<h3 id="code-review-quality">Code Review Quality</h3>
+<p>When you open a PR with &quot;Implements caching per ADR-025,&quot; reviewers can:</p>
+<ol>
+<li>Read the ADR to understand the decision</li>
+<li>Check the research to see alternatives considered</li>
+<li>Review the code with full context</li>
+</ol>
+<p>Reviews become about execution, not going through the the approach from scratch.</p>
+<h3 id="team-alignment">Team Alignment</h3>
+<p>Everyone on the team can see the project&#39;s decision history. Discussions reference ADRs. New patterns emerge from synthesizing multiple ADRs. The team builds shared understanding.</p>
+<h3 id="future-proofing">Future-Proofing</h3>
+<p>When you inevitably need to change something, you start with:</p>
+<ul>
+<li>The original ADR explaining why it was built that way</li>
+<li>The research that informed the decision</li>
+<li>Understanding of what constraints have changed</li>
+</ul>
+<p>You wont be reverse-engineering old code, you are revisiting documented decisions with new information.</p>
+<h2 id="starting-your-own-habit">Starting Your Own Habit</h2>
+<p>You don&#39;t need special tools to adopt this workflow. Here&#39;s how I start (you will start finding this in all my repos, even the old ones I am revising, reverse impulsing them I suppose):</p>
+<h3 id="1-create-structure">1. Create Structure</h3>
+<pre><code>docs/
+  research/        # Research documents
+  adr/             # Architecture Decision Records
+</code></pre>
+<h3 id="2-pick-a-research-template">2. Pick a Research Template</h3>
+<p>Keep it simple:</p>
+<ul>
+<li><strong>Question</strong>: What are we trying to figure out?</li>
+<li><strong>Context</strong>: Current state, constraints</li>
+<li><strong>Analysis</strong>: Options, trade-offs, risks</li>
+<li><strong>Recommendation</strong>: What to do and why</li>
+<li><strong>Implementation Notes</strong>: How to approach it</li>
+</ul>
+<h3 id="3-pick-an-adr-template">3. Pick an ADR Template</h3>
+<p>Michael Nygard&#39;s format works great (<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">check it out here</a>):</p>
+<ul>
+<li>Title (numbered: ADR-001, ADR-002, etc.)</li>
+<li>Status (Proposed, Accepted, Superseded)</li>
+<li>Context</li>
+<li>Decision</li>
+<li>Consequences</li>
+</ul>
+<h3 id="4-establish-the-flow">4. Establish the Flow</h3>
+<p>For any significant decision:</p>
+<ol>
+<li>Research -&gt; document</li>
+<li>Code (referencing research) -&gt; review</li>
+<li>ADR (linking research + code) -&gt; commit</li>
+</ol>
+<h3 id="5-link-everything">5. Link Everything</h3>
+<ul>
+<li>Research docs reference relevant ADRs.</li>
+<li>ADRs reference research docs and PRs.</li>
+<li>Code comments reference ADRs for &quot;why.&quot;</li>
+<li>PRs reference ADRs in descriptions.</li>
+</ul>
+<h2 id="the-lesson-i-learned">The Lesson I learned</h2>
+<p>This is something fundemantal, this habit isn&#39;t really about AI (although it is used), research, or ADRs. It is:</p>
+<p><strong>Making the implicit explicit.</strong></p>
+<p>We carry so much in our heads: why we chose this library, this design, what we considered and rejected, what could break if we change X. </p>
+<ul>
+<li>This workflow externalizes that knowledge, making it visible, reviewable, and persistent.</li>
+</ul>
+<p>AI tools supercharge this by:</p>
+<ul>
+<li>Helping surface what you might not think to research</li>
+<li>Exploring codebases faster than manual review</li>
+<li>Proposing holistic solutions across multiple files</li>
+<li>Maintaining consistency across changes</li>
+</ul>
+<p>But the core principle works even without AI: <strong>research before you build, document decisions, connect the dots</strong>.</p>
+<h2 id="your-turn">Your Turn</h2>
+<p>This workflow evolved from frustration with &quot;I think this is right&quot; and the sinking feeling of revisiting old code and solutions with no idea why it&#39;s that way.</p>
+<p>You don&#39;t need to adopt everything at once. Start small:</p>
+<ul>
+<li>Next time you face a decision, write a quick research doc</li>
+<li>Next time you make a significant change, write an ADR</li>
+<li>Link them together</li>
+</ul>
+<p>Over time, you&#39;ll build something more valuable than code: a <strong>knowledge graph of your project&#39;s evolution</strong>, where every decision is traceable, every choice is documented, and context never gets lost.</p>
+<p>The tools will evolve. The pattern won&#39;t.</p>
+<p><strong>Start simple. Research deliberately. Document decisions. Connect the dots. Watch your confidence in your solutions grow.</strong></p>
+15:T8a6c,<blockquote>
+<p><em>How a simple question: &quot;What if AI could work like a real team?&quot;, became a framework that turns ideas into coordinated agent teams.</em></p>
+</blockquote>
+<p>Agent Forge started as a practical response to a recurring problem: one AI assistant can do many things, but complex projects still need specialist thinking, clear ownership, and coordinated execution.</p>
+<p>This post shares how I designed a PRD-first, multi-agent workflow that turns an idea into a structured team of AI specialists with an orchestrator that keeps delivery moving in the right order.</p>
+<h2 id="the-spark">The Spark</h2>
+<p>It started with a frustration that every person who is working with agentic AI knows.</p>
+<p>You&#39;re sitting with GitHub Copilot, this incredibly powerful AI assistant, and you ask it to build something complex. A web application, maybe. Authentication, database layer, API endpoints, frontend components, testing, an awesome game. The AI dives in, and it&#39;s impressive… at least for a while. But then you notice the cracks. It forgets the authentication approach it chose when it moves to the API layer. It makes frontend decisions that conflict with the backend architecture it just created. It&#39;s like asking one person to be the architect, the plumber, the electrician, the interior designer and the architect all at once. They <em>can</em> do all of those things, but not with the same depth and consistency as specialists who coordinate.</p>
+<p>That frustration led to a question that changed everything:</p>
+<p><strong>&quot;What if, instead of one AI doing everything, we had a <em>team</em> of AI specialists, each an expert in their domain, working together like a real development team?&quot;</strong></p>
+<p>A practical one: <em>Can we actually build this, today, with the tools we have?</em></p>
+<p>We know the answer is yes, beacuse orchestrated multi-agent systems are in place and there are many ways people, and systems are doing this today. The journey to get there, after exploring all the options out there, and expanding on that, is what this document is about.</p>
+<h2 id="chapter-1-starting-with-the-problem-not-the-solution">Chapter 1: Starting with the Problem, Not the Solution</h2>
+<p>The first instinct was to jump straight into code. Build some agents, wire them together, see what happens. But experience whispers: <em>that&#39;s how you build something that works for the demo but falls apart in the real world.</em></p>
+<p>Instead, the process started with a deliberate step back, and one I believe is the constant in this ever-changing world. Before writing a single line of agent definition, three questions needed answers:</p>
+<ol>
+<li><p><strong>What does a &quot;team&quot; actually mean in the context of AI agents?</strong> A team isn&#39;t just multiple agents: it&#39;s agents with clear roles, defined boundaries, and a way to coordinate. A frontend specialist shouldn&#39;t be writing database migrations. A QA engineer shouldn&#39;t be designing the API schema.</p>
+</li>
+<li><p><strong>How do real development teams organize?</strong> They start with <strong>requirements</strong>. Someone figures out <em>what</em> to build (the product manager, the PRD). Someone decides <em>who</em> builds <em>what</em> (the tech lead, the team structure). And someone coordinates the work (the project manager, the execution plan). That&#39;s three distinct phases: requirements -&gt; team -&gt; execution.</p>
+</li>
+<li><p><strong>What already exists that we can build on?</strong> Most systems like GitHub Copilot, Claude, etc. already supports custom agents, I use GitHub Copilot (markdown files in <code>.github/agents/</code>) and skills (reusable process files in <code>.github/skills/</code>). The infrastructure was there. What was missing was the <em>system</em> for creating and coordinating them.</p>
+</li>
+</ol>
+<p>These three questions became the blueprint. Not a technical specification: a <em>way of thinking</em> about the problem.</p>
+<h3 id="the-takeaway-for-builders">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Don&#39;t start with &quot;what should I build?&quot; Start with &quot;what problem am I actually solving?&quot; and &quot;how do humans already solve this?&quot;</strong> The best frameworks mirror real-world processes that already work. AI agent teams work because real development teams work, we just translated the pattern.</p>
+</blockquote>
+<h2 id="chapter-2-the-prd-first-epiphany">Chapter 2: The PRD-First Epiphany</h2>
+<p>Here&#39;s where the first major design decision happened, and it&#39;s one that shaped everything that followed.</p>
+<p>The initial temptation was to build agents that could figure out what to build on their own. Give them a vague description, let them decompose it, and watch them go. It sounds cool. It&#39;s also a terrible idea.</p>
+<p>Why? Because <strong>AI agents follow instructions faithfully</strong>. If the instructions are vague, the output is vague. If the requirements are ambiguous, the agents will resolve that ambiguity in ways you can&#39;t predict,nand different agents will resolve it differently. You end up with a frontend that expects data the API doesn&#39;t provide, tests that validate the wrong behavior, and an architecture that no one actually agreed on.</p>
+<p>The solution was both obvious: <strong>start with a Product Requirements Document (PRD)</strong>, this has been the start long before agentic AI and agents became a thing. </p>
+<p>Not because PRDs are trendy. Because a PRD is a <em>single source of truth</em> that every agent can reference. When the API engineer needs to know what endpoints to build, they check the PRD. When the frontend specialist needs to know what data to display, they check the PRD. When the QA engineer needs to know what &quot;correct&quot; means, they check the PRD. No ambiguity. No conflicting interpretations.</p>
+<p>Now some people do start this way, and sometimes its called a <strong>Specification (Spec)</strong> but a lot of people never have, they may have the all the research, but they get lost on how to structure it.</p>
+<p>So I came to a second realization that made this even more powerful: if you dont already have a PRD, then there should at least be an option where <strong>the PRD itself could be built by an AI agent, through a structured conversation with the human.</strong></p>
+<p>This became the first skill: <code>forge-build-prd</code>. Not a template you fill in. A <em>process</em>: an AI-guided interview that asks you the right questions across ten categories (scope, functional requirements, technical constraints, security, accessibility, design, testing, delivery, risks, dependencies), synthesizes your answers, and produces a comprehensive PRD.</p>
+<p>But here comes the cool part, if you already have one, you can point it to that, if you have a whole bunch of research and notes, you can also point it at that, you dont need to start from scratch if you have already done most of the work.</p>
+<p>Now the experience of building this first skill taught me a crucial lesson:</p>
+<blockquote>
+<p><strong>Skills are processes, not templates.</strong> A template says &quot;fill in section 3.&quot; A process says &quot;let me ask you about section 3, challenge your assumptions, research whether your tech choices are current, and <em>then</em> write section 3.&quot; The difference is enormous.</p>
+</blockquote>
+<h3 id="the-takeaway-for-builders-1">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Give your AI agents a single source of truth before you let them do anything.</strong> The quality of your agents&#39; output is directly proportional to the quality of their input. A PRD isn&#39;t bureaucracy, it&#39;s the foundation that prevents your agent team from building six different interpretations of the same project.</p>
+</blockquote>
+<h2 id="chapter-3-designing-the-team-builder">Chapter 3: Designing the Team Builder</h2>
+<p>With the PRD skill working, the next challenge was translating a PRD into an agent team. This is where the framework&#39;s core innovation lives.</p>
+<p>The naive approach would be: &quot;Here&#39;s a PRD. Create some agents.&quot; But <em>how many</em> agents? <em>Which</em> specializations? <em>Where</em> do you draw the boundaries between them?</p>
+<p>The design process involved studying how real technical leads decompose projects:</p>
+<ul>
+<li><strong>Every project needs certain roles</strong>: Someone to set up the project structure (architect), someone to test everything (QA). These are non-negotiable.</li>
+<li><strong>Every major technology gets a specialist</strong>: If you&#39;re using Next.js and FastAPI, you want a Next.js expert and a FastAPI expert, not a &quot;full-stack generalist&quot; who&#39;s mediocre at both.</li>
+<li><strong>Every distinct feature domain gets an owner</strong>: Authentication is different from payments is different from notifications. Each deserves focused attention.</li>
+<li><strong>Cross-cutting concerns become specialists when they&#39;re substantial</strong>: If security is a checkbox, the architect handles it. If security is a core requirement (healthcare, finance), it gets its own agent.</li>
+</ul>
+<p>These heuristics were encoded into the <code>forge-build-agent-team</code> skill: a detailed process that the <code>forge-team-builder</code> agent follows. The skill doesn&#39;t just create agents; it <em>validates</em> the team. Every PRD requirement must map to exactly one agent. No gaps (requirements no one owns). No overlaps (requirements two agents fight over).</p>
+<p>The most important design decision in the team builder was the <strong>collaboration section</strong> in each agent&#39;s definition. Every agent explicitly declares:</p>
+<ul>
+<li><strong>Dependencies</strong>: What it needs from other agents before it can work</li>
+<li><strong>Handoffs</strong>: Where its work ends and another agent&#39;s begins</li>
+<li><strong>Coordination points</strong>: What needs to be synchronized</li>
+</ul>
+<p>This isn&#39;t just documentation, this is the contract that makes multi-agent coordination actually work. When the project orchestrator needs to decide what order to call agents in, it reads these collaboration sections. The dependencies become the execution graph.</p>
+<h3 id="the-takeaway-for-builders-2">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Don&#39;t just create agents: design a team.</strong> The value isn&#39;t in individual agents; it&#39;s in how they coordinate. Explicit boundaries and collaboration contracts prevent the chaos that comes from multiple AI agents working in the same codebase without clear ownership.</p>
+</blockquote>
+<h2 id="chapter-4-the-orchestrator-conducting-the-symphony">Chapter 4: The Orchestrator: Conducting the Symphony</h2>
+<p>This is cricital: Individual agents can do individual tasks. But who decides <em>what</em> to build <em>when</em>? Who makes sure the database schema exists before the API engineer tries to query it? Who verifies that Phase 1 is actually complete before Phase 2 begins?</p>
+<p>Enter the <code>project-orchestrator</code>: the project manager of the agent team.</p>
+<p>Building the orchestrator revealed something interesting about AI coordination: <strong>the hard part isn&#39;t making agents do work, it&#39;s making them do work in the right order, with the right context, and knowing when to stop.</strong></p>
+<p>The orchestrator&#39;s process is deceptively simple:</p>
+<ol>
+<li>Read the PRD. Understand all the phases.</li>
+<li>Read every agent file. Understand who can do what, and what they need from whom.</li>
+<li>For each phase, identify the right sequence of agent calls.</li>
+<li>Execute tasks, verify deliverables, handle dependencies.</li>
+<li>Provide progress updates. Flag blockers. Move to the next phase.</li>
+</ol>
+<p>But within that simplicity are subtle design choices:</p>
+<ul>
+<li><p><strong>The orchestrator never does implementation work itself.</strong> It coordinates, delegates, and validates. The the actual code, tests, and configuration come from specialist agents. This separation of concerns mirrors how the best project managers operate: they don&#39;t write code, they ensure the right people write the right code at the right time.</p>
+</li>
+<li><p><strong>Verification before progression.</strong> The orchestrator doesn&#39;t blindly move from Phase 1 to Phase 2. It checks that deliverables actually exist and meet acceptance criteria. This catches problems early, before they cascade.</p>
+</li>
+<li><p><strong>Error handling is explicit.</strong> When something goes wrong (as they usually do) an agent can&#39;t complete a task, requirements are ambiguous, dependencies are missing, the orchestrator stops and reports. It doesn&#39;t silently push through hoping things work out.</p>
+</li>
+</ul>
+<h3 id="the-takeaway-for-builders-3">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Coordination is the hardest problem in multi-agent systems.</strong> Don&#39;t underestimate it. A team of brilliant specialists without coordination produces chaos. Build your orchestration layer with the same care you build your specialist agents, maybe more.</p>
+</blockquote>
+<h2 id="chapter-5-the-first-real-world-test-and-what-it-revealed">Chapter 5: The First Real-World Test (and What It Revealed)</h2>
+<p>The framework worked. You could describe an idea or give it your existing work, get a validated PRD, generate an agent team, and orchestrate a build. But using it on real projects revealed gaps that theory hadn&#39;t predicted.</p>
+<h3 id="the-freshness-problem">The Freshness Problem</h3>
+<p>The first surprise was subtle but dangerous. An agent generating a Next.js application confidently used the Pages Router, <strong>which was the standard approach during its training data cutoff</strong>, when the App Router had been the recommended approach for months. Another agent installed a library version with known security vulnerabilities. The PRD said &quot;use React&quot; but didn&#39;t specify a version, and the agent used patterns from 2024!</p>
+<p>This wasn&#39;t a bug in any individual component. It was a <em>systemic gap</em>: <strong>the framework had no mechanism for ensuring agents used current information.</strong></p>
+<p>The instinct was to add &quot;always search for the latest version of everything&quot; to every agent. But that would be noisy, slow, and counterproductive: agents would spend half their time searching and second-guessing the PRD&#39;s deliberate choices.</p>
+<p>Instead, a research document was created: <code>latest-information-strategy.md</code>: that systematically analyzed:</p>
+<ul>
+<li>Where in the workflow does outdated information cause the most damage?</li>
+<li>What existing mitigations already help? (Human review, LLM knowledge, Copilot&#39;s web access)</li>
+<li>Where should we add targeted freshness checks?</li>
+</ul>
+<p>The answer was four surgical additions:</p>
+<ol>
+<li><strong>PRD Builder</strong>: Verify tech stack currency during PRD creation (catch it at the source)</li>
+<li><strong>Agent Template</strong>: Every generated agent gets a constraint to verify current APIs when uncertain</li>
+<li><strong>Orchestrator</strong>: Check tech stack currency before starting Phase 1 (last chance before code is written)</li>
+<li><strong>Team Builder</strong>: Include freshness instructions in every agent it generates (systemic, not ad-hoc)</li>
+</ol>
+<p>Four small changes across four files. No structural modifications. But they closed a gap that could have led to entire projects being built on deprecated foundations.</p>
+<h3 id="the-takeaway-for-a-builder">The Takeaway for a Builder</h3>
+<blockquote>
+<p><strong>Use your own framework. The gaps you find in real use are the ones that matter most.</strong> And when you find a gap, don&#39;t patch it everywhere: analyze where the fix has the highest impact with the lowest noise. Surgical fixes beat sledgehammer fixes every time.</p>
+</blockquote>
+<h2 id="chapter-6-the-feature-problem-what-happens-after-v1">Chapter 6: The Feature Problem: &quot;What Happens After V1?&quot;</h2>
+<p>The second major revelation came from a simple question: <em>&quot;Okay, the initial build is done. Now I want to add a feature. What do I do?&quot;</em></p>
+<p>The framework had no good answer.</p>
+<p>The existing workflow assumed a single PRD driving a single team generation driving a single build execution. It was a one-shot process. But real software development isn&#39;t one-shot: it&#39;s iterative. You build V1, then you add notifications, then you add payment processing, then you refactor the authentication layer.</p>
+<p>The naive solutions were all problematic:</p>
+<ul>
+<li><strong>Modify the original PRD and regenerate everything?</strong> That overwrites all the customizations users made to their agents after generation. Unacceptable.</li>
+<li><strong>Just call individual agents directly?</strong> That works for small changes but doesn&#39;t scale. How does a cross-cutting feature like &quot;real-time notifications&quot;, which touches the frontend, the API, and needs new WebSocket expertise get coordinated?</li>
+<li><strong>Create a whole new PRD from scratch?</strong> That ignores everything already built. The new PRD would have no awareness of existing agents, existing architecture, or completed phases.</li>
+</ul>
+<p>This wasn&#39;t a missing feature, it was a missing <em>workflow</em>. The solution required thinking through the entire lifecycle, not just adding a skill.</p>
+<p>Another research document was created: <code>feature-prd-strategy.md</code>, and this one was more complex. It identified six fundamental challenges:</p>
+<ol>
+<li><strong>Preserving existing agent customizations</strong>: Can&#39;t overwrite what users have refined</li>
+<li><strong>Understanding completed state</strong>: The feature needs to know what&#39;s already built</li>
+<li><strong>Agent boundary evolution</strong>: A new feature might cross existing agent boundaries</li>
+<li><strong>Orchestrator continuity</strong>: Feature phases are additive, not from-scratch</li>
+<li><strong>PRD versioning</strong>: Multiple PRDs need distinct IDs to avoid collisions</li>
+<li><strong>Backward compatibility</strong>: The existing workflow must remain untouched</li>
+</ol>
+<p>The solution was three coordinated capabilities that mirrored the existing workflow:</p>
+<pre><code>Original workflow:  Idea -&gt; PRD -&gt; Agent Team -&gt; Orchestrated Build
+
+Feature workflow:   Feature Idea -&gt; Feature PRD -&gt; Team Update -&gt; Feature Build
+</code></pre>
+<p>Each component was designed to be <em>context-aware</em>:</p>
+<ul>
+<li><p>The <strong>Feature PRD Builder</strong> (<code>forge-build-feature-prd</code>) reads the original PRD, scans existing agents, and examines the codebase before asking a single question. It knows what exists. Its output includes an &quot;Agent Impact Assessment&quot;: a section that explicitly maps the feature&#39;s impact onto the existing team.</p>
+</li>
+<li><p>The <strong>Team Builder</strong> gained an incremental mode. It auto-detects whether it&#39;s looking at a full PRD or a Feature PRD. In feature mode, it doesn&#39;t regenerate the team: it extends existing agents with new responsibilities, creates new agents only when needed, and leaves unaffected agents completely untouched. Changes are presented as diffs, not replacements.</p>
+</li>
+<li><p>The <strong>Orchestrator</strong> gained a feature execution mode. It reads both the original PRD and the Feature PRD, understands which phases are already complete, and executes only the new F-prefixed feature phases. It never re-executes original phases.</p>
+</li>
+</ul>
+<p>The most important design decision was using <strong>prefixed IDs</strong> everywhere: <code>FT-US-01</code> for feature user stories, <code>FT-FR-01</code> for feature requirements, <code>Phase F1</code> for feature phases. This simple convention prevents the collision that would happen when Feature PRD requirement <code>FR-01</code> conflicts with the original PRD&#39;s <code>FR-01</code>.</p>
+<h3 id="the-takeaway-for-builders-4">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Design for iteration from day one, but implement it when you actually need it.</strong> The original framework didn&#39;t support features, and that was fine for V1. But when the need arose, the research-first approach meant the solution was additive, not a rewrite. If you build your original architecture with clear boundaries and single sources of truth, adding iteration support later becomes an extension, not a surgery.</p>
+</blockquote>
+<h2 id="chapter-7-the-research-driven-approach">Chapter 7: The Research-Driven Approach</h2>
+<p>If there&#39;s one pattern that defined the entire development of Agent Forge, it&#39;s this: <strong>research before implementation</strong>.</p>
+<p>Every significant capability was preceded by a research document that followed the same structure:</p>
+<ol>
+<li><strong>The Question</strong>: What are we trying to solve? State it clearly.</li>
+<li><strong>Current State Analysis</strong>: What exists today? What&#39;s the gap? Be specific: reference actual file paths and line numbers.</li>
+<li><strong>Risk Assessment</strong>: What happens if we don&#39;t solve this? What are the failure modes?</li>
+<li><strong>Proposed Solution</strong>: How do we solve it? Multiple options considered, one recommended.</li>
+<li><strong>Implementation Plan</strong>: What specific files change? What&#39;s the effort? Is it backward compatible?</li>
+<li><strong>Open Questions</strong>: What haven&#39;t we figured out yet? What can we defer?</li>
+<li><strong>Summary Table</strong>: A clean summary a busy person can scan in 30 seconds.</li>
+</ol>
+<p>It served three practical purposes:</p>
+<p><strong>First, it prevented over-engineering.</strong> When you write down the risk assessment and implementation plan, you quickly see whether a change is proportionate to the problem. The freshness strategy could have been a massive &quot;agent verification framework&quot;. The research document showed that four small additions across four files would solve 80% of the problem.</p>
+<p><strong>Second, it created a decision trail.</strong> Six months from now, when someone asks &quot;why does the team builder have two modes?&quot;, the answer isn&#39;t &quot;because someone thought it was a good idea.&quot; It&#39;s a documented analysis with specific reasoning, tradeoff discussions, and rejected alternatives.</p>
+<p><strong>Third, it forced clarity before complexity.</strong> Writing &quot;the orchestrator needs to understand this is additive work, not a from-scratch build&quot; in a research document is how you discover that you need separate phase prefixes, not just a flag. The writing process surfaces edge cases that coding doesn&#39;t.</p>
+<h3 id="the-takeaway-for-builders-5">The Takeaway for Builders</h3>
+<blockquote>
+<p><strong>Write the research document before you write the code.</strong> Even if &quot;research document&quot; is just a page of notes in a markdown file. The act of writing down <em>what exists</em>, <em>what&#39;s missing</em>, <em>what could go wrong</em>, and <em>what specifically changes</em> will save you from building the wrong thing. It&#39;s not slower, it&#39;s faster, because you don&#39;t have to undo mistakes.</p>
+</blockquote>
+<h2 id="chapter-8-the-meta-lesson-building-tools-that-build-tools">Chapter 8: The Meta-Lesson: Building Tools That Build Tools</h2>
+<p>Here&#39;s the most interesting thing about Agent Forge: <strong>it&#39;s a framework that uses AI to create AI teams that build software</strong>. That recursion isn&#39;t accidental, it&#39;s the whole point.</p>
+<ul>
+<li>The PRD Builder skill doesn&#39;t fill in a template. It conducts an intelligent interview, challenges assumptions, and researches technology currency. </li>
+<li>The Team Builder doesn&#39;t just slot agents into predefined roles. It analyzes the specific requirements, identifies the right specialization boundaries, and validates coverage. </li>
+<li>The Orchestrator doesn&#39;t just call agents in a fixed order. It reads the dependency graph and adapts.</li>
+</ul>
+<p>At every layer, the principle is the same: <strong>give the AI enough structure to be effective, but enough freedom to adapt to the specific situation.</strong></p>
+<p>This balance: structure versus freedom, is the hardest thing to get right. Too much structure and your framework only works for one type of project. Too little and agents go off in unpredictable directions.</p>
+<p>The sweet spot, as discovered through building Agent Forge, is:</p>
+<ul>
+<li><strong>Structure the <em>process</em>, not the <em>output</em>.</strong> Tell agents <em>how</em> to think about a problem (analyze requirements -&gt; identify roles -&gt; validate coverage), not <em>what</em> to produce (always create exactly 6 agents with these exact names).</li>
+<li><strong>Make the PRD the single source of truth.</strong> Everything else is derived from it. If agents disagree, the PRD wins.</li>
+<li><strong>Use validation as a safety net.</strong> The team builder validates that every requirement has an owner. The orchestrator validates that deliverables exist before moving forward. These checks catch the cases where freedom leads to gaps.</li>
+</ul>
+<h2 id="chapter-9-your-turn-a-framework-for-building-frameworks">Chapter 9: Your Turn: A Framework for Building Frameworks</h2>
+<p>This story isn&#39;t just about Agent Forge. It&#39;s about a <em>process</em> for building any framework that coordinates AI agents, or, really, any complex system where multiple components need to work together.</p>
+<p>Here&#39;s the process, distilled:</p>
+<h3 id="step-1-identify-the-real-problem">Step 1: Identify the Real Problem</h3>
+<p>Don&#39;t start with the technology. Start with the frustration. What are you actually trying to make better? For Agent Forge, it was: &quot;One AI can&#39;t be an expert in everything simultaneously.&quot; Your problem will be different, but the approach is the same: name the pain clearly.</p>
+<h3 id="step-2-study-how-humans-solve-it">Step 2: Study How Humans Solve It</h3>
+<p>Before you design an AI system, understand the human system it mirrors. Agent Forge works because real development teams work: specialists with clear roles, coordinated by a project manager, working from shared requirements. Whatever your domain, there&#39;s a human process that already works. Find it. Understand it. Translate it.</p>
+<h3 id="step-3-build-the-foundation-first-prd-equivalent">Step 3: Build the Foundation First (PRD-Equivalent)</h3>
+<p>Every multi-agent system needs a single source of truth. For software, that&#39;s a PRD. For a content pipeline, it might be an editorial brief. For a data processing system, it might be a data specification. Whatever your domain, build the &quot;single source of truth creation&quot; tool first. Everything else depends on it.</p>
+<h3 id="step-4-design-agents-as-a-team-not-as-individuals">Step 4: Design Agents as a Team, Not as Individuals</h3>
+<p>It&#39;s tempting to build one amazing agent, then another, then another. Resist this. Design the <em>team</em>: the boundaries, the handoff points, the collaboration contracts. An individual agent&#39;s value comes from its place in the team, not its standalone capabilities.</p>
+<h3 id="step-5-build-orchestration-as-a-first-class-concern">Step 5: Build Orchestration as a First-Class Concern</h3>
+<p>Don&#39;t bolt coordination on later. Design your orchestration layer alongside your agents. The orchestrator needs to understand agent capabilities, dependencies, and validation criteria. It&#39;s not a simple scheduler: it&#39;s the glue that makes the team function.</p>
+<h3 id="step-6-use-it-break-it-fix-it-with-research">Step 6: Use It, Break It, Fix It (With Research)</h3>
+<p>Ship the first version. Use it on a real project. Document the gaps you find: not as bugs to patch, but as research questions to answer. &quot;How do we ensure agents use current information?&quot; is a better starting point than &quot;add a version check to every agent.&quot; The research-first approach leads to proportionate, surgical fixes instead of bloated workarounds.</p>
+<h3 id="step-7-design-for-iteration">Step 7: Design for Iteration</h3>
+<p>Your V1 will handle the greenfield case. Eventually, you&#39;ll need to handle the &quot;what now?&quot; case: new features, changed requirements, evolved capabilities. When that happens, follow the same research-first approach: understand the existing state, identify the specific challenges, and design an additive solution that doesn&#39;t break what&#39;s working.</p>
+<h3 id="step-8-document-the-journey">Step 8: Document the Journey</h3>
+<p>You&#39;re reading this document because someone decided the <em>process</em> was as valuable as the <em>product</em>. Every research document, every design decision, every rejected alternative: these aren&#39;t just artifacts. They&#39;re the knowledge that lets other people build on your work, learn from your mistakes, and create their own versions of what you&#39;ve built.</p>
+<h2 id="epilogue-what-we-actually-built">Epilogue: What We Actually Built</h2>
+<p>Let&#39;s zoom out and see the whole picture.</p>
+<p><strong>McFuzzy Agent Forge</strong> is a template repository that takes an idea and turns it into a coordinated team of AI specialists:</p>
+<pre><code> ┌─────────────┐     ┌──────────────┐     ┌──────────────────┐     ┌─────────────────┐
+ │  Your Idea   │ ──→ │  PRD Builder  │ ──→ │   Team Builder    │ ──→ │   Orchestrator   │
+ │              │     │  (Interview)  │     │ (Specialist Team) │     │  (Coordination)  │
+ └─────────────┘     └──────────────┘     └──────────────────┘     └─────────────────┘
+                            │                      │                        │
+                      Comprehensive PRD      Agent Files +           Phased Execution
+                      (Single Source          Skill Files             with Validation
+                       of Truth)             (Clear Ownership)       and Handoffs
+</code></pre>
+<p>And when V1 is done:</p>
+<pre><code> ┌─────────────────┐     ┌────────────────────┐     ┌───────────────┐     ┌─────────────────┐
+ │  Feature Idea    │ ──→ │  Feature PRD Builder │ ──→ │ Team Updater   │ ──→ │   Orchestrator   │
+ │  (on existing    │     │  (Context-Aware)     │     │ (Incremental)  │     │  (Feature Mode)  │
+ │   project)       │     └────────────────────┘     └───────────────┘     └─────────────────┘
+ └─────────────────┘            │                          │                        │
+                          Feature PRD               Only Changed/New          Feature Phases
+                          (Impact Assessment,       Agent Files              (F-prefixed,
+                           Prefixed IDs)            (Diff-based)             Context-aware)
+</code></pre>
+<p>The components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What It Does</th>
+<th>Why It Exists</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>forge-build-prd</code> skill</td>
+<td>Creates PRDs through AI-guided interviews</td>
+<td>A team needs a single source of truth</td>
+</tr>
+<tr>
+<td><code>forge-build-feature-prd</code> skill</td>
+<td>Creates feature PRDs aware of existing projects</td>
+<td>V1 isn&#39;t the end — iteration needs structure too</td>
+</tr>
+<tr>
+<td><code>forge-build-agent-team</code> skill</td>
+<td>Transforms PRDs into agent team definitions</td>
+<td>Manual agent creation doesn&#39;t scale or validate</td>
+</tr>
+<tr>
+<td><code>forge-team-builder</code> agent</td>
+<td>Executes the team-building process</td>
+<td>An agent follows the skill&#39;s process to design teams</td>
+</tr>
+<tr>
+<td><code>project-orchestrator</code> agent</td>
+<td>Coordinates agents through implementation phases</td>
+<td>Specialists without coordination produce chaos</td>
+</tr>
+<tr>
+<td>Bootstrap scripts</td>
+<td>Deploy templates to any repository</td>
+<td>The framework should be easy to adopt</td>
+</tr>
+</tbody></table>
+<p>Each component was built in response to a real need, validated through real use, and refined through documented research. Nothing was added &quot;just in case.&quot; Everything earns its place.</p>
+<h2 id="the-principles-that-guided-everything">The Principles That Guided Everything</h2>
+<p>If you take nothing else from this story, take these:</p>
+<ol>
+<li><p><strong>Start with the problem, not the technology.</strong> The best frameworks solve real frustrations, not imagined ones.</p>
+</li>
+<li><p><strong>Mirror human processes.</strong> If real teams work with PRDs, specialists, and project managers, your AI teams should too.</p>
+</li>
+<li><p><strong>Single source of truth, always.</strong> Every agent, every decision, every validation should trace back to one authoritative document.</p>
+</li>
+<li><p><strong>Research before implementation.</strong> Write down what exists, what&#39;s missing, what could go wrong, and what specifically changes. Then build.</p>
+</li>
+<li><p><strong>Additive, not destructive.</strong> New capabilities should extend the framework, not rewrite it. If your new feature requires rewriting existing code, your architecture needs rethinking.</p>
+</li>
+<li><p><strong>Validate at every layer.</strong> The PRD builder validates tech currency. The team builder validates coverage. The orchestrator validates deliverables. Trust, but verify.</p>
+</li>
+<li><p><strong>Design for iteration.</strong> V1 is never the end. Build your foundations so that V2 is an extension, not a replacement.</p>
+</li>
+<li><p><strong>Document the why, not just the what.</strong> Code tells you what was built. Research documents tell you <em>why</em> — and that&#39;s what lets other people build their own versions.</p>
+</li>
+</ol>
+<p>And thats the story, <strong>and here is the repo</strong>: <a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge</a></p>
+<p><em>This is the story of how my Agent Forge came to be. But more importantly, it&#39;s a playbook. Take it. Adapt it. Build your own version. The patterns work whether you&#39;re building AI agent teams, data pipelines, content systems, or anything else where multiple specialized components need to work together toward a shared goal.</em></p>
+<p><em>The tools will change. The process won&#39;t.</em></p>
+<p><strong>Made with ❤️ and a lot of research documents by <a href="https://github.com/McFuzzySquirrel">McFuzzySquirrel</a></strong></p>
+16:T4908,<p><em>Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am learning that may be useful to others, so this will evolve as the project evolves.</em></p>
+<p>I am testing a simple but high-stakes question: can a learner in South Africa get a useful AI maths tutor on a low-cost Android phone, fully offline, with no subscription and no internet dependency?</p>
+<p>This post shares what I have measured so far, what is working, what changed after real spike data, and how I built a companion system to preserve every decision so progress compounds instead of resetting every session.</p>
+<p>This article covers two systems:</p>
+<ol>
+<li><strong>eZansiEdgeAI Small</strong>: the solution I am investigating and building to bring AI to the edge of access, with AI agents working from a comprehensive vision.</li>
+<li><strong>Engineering Journey System (EJS)</strong>: the system I built to track what AI agents are doing, in collaboration with me and with each other. I now use this in all my projects.</li>
+</ol>
+<h2 id="ezansiedgeai-small">eZansiEdgeAI Small</h2>
+<h3 id="what-am-i-trying-to-solve">What am I trying to solve?</h3>
+<p>South Africa has a learning crisis that predates load-shedding, predates COVID, and predates most technology conversations.</p>
+<p>Too many learners sit in under-resourced classrooms, go home to households without reliable internet, and do not have access to a patient, knowledgeable tutor who can explain things in a way that makes sense to them, right now, for free.</p>
+<p>Yes, there is a global EdTech boom. But it often bypasses these learners. Many solutions require internet. Cloud AI often requires subscriptions and data plans. Even many so-called offline apps are thin wrappers that still need to phone home when anything interesting happens.</p>
+<p>So the question I am trying to answer is simple, but heavily constrained:</p>
+<blockquote>
+<p>Can a small language model, running entirely on a cheap Android phone, with no internet connection, tutor a learner through a South African CAPS curriculum?</p>
+</blockquote>
+<p>Today. Not in the distant future. Not on expensive hardware most people cannot buy or support.</p>
+<h3 id="so-what-is-the-answer">So what is the answer?</h3>
+<p>The answer is <strong>maybe</strong>.</p>
+<p>And maybe needs to be tested first.</p>
+<p>Intent, vision, and specs are important, but feasibility matters more. If it is not feasible, you risk building an impressive but ineffective hobby project.</p>
+<p>That is why I am using a spike-driven engineering approach: time-boxed research experiments to reduce risk, clarify requirements, and improve estimates before deeper implementation.</p>
+<p>A useful reference: Agile spikes help teams deliver knowledge so teams can deliver products.</p>
+<h2 id="what-i-am-betting-on">What I am betting on</h2>
+<p>I deliberately picked a hard starting point: <strong>Grade 6 CAPS maths</strong>.</p>
+<h3 id="1-small-models-can-be-good-enough-for-curriculum-bounded-tutoring">1. Small models can be good enough for curriculum-bounded tutoring</h3>
+<p>A general-purpose LLM must know everything. A curriculum tutor only needs to know bounded material: fractions, decimals, basic geometry, patterns, measurement.</p>
+<p>That is a tractable domain.</p>
+<p>A smaller model running on-device, grounded by retrieval that feeds the right curriculum chunks, might be sufficient even if benchmark scores are not flashy.</p>
+<p>After benchmarking several candidates, I selected <strong>Qwen2.5-1.5B</strong>.</p>
+<p>Running Qwen2.5-1.5B locally for the first time, watching it generate coherent maths explanations in under 10 seconds, entirely offline, was a major moment.</p>
+<p>The model works. RAM budget fits on 4 GB hardware. The bigger challenges are prompt design, curriculum grounding, and Android runtime integration.</p>
+<p>You can review the model tests and results in the LLM spike report:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md">https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md</a></p>
+<h3 id="2-retrieval-is-the-quality-multiplier">2. Retrieval is the quality multiplier</h3>
+<p>RAG helps create an accuracy guarantee.</p>
+<p>Instead of relying on model memory alone (and risking hallucinations), the plan is to embed CAPS content locally, retrieve relevant chunks, and ground every generation call.</p>
+<p>In that setup, the LLM is the reasoning and language engine. The content pack is the source of truth.</p>
+<p>Feasibility target:</p>
+<ul>
+<li>Tiny embedding model + local vector store on-device alongside the LLM</li>
+<li><blockquote>
+<p>= 80% retrieval accuracy on curriculum content</p>
+</blockquote>
+</li>
+<li>Fit within RAM and storage budgets</li>
+</ul>
+<p>After benchmarking candidates, I selected <strong>all-MiniLM-L6-v2</strong> with <strong>FAISS Flat</strong> as the V1 vector store.</p>
+<p>You can review those benchmark results here:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-002-embedding-retrieval/reports/spike-report.md">https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-002-embedding-retrieval/reports/spike-report.md</a></p>
+<p>This result surprised me: all-MiniLM-L6-v2 achieved <strong>100% top-3 retrieval accuracy</strong> on 20 handcrafted Grade 6 CAPS maths queries.</p>
+<p>Fractions, decimals, geometry, and measurement all returned correct chunks in top-3 every time.</p>
+<p>That tells me the retrieval architecture is viable before writing Android integration code.</p>
+<p>I still expect real-world issues later (for example, curriculum completeness), but feasibility is confirmed.</p>
+<h3 id="3-the-hardware-floor-is-achievable">3. The hardware floor is achievable</h3>
+<p>Original target was 3 GB devices. That left only <strong>209 MB RAM headroom</strong> after loading the LLM, effectively a project-killer constraint.</p>
+<p>Embedding/retrieval spike measured actual embedding cost:</p>
+<ul>
+<li>all-MiniLM-L6-v2 peak RAM: <strong>554 MB</strong></li>
+</ul>
+<p>This made the right decision obvious: raise minimum device floor to <strong>4 GB RAM</strong>.</p>
+<p>Headroom shifted from <strong>209 MB</strong> to <strong>1,161 MB</strong>. Risk profile changed dramatically.</p>
+<p>Current measured feasibility snapshot:</p>
+<ul>
+<li>Qwen2.5-1.5B: <strong>1,839 MB RAM</strong>, ~8 second responses on x86 host</li>
+<li>all-MiniLM-L6-v2: <strong>87 MB on disk</strong>, <strong>554 MB peak RAM</strong></li>
+<li>Total first-launch download: ~<strong>1.15 GB</strong></li>
+</ul>
+<p>That is feasible on affordable 4 GB devices in the South African market.</p>
+<h3 id="4-storage-constraints-must-be-honest">4. Storage constraints must be honest</h3>
+<p>An early constraint was APK &lt;= 150 MB installed.</p>
+<p>That was written before Qwen2.5 measurements. Ambitious, but wrong.</p>
+<p>Rather than architecting around a false target, I redefined packaging:</p>
+<ul>
+<li>APK &lt;= 50 MB</li>
+<li>First-launch model downloads &lt;= 1.2 GB</li>
+<li>Content packs &lt;= 200 MB each</li>
+</ul>
+<p>This mirrors how mobile games handle large asset packs. It is a practical compromise based on measured feasibility.</p>
+<h2 id="the-system-i-built-to-remember-everything-engineering-journey-system-ejs">The System I Built to Remember Everything: Engineering Journey System (EJS)</h2>
+<p>This part is harder to explain, but equally important.</p>
+<p>EJS is a separate project focused on capturing human-to-agent and agent-to-agent collaboration.</p>
+<p>I want to know what agents are doing, both for auditability and as a learning system for myself (and hopefully for the agents over time).</p>
+<p>You can view current journey records and ADRs for eZansiEdgeAI Small here:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs">https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs</a></p>
+<h3 id="why-i-built-ejs">Why I built EJS</h3>
+<p>Decisions are where knowledge lives, not code.</p>
+<p>Code is output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.</p>
+<p>Traditionally, this disappears into chats, meetings, or memory. With multiple agents, this problem can grow as context windows and logs evolve.</p>
+<p>I wanted to preserve:</p>
+<ul>
+<li>Prompt/response trail and the why behind changes</li>
+<li>Experiments attempted, evidence observed, and pivots made</li>
+<li>Trade-offs considered but not chosen</li>
+<li>Agent influence versus human overrides/corrections</li>
+</ul>
+<p>EJS captures this reality with low friction and strong auditability:</p>
+<ul>
+<li>One Session Journey per session: initialized at start, updated throughout, finalized at end</li>
+<li>ADRs only for significant decisions: conditional and numbered to keep the ADR ledger curated</li>
+<li>Repo-portable and tool-agnostic structure: usable in GitHub web, VS Code, and team workflows</li>
+<li>Non-competing observer model: EJS records silently and does not override existing agent instructions</li>
+</ul>
+<h3 id="what-ejs-captures">What EJS captures</h3>
+<ul>
+<li><strong>Architecture Decision Records (ADRs)</strong>: significant decisions with context, alternatives, and consequences</li>
+<li><strong>Session Journey files</strong>: running logs of what was tried, changed, learned, and suggested (including adoption/rejection)</li>
+<li><strong>Searchable decision database</strong>: Python indexing of ADRs into a queryable store so new sessions can ask, have we already decided this?</li>
+</ul>
+<h2 id="how-this-changed-my-work-with-ai">How this changed my work with AI</h2>
+<p>I use GitHub Copilot as my primary engineering collaborator.</p>
+<p>EJS changes the collaboration dynamic in a specific way: Copilot does not just write code. It documents reasoning during the session.</p>
+<p>Pattern reference:
+<a href="https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md">https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md</a></p>
+<p>Every decision made in a session gets recorded. ADRs get created when decisions happen, not days later. Benchmark results and iterations are logged while fresh.</p>
+<p>The result is auditable AI collaboration.</p>
+<p>Example: I can inspect ADR-0007 and see exactly why all-MiniLM-L6-v2 was chosen over bge-small-en-v1.5, based on recorded evidence at decision time.</p>
+<h2 id="what-i-am-learning-about-ai-assisted-engineering">What I am learning about AI-assisted engineering</h2>
+<h3 id="the-quality-of-output-depends-on-the-quality-of-constraints">The quality of output depends on the quality of constraints</h3>
+<p>With vague briefs, Copilot gives vague plans.</p>
+<p>With measurable constraints (RAM in MB, latency in ms, accuracy thresholds), it gives testable plans.</p>
+<p>EJS reinforces this discipline. You cannot write a decision record without a reason, and you cannot state the reason without understanding the constraint.</p>
+<h3 id="human-and-agent-both-need-memory">Human and agent both need memory</h3>
+<p>A single LLM session is effectively stateless.</p>
+<p>It will not reliably remember earlier decisions, rejection rationales, or measured headroom.</p>
+<p>EJS session files and ADRs provide persistent memory. Starting each session with that context immediately improves collaboration quality.</p>
+<h3 id="incremental-recording-beats-end-of-session-reconstruction">Incremental recording beats end-of-session reconstruction</h3>
+<p>I tested both.</p>
+<p>Reconstructed notes are thin, lose pivots, and miss near-turning points.</p>
+<p>Capturing at decision-time is richer, more accurate, and more useful.</p>
+<h3 id="rejection-is-as-valuable-as-adoption">Rejection is as valuable as adoption</h3>
+<p>The EJS Agent Influence section records both.</p>
+<p>That has become some of the highest-value data in the system.</p>
+<p>When Copilot proposed tiered device strategies for RAM fallback, I rejected that in favor of a simpler 4 GB floor raise. That rejection and rationale are now explicit, so future sessions do not re-propose it without context.</p>
+<h2 id="the-bigger-picture">The bigger picture</h2>
+<p>This project sits at the intersection of three priorities:</p>
+<ol>
+<li><strong>Equitable access to learning</strong></li>
+</ol>
+<p>The learners this is for do not have easy fallbacks. No tutor, no stable data budget, no guaranteed power.</p>
+<ol start="2">
+<li><strong>Honest engineering</strong></li>
+</ol>
+<p>Edge AI in education often demos well on high-end hardware and fails on target devices.</p>
+<p>Spike-first methodology (measure first, decide second, build third) is the only approach I trust for this work.</p>
+<ol start="3">
+<li><strong>Compounding knowledge</strong></li>
+</ol>
+<p>EJS is a bet that project two benefits from project one, and project three benefits from project two.</p>
+<p>Decisions made today should not need to be rediscovered next year.</p>
+<h2 id="where-this-goes-next">Where this goes next</h2>
+<p>Phase 0 spikes validated technical bets one by one.</p>
+<p>Next step is building the real content pack: CAPS Grade 6 fractions content with precomputed embeddings, then:</p>
+<ul>
+<li>Wire LLM + embedding + content pack into an end-to-end pipeline</li>
+<li>Validate battery and thermal behavior on actual Android hardware</li>
+</ul>
+<p>If I can sustain this end-to-end loop under 15 seconds offline (question -&gt; retrieve -&gt; grounded tutoring response), Phase 1 begins:</p>
+<ul>
+<li>Android app</li>
+<li>Learner interaction model</li>
+<li>Teacher dashboard</li>
+<li>Content authoring tools</li>
+</ul>
+<p>None of that matters without a sound foundation. Spikes are that foundation.</p>
+<h2 id="a-note-on-what-small-means">A note on what Small means</h2>
+<p>eZansiEdgeAI Small is named intentionally.</p>
+<p>eZansi means down below or from the south in Zulu, grounding where this is built and who it is for.</p>
+<p>Small means:</p>
+<ul>
+<li>It runs on the phone in a learner&#39;s pocket</li>
+<li>It does not require reliable internet, data budgets, or stable power</li>
+<li>It is curriculum-bounded, not trying to know everything, but trying to explain the right thing well enough for a learner right now</li>
+</ul>
+<p>In this project, small is the most ambitious thing I can build.</p>
+<h2 id="the-product-requirements-document">The Product Requirements Document</h2>
+<p>Up to now, I have been operating from a detailed project vision that functioned like a PRD.</p>
+<p>For the next phase, I need broader collaboration, and that requires a structured source of truth. So I created a consolidated PRD that:</p>
+<ul>
+<li>Unifies vision, architecture decisions (ADR-0001 to ADR-0008), Phase 0 spike results, engineering principles, and product documentation</li>
+<li>Is self-contained enough that developers, AI agents, and stakeholders can understand V1 scope from this document alone</li>
+</ul>
+<p>Note: You can view the full PRD in the repository.</p>
+<h2 id="phase-1-bring-in-the-agent-team">Phase 1: Bring in the agent team</h2>
+<p>Feasibility testing has transitioned from spikes into a validated, working local end-to-end AI pipeline with strong foundations for scaling.</p>
+<p>Highlights so far:</p>
+<ul>
+<li><strong>Content Pack Builder</strong>: SQLite-based chunks -&gt; embeddings -&gt; FAISS -&gt; pack pipeline, with 100% validation accuracy and strong local performance</li>
+<li><strong>End-to-End pipeline</strong>: embed -&gt; retrieve -&gt; generate using local models, including hardware constraint mitigation through CPU fallback and measurable reporting</li>
+</ul>
+<p>Next objective is a minimal but usable fully offline Android app for grounded maths tutoring.</p>
+<p>To do that, I assembled a specialized agent team with clearly scoped ownership:</p>
+<ul>
+<li>Project orchestrator</li>
+<li>Project architect</li>
+<li>Learner data engineer</li>
+<li>Content pack engineer</li>
+<li>AI pipeline engineer</li>
+<li>Android UI engineer</li>
+<li>QA test engineer</li>
+</ul>
+<p>As mentioned earlier, this team is highly specialized by design.</p>
+<h2 id="switching-to-github-copilot-cli">Switching to GitHub Copilot CLI</h2>
+<p>Most earlier work happened in VS Code.</p>
+<p>For this phase, I shifted to GitHub Copilot CLI because it is optimized for autonomous multi-agent operation while keeping a familiar workflow.</p>
+<p>The first step was running the Project Orchestrator for Phase 1. It has already organized specialist agent sequencing based on implementation dependencies and phase objectives.</p>
+<p>If you want to learn how this team was created, see McFuzzy Agent Forge:
+<a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge</a></p>
+<p>It transforms a PRD into a specialized team of custom agents and reusable skills with clear ownership and collaboration patterns.</p>
+<p>There is more in progress, and I will post updates as it evolves.</p>
+<h2 id="notes">Notes</h2>
+<p>This article reflects the state of the project as of March 2026.</p>
+<p>Repositories:</p>
+<ul>
+<li>eZansiEdgeAI Small (spike results, ADRs, session journals):
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small">https://github.com/McFuzzySquirrel/ezansiedgeai-small</a></li>
+<li>Engineering Journey System (EJS):
+<a href="https://github.com/McFuzzySquirrel/Engineering-Journey-System">https://github.com/McFuzzySquirrel/Engineering-Journey-System</a></li>
+<li>McFuzzy Agent Forge:
+<a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge</a></li>
+</ul>
+<p>Special thanks to Nabeel Prior for encouragement, thoughtful input, and support throughout this journey.</p>
+<p>All of my projects exist for one core reason: learning through experimentation.</p>
+<p>Each repository starts with questions like: Is this possible? I wonder if...?</p>
+<p>Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All are honest reflections of learning in progress.</p>
+<p>Expect some projects to be messy, others structured, all of them real.</p>
+<p>Feel free to reuse, modify, and build on anything here in your own repositories.</p>
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","h1",null,{"children":"Blog"}],["$","p",null,{"className":"blog-intro","children":"Build notes, experiments, and lessons learned along the way."}],["$","$Le",null,{"posts":[{"categories":["personal","project"],"date":"$D2026-10-06T19:55:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p>A reflection on how MyForge has evolved from Agent Forge, what it does, and where it fits in the broader value chain.</p>\n</blockquote>\n","excerptText":"A reflection on how MyForge has evolved from Agent Forge, what it does, and where it fits in the broader value chain.","html":"$f","previewUrl":"/personal/project/2026/10/06/reflecting-on-myforge","tags":["myforge","agent forge","AI agents","value chain"],"title":"Reflecting on MyForge: From Agent Forge to the Value Chain","toc":[{"id":"reflection","title":"Reflection"},{"id":"conclusion","title":"Conclusion"}],"url":"/personal/project/2026/10/06/reflecting-on-myforge.html","routeSegments":["personal","project","2026","10","06","reflecting-on-myforge"],"readingMinutes":6},{"categories":["personal","project"],"date":"$D2026-08-10T14:40:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p>What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement.</p>\n</blockquote>\n","excerptText":"What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement.","html":"$10","previewUrl":"/personal/project/2026/08/10/the-unexpected-journey","tags":["ai","agents","skill-forge","llm","automation","knowledge-systems","software-engineering"],"title":"The unexpected journey of building Skill Forge","toc":[],"url":"/personal/project/2026/08/10/the-unexpected-journey.html","routeSegments":["personal","project","2026","08","10","the-unexpected-journey"],"readingMinutes":5},{"categories":["personal","project"],"date":"$D2026-05-30T16:30:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p><em>What if notes were not pages to read, but a world to explore?</em></p>\n</blockquote>\n<p>I have been building a project called <strong>Knowledge Dungeon</strong>, and it has evolved far beyond a simple study tool.</p>\n<p>It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents?</p>\n<p>The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading.</p>\n","excerptText":"What if notes were not pages to read, but a world to explore? I have been building a project called Knowledge Dungeon , and it has evolved far beyond a simple study tool. It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents? The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading.","html":"$11","previewUrl":"/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world","tags":["knowledge dungeon","educational gaming","procedural generation","knowledge mapping","repo-dungeon"],"title":"Knowledge Dungeon: Turning Study Notes into an Explorable World","toc":[{"id":"from-repo-dungeon-idea-to-playable-learning-world","title":"From Repo-Dungeon Idea to Playable Learning World"},{"id":"what-is-built-so-far","title":"What Is Built So Far"},{"id":"areas-this-brings-together","title":"Areas This Brings Together"},{"id":"a-practical-spinout-repo-mapping-for-developers","title":"A Practical Spinout: Repo Mapping for Developers"}],"url":"/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html","routeSegments":["personal","project","2026","05","30","knowledge-dungeon-from-notes-to-explorable-world"],"readingMinutes":3},{"categories":["personal","project"],"date":"$D2026-04-18T18:00:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p><em>A hackathon challenge, a kid&#39;s idea about rockets, and seventeen months of &quot;I&#39;ll get to it eventually&quot;, this is the story of what happened when I finally did.</em></p>\n</blockquote>\n<p>It started at a hackathon in November 2024: someone challenged me to build an app that helps people sing, in an afternoon. We did it. My son play-tested it with me, the dogs lost their minds, and between the laughter he asked: <em>&quot;Can we change it into a rocket game?&quot;</em></p>\n<p>Seventeen months later, I finally had the answer, and the tools to build it. This is the story of revisiting that repo, what I found, what I built with <a href=\"https://mcfuzzysquirrel.github.io/personal/update/2026/03/20/story-of-agent-forge.html\">Agent Forge</a>, and what I learned about the gap between &quot;technically correct&quot; and &quot;actually playable.&quot;</p>\n","excerptText":"A hackathon challenge, a kid's idea about rockets, and seventeen months of \"I'll get to it eventually\", this is the story of what happened when I finally did. It started at a hackathon in November 2024: someone challenged me to build an app that helps people sing, in an afternoon. We did it. My son play-tested it with me, the dogs lost their minds, and between the laughter he asked: \"Can we change it into a rocket game?\" Seventeen months later, I finally had the answer, and the tools to build it. This is the story of revisiting that repo, what I found, what I built with Agent Forge , and what I learned about the gap between \"technically correct\" and \"actually playable.\"","html":"$12","previewUrl":"/personal/project/2026/04/18/revisiting-vibn-rocket-game-17-months-later","tags":["agent forge","game development","voice","AI orchestration","revisiting projects"],"title":"Revisiting Vib'N: From a Pitch Experiment to a Rocket Game, 17 Months Later","toc":[{"id":"the-original-a-hackathon-challenge-november-2024","title":"The Original: A Hackathon Challenge (November 2024)"},{"id":"the-question-that-changed-everything","title":"The Question That Changed Everything"},{"id":"bringing-agent-forge-to-a-real-project","title":"Bringing Agent Forge to a Real Project"},{"id":"what-got-built-vibn-rocket-to-the-moon","title":"What Got Built: Vib'N Rocket to the Moon"},{"id":"the-human-in-the-loop-iterating-after-launch","title":"The Human in the Loop: Iterating After Launch"},{"id":"by-the-numbers","title":"By the Numbers"},{"id":"what-id-do-next","title":"What I'd Do Next"},{"id":"the-takeaway","title":"The Takeaway"}],"url":"/personal/project/2026/04/18/revisiting-vibn-rocket-game-17-months-later.html","routeSegments":["personal","project","2026","04","18","revisiting-vibn-rocket-game-17-months-later"],"readingMinutes":9},{"categories":["personal","tools"],"date":"$D2026-04-10T06:00:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p><em>65 days. 23 sessions. 9 architectural decisions. This is the complete story of how I built a system to stop losing context between AI sessions, and how it ended up documenting its own construction.</em></p>\n</blockquote>\n<p>The Engineering Journey System (EJS) started as a frustration: every AI coding session began from scratch, losing all the reasoning, decisions, and dead ends from the sessions before. This post traces the full arc of building EJS, from the first decision to make interaction capture mandatory, through sub-agent blindness, SQLite-backed ADR indexing, a four-layer architecture, and 79% context reduction, all the way to a system that is now reusable, non-invasive, and provably works at scale.</p>\n","excerptText":"65 days. 23 sessions. 9 architectural decisions. This is the complete story of how I built a system to stop losing context between AI sessions, and how it ended up documenting its own construction. The Engineering Journey System (EJS) started as a frustration: every AI coding session began from scratch, losing all the reasoning, decisions, and dead ends from the sessions before. This post traces the full arc of building EJS, from the first decision to make interaction capture mandatory, through sub-agent blindness, SQLite-backed ADR indexing, a four-layer architecture, and 79% context reduction, all the way to a system that is now reusable, non-invasive, and provably works at scale.","html":"$13","previewUrl":"/personal/tools/2026/04/10/complete-story-engineering-journey-system","tags":["engineering journey","AI agents","knowledge management","workflow"],"title":"The Complete Story of the Engineering Journey System","toc":[{"id":"a-chronicle-of-building-agent-collaborative-learning-infrastructure","title":"A Chronicle of Building Agent-Collaborative Learning Infrastructure"},{"id":"prologue-why-this-story-matters","title":"Prologue: Why This Story Matters"},{"id":"the-arc-foundation-february-510","title":"The Arc: Foundation (February 5–10)"},{"id":"the-arc-infrastructure-march-24","title":"The Arc: Infrastructure (March 2–4)"},{"id":"the-arc-platform-understanding-march-1130","title":"The Arc: Platform Understanding (March 11–30)"},{"id":"the-arc-simplification-march-13-and-march-30april-8","title":"The Arc: Simplification (March 13, and March 30–April 8)"},{"id":"the-arc-reinforcement-april-910","title":"The Arc: Reinforcement (April 9–10)"},{"id":"key-learnings-and-themes","title":"Key Learnings & Themes"},{"id":"the-four-layer-architecture-in-final-form","title":"The Four-Layer Architecture in Final Form"},{"id":"where-it-stands-april-10-2026","title":"Where It Stands (April 10, 2026)"},{"id":"epilogue-the-meta-journey","title":"Epilogue: The Meta-Journey"},{"id":"quick-reference-the-nine-decisions-adrs-00100018","title":"Quick Reference: The Nine Decisions (ADRs 0010–0018)"}],"url":"/personal/tools/2026/04/10/complete-story-engineering-journey-system.html","routeSegments":["personal","tools","2026","04","10","complete-story-engineering-journey-system"],"readingMinutes":12},{"categories":["personal","workflow"],"date":"$D2026-03-26T03:55:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p><em>How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable.</em></p>\n</blockquote>\n<p>Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.</p>\n","excerptText":"How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.","html":"$14","previewUrl":"/personal/workflow/2026/03/26/ai-assisted-research","tags":[],"title":"The AI-Assisted Research Habit: From Questions to Informed Decisions","toc":[{"id":"the-evolution-of-a-habit","title":"The Evolution of a Habit"},{"id":"the-three-phase-dance-research-build-record","title":"The Three-Phase Dance: Research, Build, Record"},{"id":"why-this-changes-everything","title":"Why This Changes Everything"},{"id":"the-pattern-agnostic-to-tools","title":"The Pattern, Agnostic to Tools"},{"id":"real-world-example-adding-a-new-feature","title":"Real-World Example: Adding a New Feature"},{"id":"the-habits-impact","title":"The Habit's Impact"},{"id":"starting-your-own-habit","title":"Starting Your Own Habit"},{"id":"the-lesson-i-learned","title":"The Lesson I learned"},{"id":"your-turn","title":"Your Turn"}],"url":"/personal/workflow/2026/03/26/ai-assisted-research.html","routeSegments":["personal","workflow","2026","03","26","ai-assisted-research"],"readingMinutes":9},{"categories":["personal","update"],"date":"$D2026-03-20T19:45:00.000Z","draft":false,"excerptHtml":"<blockquote>\n<p><em>How a simple question: &quot;What if AI could work like a real team?&quot;, became a framework that turns ideas into coordinated agent teams.</em></p>\n</blockquote>\n<p>Agent Forge started as a practical response to a recurring problem: one AI assistant can do many things, but complex projects still need specialist thinking, clear ownership, and coordinated execution.</p>\n<p>This post shares how I designed a PRD-first, multi-agent workflow that turns an idea into a structured team of AI specialists with an orchestrator that keeps delivery moving in the right order.</p>\n","excerptText":"How a simple question: \"What if AI could work like a real team?\", became a framework that turns ideas into coordinated agent teams. Agent Forge started as a practical response to a recurring problem: one AI assistant can do many things, but complex projects still need specialist thinking, clear ownership, and coordinated execution. This post shares how I designed a PRD-first, multi-agent workflow that turns an idea into a structured team of AI specialists with an orchestrator that keeps delivery moving in the right order.","html":"$15","previewUrl":"/personal/update/2026/03/20/story-of-agent-forge","tags":["agent systems","frameworks","AI orchestration"],"title":"The Story of Agent Forge: Building an AI Development Team from Scratch","toc":[{"id":"the-spark","title":"The Spark"},{"id":"chapter-1-starting-with-the-problem-not-the-solution","title":"Chapter 1: Starting with the Problem, Not the Solution"},{"id":"chapter-2-the-prd-first-epiphany","title":"Chapter 2: The PRD-First Epiphany"},{"id":"chapter-3-designing-the-team-builder","title":"Chapter 3: Designing the Team Builder"},{"id":"chapter-4-the-orchestrator-conducting-the-symphony","title":"Chapter 4: The Orchestrator: Conducting the Symphony"},{"id":"chapter-5-the-first-real-world-test-and-what-it-revealed","title":"Chapter 5: The First Real-World Test (and What It Revealed)"},{"id":"chapter-6-the-feature-problem-what-happens-after-v1","title":"Chapter 6: The Feature Problem: \"What Happens After V1?\""},{"id":"chapter-7-the-research-driven-approach","title":"Chapter 7: The Research-Driven Approach"},{"id":"chapter-8-the-meta-lesson-building-tools-that-build-tools","title":"Chapter 8: The Meta-Lesson: Building Tools That Build Tools"},{"id":"chapter-9-your-turn-a-framework-for-building-frameworks","title":"Chapter 9: Your Turn: A Framework for Building Frameworks"},{"id":"epilogue-what-we-actually-built","title":"Epilogue: What We Actually Built"},{"id":"the-principles-that-guided-everything","title":"The Principles That Guided Everything"}],"url":"/personal/update/2026/03/20/story-of-agent-forge.html","routeSegments":["personal","update","2026","03","20","story-of-agent-forge"],"readingMinutes":19},{"categories":["personal","update"],"date":"$D2026-03-17T21:10:00.000Z","draft":false,"excerptHtml":"<p><em>Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am learning that may be useful to others, so this will evolve as the project evolves.</em></p>\n<p>I am testing a simple but high-stakes question: can a learner in South Africa get a useful AI maths tutor on a low-cost Android phone, fully offline, with no subscription and no internet dependency?</p>\n<p>This post shares what I have measured so far, what is working, what changed after real spike data, and how I built a companion system to preserve every decision so progress compounds instead of resetting every session.</p>\n","excerptText":"Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am learning that may be useful to others, so this will evolve as the project evolves. I am testing a simple but high-stakes question: can a learner in South Africa get a useful AI maths tutor on a low-cost Android phone, fully offline, with no subscription and no internet dependency? This post shares what I have measured so far, what is working, what changed after real spike data, and how I built a companion system to preserve every decision so progress compounds instead of resetting every session.","html":"$16","previewUrl":"/personal/update/2026/03/17/offline-ai-tutor-ezansiedgeai-ejs","tags":["edge AI","education","practical tools"],"title":"What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything","toc":[{"id":"ezansiedgeai-small","title":"eZansiEdgeAI Small"},{"id":"what-i-am-betting-on","title":"What I am betting on"},{"id":"the-system-i-built-to-remember-everything-engineering-journey-system-ejs","title":"The System I Built to Remember Everything: Engineering Journey System (EJS)"},{"id":"how-this-changed-my-work-with-ai","title":"How this changed my work with AI"},{"id":"what-i-am-learning-about-ai-assisted-engineering","title":"What I am learning about AI-assisted engineering"},{"id":"the-bigger-picture","title":"The bigger picture"},{"id":"where-this-goes-next","title":"Where this goes next"},{"id":"a-note-on-what-small-means","title":"A note on what Small means"},{"id":"the-product-requirements-document","title":"The Product Requirements Document"},{"id":"phase-1-bring-in-the-agent-team","title":"Phase 1: Bring in the agent team"},{"id":"switching-to-github-copilot-cli","title":"Switching to GitHub Copilot CLI"},{"id":"notes","title":"Notes"}],"url":"/personal/update/2026/03/17/offline-ai-tutor-ezansiedgeai-ejs.html","routeSegments":["personal","update","2026","03","17","offline-ai-tutor-ezansiedgeai-ejs"],"readingMinutes":9}],"development":false}]],["$L17"],"$L18"]}],"p":"$@19","v":null,"s":"$8"}}]]
+9:[["children",{"s":"blog","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@a","v":"$b","s":"$8"},"c":"$Qc"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3k0w55c8q_zhq.js","async":true}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":["$","link",null,{"rel":"stylesheet","href":"/assets/main.css"}]}],["$","body",null,{"id":"top","children":[["$","$L3",null,{}],["$","main",null,{"className":"page-content","aria-label":"Content","children":["$","div",null,{"className":"wrapper","children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}],"notFound":[["$","div",null,{"className":"container","children":[["$","h1",null,{"children":"404"}],["$","p",null,{"children":["$","strong",null,{"children":"Page not found :("}]}],["$","p",null,{"children":"The requested page could not be found."}]]}],[]]}]}]}],["$","footer",null,{"className":"site-footer h-card","children":[["$","data",null,{"className":"u-url","href":"/"}],["$","div",null,{"className":"wrapper","children":[["$","h2",null,{"className":"footer-heading","children":"McFuzzySquirrel's Playground"}],["$","div",null,{"className":"footer-col-wrapper","children":[["$","div",null,{"className":"footer-col footer-col-1","children":["$","ul",null,{"className":"contact-list","children":["$","li",null,{"className":"p-name","children":"McFuzzySquirrel's Playground"}]}]}],["$","div",null,{"className":"footer-col footer-col-2","children":["$","ul",null,{"className":"social-media-list","children":["$","li",null,{"children":["$","a",null,{"href":"https://github.com/McFuzzySquirrel","children":"GitHub · McFuzzySquirrel"}]}]}]}],["$","div",null,{"className":"footer-col footer-col-3","children":["$","p",null,{"children":"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing."}]}]]}]]}]]}],["$","$L6",null,{}]]}]]}]]}],"p":"$@7","v":null,"s":"$8"},"c":"$Q9"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1b",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1d",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Blog | McFuzzySquirrel's Playground"}],["$","meta","1",{"name":"description","content":"Build notes, experiments, and lessons learned along the way."}]]}]}],null]}],null]}],"p":"$@1f","v":null,"s":"$8"}},"a":"$@20","u":"$@21","b":"bDcOMyoGFbvlXyWGtf3n3"}
+22:I[97367,["$2"],"OutletBoundary"]
+17:["$","script","script-0",{"src":"/_next/static/chunks/0vg2got1-_e4m.js","async":true}]
+18:["$","$L22",null,{"children":["$","$1e",null,{"name":"Next.MetadataOutlet","children":"$@23"}]}]
+8:300
+23:null
+21:true
+8:C
+20:0
+a:"$undefined"
+7:"$undefined"
+1f:"$undefined"
+19:"$undefined"

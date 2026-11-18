@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/41mprv1-o9284.js"/><script src="/_next/static/chunks/06ucopv9oh05a.js" async=""></script><script src="/_next/static/chunks/39_j1bdzreq0m.js" async=""></script><script src="/_next/static/chunks/turbopack-2u1d16houkiyo.js" async=""></script><script src="/_next/static/chunks/3k0w55c8q_zhq.js" async=""></script><link rel="preload" href="/assets/main.css" as="style"/><title>The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel&#x27;s Playground</title><meta name="description" content="How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter."/><link rel="canonical" href="https://mcfuzzysquirrel.github.io/personal/workflow/2026/03/26/ai-assisted-research.html"/><meta property="og:title" content="The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel&#x27;s Playground"/><meta property="og:description" content="How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter."/><meta property="og:type" content="article"/><meta property="article:published_time" content="2026-03-26T03:55:00.000Z"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel&#x27;s Playground"/><meta name="twitter:description" content="How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter."/><link rel="stylesheet" href="/assets/main.css"/><script src="/_next/static/chunks/0cz1d0mv5g_q7.js" noModule=""></script></head><body id="top"><div hidden=""><!--$--><!--/$--></div><header class="site-header" role="banner"><div class="wrapper"><a class="site-title" rel="author" href="/">McFuzzySquirrel&#x27;s Playground</a><nav class="site-nav" aria-label="Primary"><input type="checkbox" id="nav-trigger" class="nav-trigger" aria-label="Toggle site navigation" aria-controls="primary-navigation"/><label for="nav-trigger"><span class="menu-icon"><svg viewBox="0 0 18 15" width="18" height="15" aria-hidden="true"><path d="M18 1.484c0 .82-.665 1.484-1.484 1.484H1.484C.665 2.969 0 2.304 0 1.484 0 .665.665 0 1.484 0h15.032C17.335 0 18 .665 18 1.484zM18 7.516C18 8.335 17.335 9 16.516 9H1.484C.665 9 0 8.335 0 7.516s.665-1.484 1.484-1.484h15.032C17.335 6.032 18 6.696 18 7.516zM18 13.516c0 .82-.665 1.484-1.484 1.484H1.484C.665 15 0 14.335 0 13.516s.665-1.484 1.484-1.484h15.032c.82 0 1.484.665 1.484 1.484z"></path></svg></span></label><div class="trigger" id="primary-navigation"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/projects/">Projects</a><a class="page-link" href="/about/">About</a></div></nav></div></header><main class="page-content" aria-label="Content"><div class="wrapper"><article class="post h-entry" itemScope="" itemType="https://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title p-name" itemProp="name headline">The AI-Assisted Research Habit: From Questions to Informed Decisions</h1><p class="post-meta"><time class="dt-published" dateTime="2026-03-26T03:55:00.000Z" itemProp="datePublished">Mar 26, 2026</time> · <span class="reading-time" title="2070 words">9<!-- --> min read</span></p></header><nav class="post-toc" aria-label="Table of contents"><details open=""><summary>Table of Contents</summary><ul><li><a href="#the-evolution-of-a-habit">The Evolution of a Habit</a></li><li><a href="#the-three-phase-dance-research-build-record">The Three-Phase Dance: Research, Build, Record</a></li><li><a href="#why-this-changes-everything">Why This Changes Everything</a></li><li><a href="#the-pattern-agnostic-to-tools">The Pattern, Agnostic to Tools</a></li><li><a href="#real-world-example-adding-a-new-feature">Real-World Example: Adding a New Feature</a></li><li><a href="#the-habits-impact">The Habit&#x27;s Impact</a></li><li><a href="#starting-your-own-habit">Starting Your Own Habit</a></li><li><a href="#the-lesson-i-learned">The Lesson I learned</a></li><li><a href="#your-turn">Your Turn</a></li></ul></details></nav><div class="post-content e-content" itemProp="articleBody"><blockquote>
+<p><em>How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable.</em></p>
+</blockquote>
+<p>Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.</p>
+<h2 id="the-evolution-of-a-habit">The Evolution of a Habit</h2>
+<p>Everyone has their own way of researching before making decisions, and this is no different when it comes to building solutions with code. Some dive into documentation. Some experiment in branches. Some just start coding and see what breaks. But there&#39;s always this nagging feeling: <em>Am I missing something? Is there a better way I don&#39;t know about?</em></p>
+<p><img
+   src="/assets/images/2026-03-26-ai-assisted-research/research.jpeg"
+   alt="Research diagram"
+   style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>I have these all the time, sometimes while I am busy, more often just after or before. That uncertainty led me to develop a habit that had transformed how I approach any significant technical or design decision: <strong>AI-assisted research paired with AI-assisted implementation, all tied together through Architecture Decision Records (ADRs).</strong></p>
+<p>Now this is not about a specific tool or project. It is about a <em>process</em> that works for me regardless of what I am building or what AI tools I am using, and maybe something you the reader could benefit from (hence this post). The pattern is what matters.</p>
+<h2 id="the-three-phase-dance-research-build-record">The Three-Phase Dance: Research, Build, Record</h2>
+<p>So I have been doing this for a while, and everytime I change it a little bit (I even do it on the train). So here is the workflow that has emerged from months of iteration:</p>
+<h3 id="phase-1-research-with-ai-assistance">Phase 1: Research with AI Assistance</h3>
+<p>When a question arises: <em>&quot;Should I or we use this library?&quot;, &quot;How do I or we handle this edge case?&quot;, &quot;What&#39;s the best approach for this problem?&quot;</em> instead of jumping to various forums or diving into code, I start a research conversation with an AI assistant.</p>
+<p><strong>But</strong> this isn&#39;t just asking &quot;what should I do?&quot; It is a structured exploration:</p>
+<p><strong>1. Frame the Question Clearly</strong></p>
+<ul>
+<li>What exactly am I trying to solve?</li>
+<li>What constraints do I have? (technical, time, team skills)</li>
+<li>What&#39;s the current state of things?</li>
+</ul>
+<p><strong>2. Let AI Help Explore the Landscape</strong></p>
+<ul>
+<li>What approaches exist?</li>
+<li>What are the trade-offs of each?</li>
+<li>What are the risks I might not have considered?</li>
+<li>What&#39;s the current best practice (not what was best practice three years ago)?</li>
+</ul>
+<p><strong>3. Challenge and Refine</strong></p>
+<ul>
+<li>&quot;What if we have to scale this?&quot;</li>
+<li>&quot;What breaks if X changes?&quot;</li>
+<li>&quot;What are we assuming that might not be true?&quot;</li>
+</ul>
+<p>This way the AI doesn&#39;t just answer questions, it helps me <em>ask better questions</em>. It surfaces considerations I may not have looked for with my eternal optimism.</p>
+<p><strong>The Output</strong>: Not a decision, but a <strong>research document</strong>. A structured analysis that includes:</p>
+<ul>
+<li>The question and context</li>
+<li>Current state analysis</li>
+<li>Options explored with pros and cons</li>
+<li>Risk assessment</li>
+<li>Recommended approach with rationale</li>
+<li>Implementation considerations</li>
+</ul>
+<p>This is the document that becomes a snapshot of understanding. Future-me (or your teammates and collaborators) can see not just <em>what</em> was decided, but <em>why</em>, based on what information.</p>
+<h3 id="phase-2-implementation-with-ai-coding-sessions">Phase 2: Implementation with AI Coding Sessions</h3>
+<p>Now comes the powerful part. With the research document as a foundation, I engage a coding AI assistant, <strong>but not blindly</strong>.</p>
+<p><strong>The Coding Session Workflow:</strong></p>
+<p><strong>1. Start with Context</strong></p>
+<ul>
+<li>Share the research document</li>
+<li>Point to relevant parts of the codebase</li>
+<li>Clarify the specific task</li>
+</ul>
+<p><strong>2. Let AI Do Its Research</strong></p>
+<ul>
+<li>The AI assistant explores the codebase</li>
+<li>It looks outside for inspiration</li>
+<li>It identifies what files need changes</li>
+<li>It spots dependencies and impacts</li>
+<li>It considers edge cases based on the research</li>
+</ul>
+<p><strong>3. Review the Plan</strong></p>
+<ul>
+<li>AI proposes changes across multiple files</li>
+<li>Shows how pieces fit together</li>
+<li>Highlights potential issues</li>
+<li>Explains the reasoning</li>
+</ul>
+<p><strong>4. Iterate and Refine</strong></p>
+<ul>
+<li>I, my team and even the agent review each proposed change</li>
+<li>We question assumptions</li>
+<li>We adjust approaches</li>
+<li>We add missing considerations</li>
+</ul>
+<p><strong>5. Implement with Understanding</strong></p>
+<ul>
+<li>Changes are made with full context</li>
+<li>No mysterious <em>&quot;why did we do it this way?&quot;</em> moments</li>
+<li>Every decision traceable back to research</li>
+</ul>
+<p><strong>The Magic</strong>: The AI coding assistant has access to:</p>
+<ul>
+<li>Your research findings</li>
+<li>Its own exploration of the codebase and outside insights</li>
+<li>Understanding of how changes interconnect</li>
+<li>Awareness of testing implications</li>
+</ul>
+<p>It&#39;s not just writing code, it is presenting a <em>holistic solution</em> that you I understand, review, and approve with confidence.</p>
+<h3 id="phase-3-codify-in-architecture-decision-records">Phase 3: Codify in Architecture Decision Records</h3>
+<p>Now it is all coming together. Once research is done and implementation is approved, the decision gets immortalized in an ADR (I really love these).</p>
+<p><strong>The ADR captures:</strong></p>
+<ul>
+<li>What was decided</li>
+<li>Why (linking back to the research)</li>
+<li>Alternatives considered</li>
+<li>Consequences expected</li>
+<li>Status (proposed, accepted, superseded)</li>
+</ul>
+<p><strong>The Powerful Part</strong>: The ADR includes links to:</p>
+<ul>
+<li>The original research document</li>
+<li>Related code changes (PRs, commits)</li>
+<li>Other ADRs it affects or is affected by</li>
+<li>External references that informed the decision</li>
+</ul>
+<p>This creates a <strong>knowledge graph</strong> of my project&#39;s evolution. No more am I digging around in message  threads, or finding they are lost in closed PRs, or hidden in code comments. This is knowledge that is structured, searchable, and connected.</p>
+<h2 id="why-this-changes-everything">Why This Changes Everything</h2>
+<h3 id="1-decisions-are-informed-not-impulsive">1. <strong>Decisions Are Informed, Not Impulsive</strong></h3>
+<p><em>This is a big one for me personally</em>, something I struggle with daily. Now though, I am not doing things based on &quot;I think this is right.&quot; I am implementing based on researched, analyzed, documented understanding.</p>
+<h3 id="2-context-persists-beyond-memory">2. <strong>Context Persists Beyond Memory</strong></h3>
+<p>Six months later, when someone asks &quot;why did I choose this approach?&quot;, I don&#39;t rely on memory. <strong>I point to the ADR, which points to the research, which shows the full reasoning</strong>.</p>
+<h3 id="3-onboarding-becomes-learning">3. <strong>Onboarding Becomes Learning</strong></h3>
+<p>New collaborators ot team members don&#39;t just see code, they see the <em>thinking</em> behind it. ADRs become a roadmap of how the project evolved and why.</p>
+<h3 id="4-course-corrections-are-data-driven">4. <strong>Course Corrections Are Data-Driven</strong></h3>
+<p>When an ADR decision needs revisiting, you start with the original research. What&#39;s changed? What new information do we have? The ADR gets superseded with a new one, preserving history.</p>
+<h3 id="5-ai-assists-humans-decide">5. <strong>AI Assists, Humans Decide</strong></h3>
+<p>The AI tools help me explore, understand, and implement, but I am always in control. I review, I edit, I approve. The AI amplifies my capability; it doesn&#39;t replace my judgment.</p>
+<h2 id="the-pattern-agnostic-to-tools">The Pattern, Agnostic to Tools</h2>
+<p>This workflow works regardless of my stack:</p>
+<ul>
+<li><p><strong>Research AI</strong>: Could be ChatGPT, Claude, GitHub Copilot Chat, or any conversational AI that helps me explore and analyze.</p>
+</li>
+<li><p><strong>Coding AI</strong>: Could be GitHub Copilot, Cursor, Cody, or any AI coding assistant that understands codebases and can propose changes.</p>
+</li>
+<li><p><strong>ADRs</strong>: Just markdown files in a <code>/docs/adr/</code> directory (or wherever your team keeps them). Tools exist, but plain markdown works perfectly.</p>
+</li>
+</ul>
+<p><strong>The Universal Steps:</strong></p>
+<pre><code>Question arises
+    ↓
+Research with AI (document findings)
+    ↓
+Code with AI (implement with full context)
+    ↓
+Review &amp; approve changes
+    ↓
+Create/update ADR (link everything together)
+    ↓
+Knowledge graph grows
+</code></pre>
+<h2 id="real-world-example-adding-a-new-feature">Real-World Example: Adding a New Feature</h2>
+<p>Let&#39;s make this concrete with a generic example:</p>
+<p><strong>Scenario</strong>: Your project needs caching to improve performance.</p>
+<h3 id="step-1-research-session">Step 1: Research Session</h3>
+<p><em>Conversation with AI:</em></p>
+<ul>
+<li>&quot;We need to add caching. What are the common approaches?&quot;</li>
+<li>&quot;We&#39;re using [your stack]. What works best here?&quot;</li>
+<li>&quot;What about cache invalidation strategies?&quot;</li>
+<li>&quot;Whats new out there we should be looking at?&quot;</li>
+<li>&quot;What are the performance implications?&quot;</li>
+<li>&quot;What breaks if cache goes down?&quot;</li>
+<li>&quot;Consider the implications, and risk and document them&quot;</li>
+</ul>
+<p><em>Output</em>: <code>docs/research/caching-strategy.md</code></p>
+<ul>
+<li>Explores Redis, Memcached, in-memory options</li>
+<li>Analyzes trade-offs for your specific use case</li>
+<li>Recommends Redis with specific rationale</li>
+<li>Details implementation considerations</li>
+<li>Identifies risks and mitigation strategies</li>
+</ul>
+<h3 id="step-2-coding-session">Step 2: Coding Session</h3>
+<p><em>Engagement with coding AI:</em></p>
+<ul>
+<li>Share the research document</li>
+<li>&quot;Implement Redis caching based on this research&quot;</li>
+</ul>
+<p><em>AI Explores</em>:</p>
+<ul>
+<li>Reviews codebase structure</li>
+<li>Identifies where caching should be added</li>
+<li>Finds dependency injection points</li>
+<li>Considers error handling</li>
+<li>Plans configuration management</li>
+</ul>
+<p><em>AI Proposes</em>:</p>
+<ul>
+<li>Cache service implementation</li>
+<li>Integration with existing services</li>
+<li>Configuration files</li>
+<li>Error handling middleware</li>
+<li>Tests for cache hit/miss scenarios</li>
+</ul>
+<p><em>You Review</em>:</p>
+<ul>
+<li>Check each proposed change</li>
+<li>Adjust cache TTL values</li>
+<li>Add project-specific error handling</li>
+<li>Approve implementation</li>
+</ul>
+<h3 id="step-3-adr-creation">Step 3: ADR Creation</h3>
+<p>Create <code>docs/adr/NNN-redis-caching.md</code>:</p>
+<pre><code class="language-markdown"># ADR-NNN: Implement Redis for Application Caching
+
+**Date**: 2026-03-26
+**Status**: Accepted
+
+## Context
+
+Performance testing revealed response times &gt;500ms for data-heavy endpoints.
+Research (see [caching-strategy.md](../research/caching-strategy.md)) 
+explored multiple caching solutions.
+
+## Decision
+
+Implement Redis as application-level cache with:
+- Cache-aside pattern
+- 1-hour default TTL
+- Separate cache keys per tenant
+- Graceful degradation on cache failure
+
+## Alternatives Considered
+
+- Memcached: Lighter weight, but lacks persistence we may need later
+- In-memory: Simple, but doesn&#39;t scale across instances
+- CDN caching: Addresses different layer; complementary, not alternative
+
+## Consequences
+
+**Positive**:
+- Expected 80% reduction in database load for cached queries
+- Improved response times for frequently accessed data
+- Foundation for future optimizations (session storage, job queues)
+
+**Negative**:
+- Additional infrastructure dependency
+- Complexity in cache invalidation
+- Memory usage requires monitoring
+
+**Neutral**:
+- Team needs Redis knowledge (addressed via documentation)
+
+## References
+
+- [Research Document](../research/caching-strategy.md)
+- [Implementation PR](#123)
+- [Redis Official Docs](https://redis.io/docs/)
+</code></pre>
+<p><strong>Now everything is connected</strong>. The ADR links to the research. Future PRs reference the ADR. Knowledge accumulates instead of scattering.</p>
+<h2 id="the-habits-impact">The Habit&#39;s Impact</h2>
+<p>After adopting this workflow, several things changed:</p>
+<h3 id="confidence-in-decisions">Confidence in Decisions</h3>
+<p>Every significant change starts from a position of knowledge, not guesswork. The research phase ensures I have considered what I need to consider.</p>
+<h3 id="implementation-speed">Implementation Speed</h3>
+<p>Irconically, adding a research step <em>speeds up</em> implementation. Why? Because I am not spenfing time in code, then discovering issues, then refactoring, then discovering more issues. I understand the landscape before I start building (with my agent, lets not pretend I don&#39;t use one).</p>
+<h3 id="code-review-quality">Code Review Quality</h3>
+<p>When you open a PR with &quot;Implements caching per ADR-025,&quot; reviewers can:</p>
+<ol>
+<li>Read the ADR to understand the decision</li>
+<li>Check the research to see alternatives considered</li>
+<li>Review the code with full context</li>
+</ol>
+<p>Reviews become about execution, not going through the the approach from scratch.</p>
+<h3 id="team-alignment">Team Alignment</h3>
+<p>Everyone on the team can see the project&#39;s decision history. Discussions reference ADRs. New patterns emerge from synthesizing multiple ADRs. The team builds shared understanding.</p>
+<h3 id="future-proofing">Future-Proofing</h3>
+<p>When you inevitably need to change something, you start with:</p>
+<ul>
+<li>The original ADR explaining why it was built that way</li>
+<li>The research that informed the decision</li>
+<li>Understanding of what constraints have changed</li>
+</ul>
+<p>You wont be reverse-engineering old code, you are revisiting documented decisions with new information.</p>
+<h2 id="starting-your-own-habit">Starting Your Own Habit</h2>
+<p>You don&#39;t need special tools to adopt this workflow. Here&#39;s how I start (you will start finding this in all my repos, even the old ones I am revising, reverse impulsing them I suppose):</p>
+<h3 id="1-create-structure">1. Create Structure</h3>
+<pre><code>docs/
+  research/        # Research documents
+  adr/             # Architecture Decision Records
+</code></pre>
+<h3 id="2-pick-a-research-template">2. Pick a Research Template</h3>
+<p>Keep it simple:</p>
+<ul>
+<li><strong>Question</strong>: What are we trying to figure out?</li>
+<li><strong>Context</strong>: Current state, constraints</li>
+<li><strong>Analysis</strong>: Options, trade-offs, risks</li>
+<li><strong>Recommendation</strong>: What to do and why</li>
+<li><strong>Implementation Notes</strong>: How to approach it</li>
+</ul>
+<h3 id="3-pick-an-adr-template">3. Pick an ADR Template</h3>
+<p>Michael Nygard&#39;s format works great (<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">check it out here</a>):</p>
+<ul>
+<li>Title (numbered: ADR-001, ADR-002, etc.)</li>
+<li>Status (Proposed, Accepted, Superseded)</li>
+<li>Context</li>
+<li>Decision</li>
+<li>Consequences</li>
+</ul>
+<h3 id="4-establish-the-flow">4. Establish the Flow</h3>
+<p>For any significant decision:</p>
+<ol>
+<li>Research -&gt; document</li>
+<li>Code (referencing research) -&gt; review</li>
+<li>ADR (linking research + code) -&gt; commit</li>
+</ol>
+<h3 id="5-link-everything">5. Link Everything</h3>
+<ul>
+<li>Research docs reference relevant ADRs.</li>
+<li>ADRs reference research docs and PRs.</li>
+<li>Code comments reference ADRs for &quot;why.&quot;</li>
+<li>PRs reference ADRs in descriptions.</li>
+</ul>
+<h2 id="the-lesson-i-learned">The Lesson I learned</h2>
+<p>This is something fundemantal, this habit isn&#39;t really about AI (although it is used), research, or ADRs. It is:</p>
+<p><strong>Making the implicit explicit.</strong></p>
+<p>We carry so much in our heads: why we chose this library, this design, what we considered and rejected, what could break if we change X. </p>
+<ul>
+<li>This workflow externalizes that knowledge, making it visible, reviewable, and persistent.</li>
+</ul>
+<p>AI tools supercharge this by:</p>
+<ul>
+<li>Helping surface what you might not think to research</li>
+<li>Exploring codebases faster than manual review</li>
+<li>Proposing holistic solutions across multiple files</li>
+<li>Maintaining consistency across changes</li>
+</ul>
+<p>But the core principle works even without AI: <strong>research before you build, document decisions, connect the dots</strong>.</p>
+<h2 id="your-turn">Your Turn</h2>
+<p>This workflow evolved from frustration with &quot;I think this is right&quot; and the sinking feeling of revisiting old code and solutions with no idea why it&#39;s that way.</p>
+<p>You don&#39;t need to adopt everything at once. Start small:</p>
+<ul>
+<li>Next time you face a decision, write a quick research doc</li>
+<li>Next time you make a significant change, write an ADR</li>
+<li>Link them together</li>
+</ul>
+<p>Over time, you&#39;ll build something more valuable than code: a <strong>knowledge graph of your project&#39;s evolution</strong>, where every decision is traceable, every choice is documented, and context never gets lost.</p>
+<p>The tools will evolve. The pattern won&#39;t.</p>
+<p><strong>Start simple. Research deliberately. Document decisions. Connect the dots. Watch your confidence in your solutions grow.</strong></p>
+</div><nav class="post-nav" aria-label="Post navigation"><a class="post-nav-link post-nav-prev" href="/personal/update/2026/03/20/story-of-agent-forge.html"><span class="post-nav-label">← Previous</span><span class="post-nav-title">The Story of Agent Forge: Building an AI Development Team from Scratch</span></a><a class="post-nav-link post-nav-next" href="/personal/tools/2026/04/10/complete-story-engineering-journey-system.html"><span class="post-nav-label">Next →</span><span class="post-nav-title">The Complete Story of the Engineering Journey System</span></a></nav><a class="u-url" href="/personal/workflow/2026/03/26/ai-assisted-research.html" hidden=""></a></article><!--$--><!--/$--></div></main><footer class="site-footer h-card"><data class="u-url" href="/"></data><div class="wrapper"><h2 class="footer-heading">McFuzzySquirrel&#x27;s Playground</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li class="p-name">McFuzzySquirrel&#x27;s Playground</li></ul></div><div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/McFuzzySquirrel">GitHub · McFuzzySquirrel</a></li></ul></div><div class="footer-col footer-col-3"><p>AI experiments, useful tools, strange prototypes, and honest notes from learning by doing.</p></div></div></div></footer><a href="#top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</a><script id="_R_">(globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push({"otherChunks":["static/chunks/41mprv1-o9284.js","static/chunks/06ucopv9oh05a.js","static/chunks/39_j1bdzreq0m.js"],"runtimeModuleIds":[94553]});</script><script src="/_next/static/chunks/41mprv1-o9284.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:\"/_next/static/chunks/3k0w55c8q_zhq.js\"\n3:I[25731,[\"$2\"],\"default\"]\n4:I[39756,[\"$2\"],\"default\"]\n5:I[37457,[\"$2\"],\"default\"]\n6:I[64079,[\"$2\"],\"default\"]\nb:I[97367,[\"$2\"],\"OutletBoundary\"]\nc:\"$Sreact.suspense\"\ne:\"ViewportBoundary\"\nf:I[97367,[\"$2\"],\"$e\"]\n11:\"MetadataBoundary\"\n12:I[97367,[\"$2\"],\"$11\"]\n14:I[68027,[\"$2\"],\"default\",1]\n:HL[\"/assets/main.css\",\"style\"]\n8:X\n9:[[\"children\",{\"s\":\"__PAGE__\",\"h\":512,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[\"$La\",null,[\"$\",\"$Lb\",null,{\"children\":[\"$\",\"$c\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@d\"}]}]]}],\"p\":false,\"v\":null}}]]\n7:[[\"children\",{\"s\":{\"n\":\"postPath\",\"t\":\"c\",\"k\":\"personal/workflow/2026/03/26/ai-assisted-research\",\"s\":[\"about\",\"blog\",\"feed.xml\",\"projects\"]},\"h\":66048,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],\"p\":false,\"v\":\"$8\"},\"c\":\"$Q9\"}]]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"personal\",\"workflow\",\"2026\",\"03\",\"26\",\"ai-assisted-research\"],\"q\":\"\",\"i\":false,\"t\":{\"t\":{\"s\":\"\",\"h\":131600,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/3k0w55c8q_zhq.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/assets/main.css\"}]}],[\"$\",\"body\",null,{\"id\":\"top\",\"children\":[[\"$\",\"$L3\",null,{}],[\"$\",\"main\",null,{\"className\":\"page-content\",\"aria-label\":\"Content\",\"children\":[\"$\",\"div\",null,{\"className\":\"wrapper\",\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"h1\",null,{\"children\":\"404\"}],[\"$\",\"p\",null,{\"children\":[\"$\",\"strong\",null,{\"children\":\"Page not found :(\"}]}],[\"$\",\"p\",null,{\"children\":\"The requested page could not be found.\"}]]}],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}],[\"$\",\"footer\",null,{\"className\":\"site-footer h-card\",\"children\":[[\"$\",\"data\",null,{\"className\":\"u-url\",\"href\":\"/\"}],[\"$\",\"div\",null,{\"className\":\"wrapper\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"footer-heading\",\"children\":\"McFuzzySquirrel's Playground\"}],[\"$\",\"div\",null,{\"className\":\"footer-col-wrapper\",\"children\":[[\"$\",\"div\",null,{\"className\":\"footer-col footer-col-1\",\"children\":[\"$\",\"ul\",null,{\"className\":\"contact-list\",\"children\":[\"$\",\"li\",null,{\"className\":\"p-name\",\"children\":\"McFuzzySquirrel's Playground\"}]}]}],[\"$\",\"div\",null,{\"className\":\"footer-col footer-col-2\",\"children\":[\"$\",\"ul\",null,{\"className\":\"social-media-list\",\"children\":[\"$\",\"li\",null,{\"children\":[\"$\",\"a\",null,{\"href\":\"https://github.com/McFuzzySquirrel\",\"children\":\"GitHub · McFuzzySquirrel\"}]}]}]}],[\"$\",\"div\",null,{\"className\":\"footer-col footer-col-3\",\"children\":[\"$\",\"p\",null,{\"children\":\"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing.\"}]}]]}]]}]]}],[\"$\",\"$L6\",null,{}]]}]]}]]}],\"p\":false,\"v\":null},\"c\":\"$Q7\"},\"h\":{\"r\":[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$Lf\",null,{\"children\":\"$L10\"}],[\"$\",\"$L12\",null,{\"children\":[[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$c\",null,{\"name\":\"Next.Metadata\",\"children\":\"$L13\"}]}],null]}],null]}],\"p\":false,\"v\":null}},\"m\":\"$undefined\",\"G\":[\"$14\",[]],\"S\":true,\"r\":\"$undefined\",\"s\":\"$undefined\",\"a\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"bDcOMyoGFbvlXyWGtf3n3\"}\n"])</script><script>self.__next_f.push([1,"8:C\n15:T4739,"])</script><script>self.__next_f.push([1,"\u003cblockquote\u003e\n\u003cp\u003e\u003cem\u003eHow pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable.\u003c/em\u003e\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003eBetter decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.\u003c/p\u003e\n\u003ch2 id=\"the-evolution-of-a-habit\"\u003eThe Evolution of a Habit\u003c/h2\u003e\n\u003cp\u003eEveryone has their own way of researching before making decisions, and this is no different when it comes to building solutions with code. Some dive into documentation. Some experiment in branches. Some just start coding and see what breaks. But there\u0026#39;s always this nagging feeling: \u003cem\u003eAm I missing something? Is there a better way I don\u0026#39;t know about?\u003c/em\u003e\u003c/p\u003e\n\u003cp\u003e\u003cimg\n   src=\"/assets/images/2026-03-26-ai-assisted-research/research.jpeg\"\n   alt=\"Research diagram\"\n   style=\"max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;\"\n/\u003e\u003c/p\u003e\n\u003cp\u003eI have these all the time, sometimes while I am busy, more often just after or before. That uncertainty led me to develop a habit that had transformed how I approach any significant technical or design decision: \u003cstrong\u003eAI-assisted research paired with AI-assisted implementation, all tied together through Architecture Decision Records (ADRs).\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eNow this is not about a specific tool or project. It is about a \u003cem\u003eprocess\u003c/em\u003e that works for me regardless of what I am building or what AI tools I am using, and maybe something you the reader could benefit from (hence this post). The pattern is what matters.\u003c/p\u003e\n\u003ch2 id=\"the-three-phase-dance-research-build-record\"\u003eThe Three-Phase Dance: Research, Build, Record\u003c/h2\u003e\n\u003cp\u003eSo I have been doing this for a while, and everytime I change it a little bit (I even do it on the train). So here is the workflow that has emerged from months of iteration:\u003c/p\u003e\n\u003ch3 id=\"phase-1-research-with-ai-assistance\"\u003ePhase 1: Research with AI Assistance\u003c/h3\u003e\n\u003cp\u003eWhen a question arises: \u003cem\u003e\u0026quot;Should I or we use this library?\u0026quot;, \u0026quot;How do I or we handle this edge case?\u0026quot;, \u0026quot;What\u0026#39;s the best approach for this problem?\u0026quot;\u003c/em\u003e instead of jumping to various forums or diving into code, I start a research conversation with an AI assistant.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eBut\u003c/strong\u003e this isn\u0026#39;t just asking \u0026quot;what should I do?\u0026quot; It is a structured exploration:\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e1. Frame the Question Clearly\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eWhat exactly am I trying to solve?\u003c/li\u003e\n\u003cli\u003eWhat constraints do I have? (technical, time, team skills)\u003c/li\u003e\n\u003cli\u003eWhat\u0026#39;s the current state of things?\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e2. Let AI Help Explore the Landscape\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eWhat approaches exist?\u003c/li\u003e\n\u003cli\u003eWhat are the trade-offs of each?\u003c/li\u003e\n\u003cli\u003eWhat are the risks I might not have considered?\u003c/li\u003e\n\u003cli\u003eWhat\u0026#39;s the current best practice (not what was best practice three years ago)?\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e3. Challenge and Refine\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u0026quot;What if we have to scale this?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;What breaks if X changes?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;What are we assuming that might not be true?\u0026quot;\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eThis way the AI doesn\u0026#39;t just answer questions, it helps me \u003cem\u003eask better questions\u003c/em\u003e. It surfaces considerations I may not have looked for with my eternal optimism.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eThe Output\u003c/strong\u003e: Not a decision, but a \u003cstrong\u003eresearch document\u003c/strong\u003e. A structured analysis that includes:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe question and context\u003c/li\u003e\n\u003cli\u003eCurrent state analysis\u003c/li\u003e\n\u003cli\u003eOptions explored with pros and cons\u003c/li\u003e\n\u003cli\u003eRisk assessment\u003c/li\u003e\n\u003cli\u003eRecommended approach with rationale\u003c/li\u003e\n\u003cli\u003eImplementation considerations\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eThis is the document that becomes a snapshot of understanding. Future-me (or your teammates and collaborators) can see not just \u003cem\u003ewhat\u003c/em\u003e was decided, but \u003cem\u003ewhy\u003c/em\u003e, based on what information.\u003c/p\u003e\n\u003ch3 id=\"phase-2-implementation-with-ai-coding-sessions\"\u003ePhase 2: Implementation with AI Coding Sessions\u003c/h3\u003e\n\u003cp\u003eNow comes the powerful part. With the research document as a foundation, I engage a coding AI assistant, \u003cstrong\u003ebut not blindly\u003c/strong\u003e.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eThe Coding Session Workflow:\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003e1. Start with Context\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eShare the research document\u003c/li\u003e\n\u003cli\u003ePoint to relevant parts of the codebase\u003c/li\u003e\n\u003cli\u003eClarify the specific task\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e2. Let AI Do Its Research\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe AI assistant explores the codebase\u003c/li\u003e\n\u003cli\u003eIt looks outside for inspiration\u003c/li\u003e\n\u003cli\u003eIt identifies what files need changes\u003c/li\u003e\n\u003cli\u003eIt spots dependencies and impacts\u003c/li\u003e\n\u003cli\u003eIt considers edge cases based on the research\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e3. Review the Plan\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eAI proposes changes across multiple files\u003c/li\u003e\n\u003cli\u003eShows how pieces fit together\u003c/li\u003e\n\u003cli\u003eHighlights potential issues\u003c/li\u003e\n\u003cli\u003eExplains the reasoning\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e4. Iterate and Refine\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eI, my team and even the agent review each proposed change\u003c/li\u003e\n\u003cli\u003eWe question assumptions\u003c/li\u003e\n\u003cli\u003eWe adjust approaches\u003c/li\u003e\n\u003cli\u003eWe add missing considerations\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003e5. Implement with Understanding\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eChanges are made with full context\u003c/li\u003e\n\u003cli\u003eNo mysterious \u003cem\u003e\u0026quot;why did we do it this way?\u0026quot;\u003c/em\u003e moments\u003c/li\u003e\n\u003cli\u003eEvery decision traceable back to research\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eThe Magic\u003c/strong\u003e: The AI coding assistant has access to:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eYour research findings\u003c/li\u003e\n\u003cli\u003eIts own exploration of the codebase and outside insights\u003c/li\u003e\n\u003cli\u003eUnderstanding of how changes interconnect\u003c/li\u003e\n\u003cli\u003eAwareness of testing implications\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eIt\u0026#39;s not just writing code, it is presenting a \u003cem\u003eholistic solution\u003c/em\u003e that you I understand, review, and approve with confidence.\u003c/p\u003e\n\u003ch3 id=\"phase-3-codify-in-architecture-decision-records\"\u003ePhase 3: Codify in Architecture Decision Records\u003c/h3\u003e\n\u003cp\u003eNow it is all coming together. Once research is done and implementation is approved, the decision gets immortalized in an ADR (I really love these).\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eThe ADR captures:\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eWhat was decided\u003c/li\u003e\n\u003cli\u003eWhy (linking back to the research)\u003c/li\u003e\n\u003cli\u003eAlternatives considered\u003c/li\u003e\n\u003cli\u003eConsequences expected\u003c/li\u003e\n\u003cli\u003eStatus (proposed, accepted, superseded)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eThe Powerful Part\u003c/strong\u003e: The ADR includes links to:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe original research document\u003c/li\u003e\n\u003cli\u003eRelated code changes (PRs, commits)\u003c/li\u003e\n\u003cli\u003eOther ADRs it affects or is affected by\u003c/li\u003e\n\u003cli\u003eExternal references that informed the decision\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eThis creates a \u003cstrong\u003eknowledge graph\u003c/strong\u003e of my project\u0026#39;s evolution. No more am I digging around in message  threads, or finding they are lost in closed PRs, or hidden in code comments. This is knowledge that is structured, searchable, and connected.\u003c/p\u003e\n\u003ch2 id=\"why-this-changes-everything\"\u003eWhy This Changes Everything\u003c/h2\u003e\n\u003ch3 id=\"1-decisions-are-informed-not-impulsive\"\u003e1. \u003cstrong\u003eDecisions Are Informed, Not Impulsive\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003e\u003cem\u003eThis is a big one for me personally\u003c/em\u003e, something I struggle with daily. Now though, I am not doing things based on \u0026quot;I think this is right.\u0026quot; I am implementing based on researched, analyzed, documented understanding.\u003c/p\u003e\n\u003ch3 id=\"2-context-persists-beyond-memory\"\u003e2. \u003cstrong\u003eContext Persists Beyond Memory\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eSix months later, when someone asks \u0026quot;why did I choose this approach?\u0026quot;, I don\u0026#39;t rely on memory. \u003cstrong\u003eI point to the ADR, which points to the research, which shows the full reasoning\u003c/strong\u003e.\u003c/p\u003e\n\u003ch3 id=\"3-onboarding-becomes-learning\"\u003e3. \u003cstrong\u003eOnboarding Becomes Learning\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eNew collaborators ot team members don\u0026#39;t just see code, they see the \u003cem\u003ethinking\u003c/em\u003e behind it. ADRs become a roadmap of how the project evolved and why.\u003c/p\u003e\n\u003ch3 id=\"4-course-corrections-are-data-driven\"\u003e4. \u003cstrong\u003eCourse Corrections Are Data-Driven\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eWhen an ADR decision needs revisiting, you start with the original research. What\u0026#39;s changed? What new information do we have? The ADR gets superseded with a new one, preserving history.\u003c/p\u003e\n\u003ch3 id=\"5-ai-assists-humans-decide\"\u003e5. \u003cstrong\u003eAI Assists, Humans Decide\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eThe AI tools help me explore, understand, and implement, but I am always in control. I review, I edit, I approve. The AI amplifies my capability; it doesn\u0026#39;t replace my judgment.\u003c/p\u003e\n\u003ch2 id=\"the-pattern-agnostic-to-tools\"\u003eThe Pattern, Agnostic to Tools\u003c/h2\u003e\n\u003cp\u003eThis workflow works regardless of my stack:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cp\u003e\u003cstrong\u003eResearch AI\u003c/strong\u003e: Could be ChatGPT, Claude, GitHub Copilot Chat, or any conversational AI that helps me explore and analyze.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003e\u003cstrong\u003eCoding AI\u003c/strong\u003e: Could be GitHub Copilot, Cursor, Cody, or any AI coding assistant that understands codebases and can propose changes.\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003cp\u003e\u003cstrong\u003eADRs\u003c/strong\u003e: Just markdown files in a \u003ccode\u003e/docs/adr/\u003c/code\u003e directory (or wherever your team keeps them). Tools exist, but plain markdown works perfectly.\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eThe Universal Steps:\u003c/strong\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eQuestion arises\n    ↓\nResearch with AI (document findings)\n    ↓\nCode with AI (implement with full context)\n    ↓\nReview \u0026amp; approve changes\n    ↓\nCreate/update ADR (link everything together)\n    ↓\nKnowledge graph grows\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2 id=\"real-world-example-adding-a-new-feature\"\u003eReal-World Example: Adding a New Feature\u003c/h2\u003e\n\u003cp\u003eLet\u0026#39;s make this concrete with a generic example:\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eScenario\u003c/strong\u003e: Your project needs caching to improve performance.\u003c/p\u003e\n\u003ch3 id=\"step-1-research-session\"\u003eStep 1: Research Session\u003c/h3\u003e\n\u003cp\u003e\u003cem\u003eConversation with AI:\u003c/em\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u0026quot;We need to add caching. What are the common approaches?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;We\u0026#39;re using [your stack]. What works best here?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;What about cache invalidation strategies?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Whats new out there we should be looking at?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;What are the performance implications?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;What breaks if cache goes down?\u0026quot;\u003c/li\u003e\n\u003cli\u003e\u0026quot;Consider the implications, and risk and document them\u0026quot;\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cem\u003eOutput\u003c/em\u003e: \u003ccode\u003edocs/research/caching-strategy.md\u003c/code\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eExplores Redis, Memcached, in-memory options\u003c/li\u003e\n\u003cli\u003eAnalyzes trade-offs for your specific use case\u003c/li\u003e\n\u003cli\u003eRecommends Redis with specific rationale\u003c/li\u003e\n\u003cli\u003eDetails implementation considerations\u003c/li\u003e\n\u003cli\u003eIdentifies risks and mitigation strategies\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"step-2-coding-session\"\u003eStep 2: Coding Session\u003c/h3\u003e\n\u003cp\u003e\u003cem\u003eEngagement with coding AI:\u003c/em\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eShare the research document\u003c/li\u003e\n\u003cli\u003e\u0026quot;Implement Redis caching based on this research\u0026quot;\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cem\u003eAI Explores\u003c/em\u003e:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eReviews codebase structure\u003c/li\u003e\n\u003cli\u003eIdentifies where caching should be added\u003c/li\u003e\n\u003cli\u003eFinds dependency injection points\u003c/li\u003e\n\u003cli\u003eConsiders error handling\u003c/li\u003e\n\u003cli\u003ePlans configuration management\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cem\u003eAI Proposes\u003c/em\u003e:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eCache service implementation\u003c/li\u003e\n\u003cli\u003eIntegration with existing services\u003c/li\u003e\n\u003cli\u003eConfiguration files\u003c/li\u003e\n\u003cli\u003eError handling middleware\u003c/li\u003e\n\u003cli\u003eTests for cache hit/miss scenarios\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cem\u003eYou Review\u003c/em\u003e:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eCheck each proposed change\u003c/li\u003e\n\u003cli\u003eAdjust cache TTL values\u003c/li\u003e\n\u003cli\u003eAdd project-specific error handling\u003c/li\u003e\n\u003cli\u003eApprove implementation\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"step-3-adr-creation\"\u003eStep 3: ADR Creation\u003c/h3\u003e\n\u003cp\u003eCreate \u003ccode\u003edocs/adr/NNN-redis-caching.md\u003c/code\u003e:\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-markdown\"\u003e# ADR-NNN: Implement Redis for Application Caching\n\n**Date**: 2026-03-26\n**Status**: Accepted\n\n## Context\n\nPerformance testing revealed response times \u0026gt;500ms for data-heavy endpoints.\nResearch (see [caching-strategy.md](../research/caching-strategy.md)) \nexplored multiple caching solutions.\n\n## Decision\n\nImplement Redis as application-level cache with:\n- Cache-aside pattern\n- 1-hour default TTL\n- Separate cache keys per tenant\n- Graceful degradation on cache failure\n\n## Alternatives Considered\n\n- Memcached: Lighter weight, but lacks persistence we may need later\n- In-memory: Simple, but doesn\u0026#39;t scale across instances\n- CDN caching: Addresses different layer; complementary, not alternative\n\n## Consequences\n\n**Positive**:\n- Expected 80% reduction in database load for cached queries\n- Improved response times for frequently accessed data\n- Foundation for future optimizations (session storage, job queues)\n\n**Negative**:\n- Additional infrastructure dependency\n- Complexity in cache invalidation\n- Memory usage requires monitoring\n\n**Neutral**:\n- Team needs Redis knowledge (addressed via documentation)\n\n## References\n\n- [Research Document](../research/caching-strategy.md)\n- [Implementation PR](#123)\n- [Redis Official Docs](https://redis.io/docs/)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003cstrong\u003eNow everything is connected\u003c/strong\u003e. The ADR links to the research. Future PRs reference the ADR. Knowledge accumulates instead of scattering.\u003c/p\u003e\n\u003ch2 id=\"the-habits-impact\"\u003eThe Habit\u0026#39;s Impact\u003c/h2\u003e\n\u003cp\u003eAfter adopting this workflow, several things changed:\u003c/p\u003e\n\u003ch3 id=\"confidence-in-decisions\"\u003eConfidence in Decisions\u003c/h3\u003e\n\u003cp\u003eEvery significant change starts from a position of knowledge, not guesswork. The research phase ensures I have considered what I need to consider.\u003c/p\u003e\n\u003ch3 id=\"implementation-speed\"\u003eImplementation Speed\u003c/h3\u003e\n\u003cp\u003eIrconically, adding a research step \u003cem\u003espeeds up\u003c/em\u003e implementation. Why? Because I am not spenfing time in code, then discovering issues, then refactoring, then discovering more issues. I understand the landscape before I start building (with my agent, lets not pretend I don\u0026#39;t use one).\u003c/p\u003e\n\u003ch3 id=\"code-review-quality\"\u003eCode Review Quality\u003c/h3\u003e\n\u003cp\u003eWhen you open a PR with \u0026quot;Implements caching per ADR-025,\u0026quot; reviewers can:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eRead the ADR to understand the decision\u003c/li\u003e\n\u003cli\u003eCheck the research to see alternatives considered\u003c/li\u003e\n\u003cli\u003eReview the code with full context\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eReviews become about execution, not going through the the approach from scratch.\u003c/p\u003e\n\u003ch3 id=\"team-alignment\"\u003eTeam Alignment\u003c/h3\u003e\n\u003cp\u003eEveryone on the team can see the project\u0026#39;s decision history. Discussions reference ADRs. New patterns emerge from synthesizing multiple ADRs. The team builds shared understanding.\u003c/p\u003e\n\u003ch3 id=\"future-proofing\"\u003eFuture-Proofing\u003c/h3\u003e\n\u003cp\u003eWhen you inevitably need to change something, you start with:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe original ADR explaining why it was built that way\u003c/li\u003e\n\u003cli\u003eThe research that informed the decision\u003c/li\u003e\n\u003cli\u003eUnderstanding of what constraints have changed\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eYou wont be reverse-engineering old code, you are revisiting documented decisions with new information.\u003c/p\u003e\n\u003ch2 id=\"starting-your-own-habit\"\u003eStarting Your Own Habit\u003c/h2\u003e\n\u003cp\u003eYou don\u0026#39;t need special tools to adopt this workflow. Here\u0026#39;s how I start (you will start finding this in all my repos, even the old ones I am revising, reverse impulsing them I suppose):\u003c/p\u003e\n\u003ch3 id=\"1-create-structure\"\u003e1. Create Structure\u003c/h3\u003e\n\u003cpre\u003e\u003ccode\u003edocs/\n  research/        # Research documents\n  adr/             # Architecture Decision Records\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3 id=\"2-pick-a-research-template\"\u003e2. Pick a Research Template\u003c/h3\u003e\n\u003cp\u003eKeep it simple:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003eQuestion\u003c/strong\u003e: What are we trying to figure out?\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eContext\u003c/strong\u003e: Current state, constraints\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAnalysis\u003c/strong\u003e: Options, trade-offs, risks\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eRecommendation\u003c/strong\u003e: What to do and why\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eImplementation Notes\u003c/strong\u003e: How to approach it\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"3-pick-an-adr-template\"\u003e3. Pick an ADR Template\u003c/h3\u003e\n\u003cp\u003eMichael Nygard\u0026#39;s format works great (\u003ca href=\"https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions\"\u003echeck it out here\u003c/a\u003e):\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eTitle (numbered: ADR-001, ADR-002, etc.)\u003c/li\u003e\n\u003cli\u003eStatus (Proposed, Accepted, Superseded)\u003c/li\u003e\n\u003cli\u003eContext\u003c/li\u003e\n\u003cli\u003eDecision\u003c/li\u003e\n\u003cli\u003eConsequences\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"4-establish-the-flow\"\u003e4. Establish the Flow\u003c/h3\u003e\n\u003cp\u003eFor any significant decision:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eResearch -\u0026gt; document\u003c/li\u003e\n\u003cli\u003eCode (referencing research) -\u0026gt; review\u003c/li\u003e\n\u003cli\u003eADR (linking research + code) -\u0026gt; commit\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch3 id=\"5-link-everything\"\u003e5. Link Everything\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003eResearch docs reference relevant ADRs.\u003c/li\u003e\n\u003cli\u003eADRs reference research docs and PRs.\u003c/li\u003e\n\u003cli\u003eCode comments reference ADRs for \u0026quot;why.\u0026quot;\u003c/li\u003e\n\u003cli\u003ePRs reference ADRs in descriptions.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2 id=\"the-lesson-i-learned\"\u003eThe Lesson I learned\u003c/h2\u003e\n\u003cp\u003eThis is something fundemantal, this habit isn\u0026#39;t really about AI (although it is used), research, or ADRs. It is:\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eMaking the implicit explicit.\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eWe carry so much in our heads: why we chose this library, this design, what we considered and rejected, what could break if we change X. \u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThis workflow externalizes that knowledge, making it visible, reviewable, and persistent.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eAI tools supercharge this by:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eHelping surface what you might not think to research\u003c/li\u003e\n\u003cli\u003eExploring codebases faster than manual review\u003c/li\u003e\n\u003cli\u003eProposing holistic solutions across multiple files\u003c/li\u003e\n\u003cli\u003eMaintaining consistency across changes\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eBut the core principle works even without AI: \u003cstrong\u003eresearch before you build, document decisions, connect the dots\u003c/strong\u003e.\u003c/p\u003e\n\u003ch2 id=\"your-turn\"\u003eYour Turn\u003c/h2\u003e\n\u003cp\u003eThis workflow evolved from frustration with \u0026quot;I think this is right\u0026quot; and the sinking feeling of revisiting old code and solutions with no idea why it\u0026#39;s that way.\u003c/p\u003e\n\u003cp\u003eYou don\u0026#39;t need to adopt everything at once. Start small:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eNext time you face a decision, write a quick research doc\u003c/li\u003e\n\u003cli\u003eNext time you make a significant change, write an ADR\u003c/li\u003e\n\u003cli\u003eLink them together\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eOver time, you\u0026#39;ll build something more valuable than code: a \u003cstrong\u003eknowledge graph of your project\u0026#39;s evolution\u003c/strong\u003e, where every decision is traceable, every choice is documented, and context never gets lost.\u003c/p\u003e\n\u003cp\u003eThe tools will evolve. The pattern won\u0026#39;t.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eStart simple. Research deliberately. Document decisions. Connect the dots. Watch your confidence in your solutions grow.\u003c/strong\u003e\u003c/p\u003e\n"])</script><script>self.__next_f.push([1,"a:[\"$\",\"article\",null,{\"className\":\"post h-entry\",\"itemScope\":true,\"itemType\":\"https://schema.org/BlogPosting\",\"children\":[[\"$\",\"header\",null,{\"className\":\"post-header\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"post-title p-name\",\"itemProp\":\"name headline\",\"children\":\"The AI-Assisted Research Habit: From Questions to Informed Decisions\"}],[\"$\",\"p\",null,{\"className\":\"post-meta\",\"children\":[false,[\"$\",\"time\",null,{\"className\":\"dt-published\",\"dateTime\":\"2026-03-26T03:55:00.000Z\",\"itemProp\":\"datePublished\",\"children\":\"Mar 26, 2026\"}],\" · \",[\"$\",\"span\",null,{\"className\":\"reading-time\",\"title\":\"2070 words\",\"children\":[9,\" min read\"]}]]}],false]}],[\"$\",\"nav\",null,{\"className\":\"post-toc\",\"aria-label\":\"Table of contents\",\"children\":[\"$\",\"details\",null,{\"open\":true,\"children\":[[\"$\",\"summary\",null,{\"children\":\"Table of Contents\"}],[\"$\",\"ul\",null,{\"children\":[[\"$\",\"li\",\"the-evolution-of-a-habit\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#the-evolution-of-a-habit\",\"children\":\"The Evolution of a Habit\"}]}],[\"$\",\"li\",\"the-three-phase-dance-research-build-record\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#the-three-phase-dance-research-build-record\",\"children\":\"The Three-Phase Dance: Research, Build, Record\"}]}],[\"$\",\"li\",\"why-this-changes-everything\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#why-this-changes-everything\",\"children\":\"Why This Changes Everything\"}]}],[\"$\",\"li\",\"the-pattern-agnostic-to-tools\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#the-pattern-agnostic-to-tools\",\"children\":\"The Pattern, Agnostic to Tools\"}]}],[\"$\",\"li\",\"real-world-example-adding-a-new-feature\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#real-world-example-adding-a-new-feature\",\"children\":\"Real-World Example: Adding a New Feature\"}]}],[\"$\",\"li\",\"the-habits-impact\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#the-habits-impact\",\"children\":\"The Habit's Impact\"}]}],[\"$\",\"li\",\"starting-your-own-habit\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#starting-your-own-habit\",\"children\":\"Starting Your Own Habit\"}]}],[\"$\",\"li\",\"the-lesson-i-learned\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#the-lesson-i-learned\",\"children\":\"The Lesson I learned\"}]}],[\"$\",\"li\",\"your-turn\",{\"children\":[\"$\",\"a\",null,{\"href\":\"#your-turn\",\"children\":\"Your Turn\"}]}]]}]]}]}],[\"$\",\"div\",null,{\"className\":\"post-content e-content\",\"itemProp\":\"articleBody\",\"dangerouslySetInnerHTML\":{\"__html\":\"$15\"}}],\"$L16\",\"$L17\"]}]\n"])</script><script>self.__next_f.push([1,"16:[\"$\",\"nav\",null,{\"className\":\"post-nav\",\"aria-label\":\"Post navigation\",\"children\":[[\"$\",\"a\",null,{\"className\":\"post-nav-link post-nav-prev\",\"href\":\"/personal/update/2026/03/20/story-of-agent-forge.html\",\"children\":[[\"$\",\"span\",null,{\"className\":\"post-nav-label\",\"children\":\"← Previous\"}],[\"$\",\"span\",null,{\"className\":\"post-nav-title\",\"children\":\"The Story of Agent Forge: Building an AI Development Team from Scratch\"}]]}],[\"$\",\"a\",null,{\"className\":\"post-nav-link post-nav-next\",\"href\":\"/personal/tools/2026/04/10/complete-story-engineering-journey-system.html\",\"children\":[[\"$\",\"span\",null,{\"className\":\"post-nav-label\",\"children\":\"Next →\"}],[\"$\",\"span\",null,{\"className\":\"post-nav-title\",\"children\":\"The Complete Story of the Engineering Journey System\"}]]}]]}]\n17:[\"$\",\"a\",null,{\"className\":\"u-url\",\"href\":\"/personal/workflow/2026/03/26/ai-assisted-research.html\",\"hidden\":true}]\n"])</script><script>self.__next_f.push([1,"10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"d:null\n"])</script><script>self.__next_f.push([1,"13:[[\"$\",\"title\",\"0\",{\"children\":\"The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel's Playground\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"canonical\",\"href\":\"https://mcfuzzysquirrel.github.io/personal/workflow/2026/03/26/ai-assisted-research.html\"}],[\"$\",\"meta\",\"3\",{\"property\":\"og:title\",\"content\":\"The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel's Playground\"}],[\"$\",\"meta\",\"4\",{\"property\":\"og:description\",\"content\":\"How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"$\",\"meta\",\"6\",{\"property\":\"article:published_time\",\"content\":\"2026-03-26T03:55:00.000Z\"}],[\"$\",\"meta\",\"7\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"8\",{\"name\":\"twitter:title\",\"content\":\"The AI-Assisted Research Habit: From Questions to Informed Decisions | McFuzzySquirrel's Playground\"}],[\"$\",\"meta\",\"9\",{\"name\":\"twitter:description\",\"content\":\"How pairing AI for research with AI for implementation creates a workflow where every decision is informed, documented, and traceable. Better decisions, faster builds: I use AI to research first and code with context, then document every key choice in ADRs so future changes are traceable, faster, and smarter.\"}]]\n"])</script></body></html>

@@ -1,0 +1,88 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3k0w55c8q_zhq.js"
+3:I[25731,["$2"],"default"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[64079,["$2"],"default"]
+b:I[97367,["$2"],"OutletBoundary"]
+c:"$Sreact.suspense"
+e:"ViewportBoundary"
+f:I[97367,["$2"],"$e"]
+11:"MetadataBoundary"
+12:I[97367,["$2"],"$11"]
+14:I[68027,["$2"],"default",1]
+:HL["/assets/main.css","style"]
+8:X
+9:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":["$La",null,["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]]}],"p":false,"v":null}}]]
+7:[["children",{"s":{"n":"postPath","t":"c","k":"personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world","s":["about","blog","feed.xml","projects"]},"h":66048,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$8"},"c":"$Q9"}]]
+0:{"P":null,"c":["","personal","project","2026","05","30","knowledge-dungeon-from-notes-to-explorable-world"],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3k0w55c8q_zhq.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":["$","link",null,{"rel":"stylesheet","href":"/assets/main.css"}]}],["$","body",null,{"id":"top","children":[["$","$L3",null,{}],["$","main",null,{"className":"page-content","aria-label":"Content","children":["$","div",null,{"className":"wrapper","children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"container","children":[["$","h1",null,{"children":"404"}],["$","p",null,{"children":["$","strong",null,{"children":"Page not found :("}]}],["$","p",null,{"children":"The requested page could not be found."}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","footer",null,{"className":"site-footer h-card","children":[["$","data",null,{"className":"u-url","href":"/"}],["$","div",null,{"className":"wrapper","children":[["$","h2",null,{"className":"footer-heading","children":"McFuzzySquirrel's Playground"}],["$","div",null,{"className":"footer-col-wrapper","children":[["$","div",null,{"className":"footer-col footer-col-1","children":["$","ul",null,{"className":"contact-list","children":["$","li",null,{"className":"p-name","children":"McFuzzySquirrel's Playground"}]}]}],["$","div",null,{"className":"footer-col footer-col-2","children":["$","ul",null,{"className":"social-media-list","children":["$","li",null,{"children":["$","a",null,{"href":"https://github.com/McFuzzySquirrel","children":"GitHub · McFuzzySquirrel"}]}]}]}],["$","div",null,{"className":"footer-col footer-col-3","children":["$","p",null,{"children":"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing."}]}]]}]]}]]}],["$","$L6",null,{}]]}]]}]]}],"p":false,"v":null},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$Lf",null,{"children":"$L10"}],["$","$L12",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$c",null,{"name":"Next.Metadata","children":"$L13"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$14",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"bDcOMyoGFbvlXyWGtf3n3"}
+8:C
+15:T1850,<blockquote>
+<p><em>What if notes were not pages to read, but a world to explore?</em></p>
+</blockquote>
+<p>I have been building a project called <strong>Knowledge Dungeon</strong>, and it has evolved far beyond a simple study tool.</p>
+<p>It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents?</p>
+<p>The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading.</p>
+<h2 id="from-repo-dungeon-idea-to-playable-learning-world">From Repo-Dungeon Idea to Playable Learning World</h2>
+<p><strong>A special note</strong>: I am in no way any good at graphics, so dont expect anything groundbreaking in that space <em><strong>but it is fun!</strong></em></p>
+<p>The earliest concept was &quot;repo-dungeon&quot;: turning structured information from GitHub public repo(s) and later local git repos into navigable space. At first, this was mostly an experiment in representation. Could content relationships become map topology? Could navigation through a world stand in for navigation through ideas?</p>
+<p>As the prototype evolved, it became a playable system with game loops, progression patterns, and interaction mechanics that made learning feel active.</p>
+<p><strong>Knowledge Dungeon</strong> did not start from zero. It was built on top of my earlier experiment, <a href="https://github.com/McFuzzySquirrel/repo-dungeon">repo-dungeon</a>, where I explored how structured information could be transformed into explorable spatial layouts.</p>
+<p><img
+	src="/assets/images/2026-05-30-knowledge-dungeon-from-notes-to-explorable-world/knowledge-squirrel.png"
+	alt="Knowledge Dungeon explorer character in a dungeon with map and torch"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>That experiment provided the foundation for several core ideas that now power this project:</p>
+<ul>
+<li>Information first, visuals second: generation starts from relationships in the source material, then maps those relationships into navigable world structures.</li>
+<li>Exploration as comprehension: movement and discovery are treated as part of understanding, not just presentation.</li>
+<li>Spatialized knowledge: related concepts are placed in ways that help reveal clusters, boundaries, and paths through a topic.</li>
+<li>Reusable generation pipeline: parsing, relationship modeling, and layout logic from the original experiment were adapted and extended for educational content.</li>
+</ul>
+<p>In short, repo-dungeon was the proof of concept. Knowledge Dungeon is the expanded version where the same principle is applied to learning experiences, gameplay systems, and deeper content interaction.</p>
+<h2 id="what-is-built-so-far">What Is Built So Far</h2>
+<p>Here are some of the core features currently in place:</p>
+<ul>
+<li>Procedurally generated dungeon layouts driven by knowledge content.</li>
+<li>A playable RPG-style exploration experience built with web technologies and packaged for desktop.</li>
+<li>Draggable and interactive minimap systems for navigating generated worlds.</li>
+<li>Biomes and themed areas representing different domains of knowledge.</li>
+<li>Artifact, scroll, signpost, and discovery mechanics that turn information into game objects.</li>
+<li>Conversational interaction patterns that let players engage with content in a more natural way.</li>
+<li>Support for transforming static study notes into an experience closer to an adventure game.</li>
+<li>An architecture designed to eventually run on low-cost hardware for education-focused use cases.</li>
+</ul>
+<h2 id="areas-this-brings-together">Areas This Brings Together</h2>
+<p>I love how many long-running interests converged in one project, I have an ongoing belief that everything is connected:</p>
+<ul>
+<li>Conversational learning.</li>
+<li>Knowledge graphs and content relationships.</li>
+<li>Procedural generation.</li>
+<li>Local and affordable computing.</li>
+<li>Educational gaming.</li>
+<li>Open-source experimentation.</li>
+</ul>
+<p>Instead of asking learners to adapt to traditional study workflows, the goal is to adapt learning to something naturally engaging: exploration, discovery, progression, and curiosity - while keeping the core benefits of not taking and structured thinking.</p>
+<h2 id="a-practical-spinout-repo-mapping-for-developers">A Practical Spinout: Repo Mapping for Developers</h2>
+<p>Of course, I cant let it just be one thing and one cool outcome was not part of the game itself, but could be valuable and definately is fun.</p>
+<p>While building Knowledge Dungeon, I created reusable SKILL.md that can analyze a software repository and generate a navigable mind map of its structure, relationships, and architecture. Instead of reading hundreds of files line by line to understand an unfamiliar codebase, developers can quickly visualize how parts connect - you can then import it into Knowledge Dungeon!</p>
+<p>This becomes a practical second application of the same core idea:</p>
+<ul>
+<li>Helping developers understand their own repositories.</li>
+<li>Accelerating onboarding into existing projects.</li>
+<li>Exploring unfamiliar open-source repositories.</li>
+<li>Discovering architectural patterns and dependencies.</li>
+<li>Creating visual maps of complex codebases.</li>
+</ul>
+<p>The underlying principle is the same in both contexts: transform information into something that can be explored instead of simply consumed.</p>
+<p>Whether the source material is study notes, a textbook, or a software repository, the objective is consistent: make understanding feel like exploration and discovery.</p>
+<p>Knowledge Dungeon is still evolving, but it already demonstrates a practical intersection of game development, knowledge mapping, and education. More importantly, it shows that study material can become a world you walk through, not just a document you read.</p>
+<hr>
+<p><strong>Project:</strong> <a href="https://github.com/McFuzzySquirrel/knowledge-dungeon">Knowledge Dungeon on GitHub</a></p>
+a:["$","article",null,{"className":"post h-entry","itemScope":true,"itemType":"https://schema.org/BlogPosting","children":[["$","header",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title p-name","itemProp":"name headline","children":"Knowledge Dungeon: Turning Study Notes into an Explorable World"}],["$","p",null,{"className":"post-meta","children":[false,["$","time",null,{"className":"dt-published","dateTime":"2026-05-30T16:30:00.000Z","itemProp":"datePublished","children":"May 30, 2026"}]," · ",["$","span",null,{"className":"reading-time","title":"690 words","children":[3," min read"]}]]}],["$","div",null,{"className":"post-card-tags","children":[["$","span","knowledge dungeon",{"className":"post-card-tag","children":"knowledge dungeon"}],["$","span","educational gaming",{"className":"post-card-tag","children":"educational gaming"}],["$","span","procedural generation",{"className":"post-card-tag","children":"procedural generation"}],["$","span","knowledge mapping",{"className":"post-card-tag","children":"knowledge mapping"}],["$","span","repo-dungeon",{"className":"post-card-tag","children":"repo-dungeon"}]]}]]}],["$","nav",null,{"className":"post-toc","aria-label":"Table of contents","children":["$","details",null,{"open":true,"children":[["$","summary",null,{"children":"Table of Contents"}],["$","ul",null,{"children":[["$","li","from-repo-dungeon-idea-to-playable-learning-world",{"children":["$","a",null,{"href":"#from-repo-dungeon-idea-to-playable-learning-world","children":"From Repo-Dungeon Idea to Playable Learning World"}]}],["$","li","what-is-built-so-far",{"children":["$","a",null,{"href":"#what-is-built-so-far","children":"What Is Built So Far"}]}],["$","li","areas-this-brings-together",{"children":["$","a",null,{"href":"#areas-this-brings-together","children":"Areas This Brings Together"}]}],["$","li","a-practical-spinout-repo-mapping-for-developers",{"children":["$","a",null,{"href":"#a-practical-spinout-repo-mapping-for-developers","children":"A Practical Spinout: Repo Mapping for Developers"}]}]]}]]}]}],["$","div",null,{"className":"post-content e-content","itemProp":"articleBody","dangerouslySetInnerHTML":{"__html":"$15"}}],"$L16","$L17"]}]
+16:["$","nav",null,{"className":"post-nav","aria-label":"Post navigation","children":[["$","a",null,{"className":"post-nav-link post-nav-prev","href":"/personal/project/2026/04/18/revisiting-vibn-rocket-game-17-months-later.html","children":[["$","span",null,{"className":"post-nav-label","children":"← Previous"}],["$","span",null,{"className":"post-nav-title","children":"Revisiting Vib'N: From a Pitch Experiment to a Rocket Game, 17 Months Later"}]]}],["$","a",null,{"className":"post-nav-link post-nav-next","href":"/personal/project/2026/08/10/the-unexpected-journey.html","children":[["$","span",null,{"className":"post-nav-label","children":"Next →"}],["$","span",null,{"className":"post-nav-title","children":"The unexpected journey of building Skill Forge"}]]}]]}]
+17:["$","a",null,{"className":"u-url","href":"/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html","hidden":true}]
+10:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+d:null
+13:[["$","title","0",{"children":"Knowledge Dungeon: Turning Study Notes into an Explorable World | McFuzzySquirrel's Playground"}],["$","meta","1",{"name":"description","content":"What if notes were not pages to read, but a world to explore? I have been building a project called Knowledge Dungeon , and it has evolved far beyond a simple study tool. It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents? The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading."}],["$","link","2",{"rel":"canonical","href":"https://mcfuzzysquirrel.github.io/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html"}],["$","meta","3",{"property":"og:title","content":"Knowledge Dungeon: Turning Study Notes into an Explorable World | McFuzzySquirrel's Playground"}],["$","meta","4",{"property":"og:description","content":"What if notes were not pages to read, but a world to explore? I have been building a project called Knowledge Dungeon , and it has evolved far beyond a simple study tool. It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents? The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading."}],["$","meta","5",{"property":"og:type","content":"article"}],["$","meta","6",{"property":"article:published_time","content":"2026-05-30T16:30:00.000Z"}],["$","meta","7",{"property":"article:tag","content":"knowledge dungeon"}],["$","meta","8",{"property":"article:tag","content":"educational gaming"}],["$","meta","9",{"property":"article:tag","content":"procedural generation"}],["$","meta","10",{"property":"article:tag","content":"knowledge mapping"}],["$","meta","11",{"property":"article:tag","content":"repo-dungeon"}],["$","meta","12",{"name":"twitter:card","content":"summary"}],["$","meta","13",{"name":"twitter:title","content":"Knowledge Dungeon: Turning Study Notes into an Explorable World | McFuzzySquirrel's Playground"}],["$","meta","14",{"name":"twitter:description","content":"What if notes were not pages to read, but a world to explore? I have been building a project called Knowledge Dungeon , and it has evolved far beyond a simple study tool. It started with a question: what if your notes, study material, and knowledge base could become a game world instead of a collection of documents? The result is a procedurally generated 2D dungeon crawler where the dungeon itself is built from learning content. Notes become explorable areas, concepts become locations, and studying becomes exploration instead of passive reading."}]]

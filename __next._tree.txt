@@ -1,0 +1,4 @@
+:HL["/assets/main.css","style"]
+:HL["/assets/images/squirrel-blacksmith.jpeg","image",{"fetchPriority":"high"}]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"bDcOMyoGFbvlXyWGtf3n3","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

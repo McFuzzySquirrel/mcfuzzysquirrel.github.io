@@ -1,0 +1,110 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3k0w55c8q_zhq.js"
+3:I[25731,["$2"],"default"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[64079,["$2"],"default"]
+b:I[97367,["$2"],"OutletBoundary"]
+c:"$Sreact.suspense"
+e:"ViewportBoundary"
+f:I[97367,["$2"],"$e"]
+11:"MetadataBoundary"
+12:I[97367,["$2"],"$11"]
+14:I[68027,["$2"],"default",1]
+:HL["/assets/main.css","style"]
+8:X
+9:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":["$La",null,["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]]}],"p":false,"v":null}}]]
+7:[["children",{"s":{"n":"postPath","t":"c","k":"personal/project/2026/08/10/the-unexpected-journey","s":["about","blog","feed.xml","projects"]},"h":66048,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$8"},"c":"$Q9"}]]
+0:{"P":null,"c":["","personal","project","2026","08","10","the-unexpected-journey"],"q":"","i":false,"t":{"t":{"s":"","h":131600,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3k0w55c8q_zhq.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":["$","link",null,{"rel":"stylesheet","href":"/assets/main.css"}]}],["$","body",null,{"id":"top","children":[["$","$L3",null,{}],["$","main",null,{"className":"page-content","aria-label":"Content","children":["$","div",null,{"className":"wrapper","children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"container","children":[["$","h1",null,{"children":"404"}],["$","p",null,{"children":["$","strong",null,{"children":"Page not found :("}]}],["$","p",null,{"children":"The requested page could not be found."}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","footer",null,{"className":"site-footer h-card","children":[["$","data",null,{"className":"u-url","href":"/"}],["$","div",null,{"className":"wrapper","children":[["$","h2",null,{"className":"footer-heading","children":"McFuzzySquirrel's Playground"}],["$","div",null,{"className":"footer-col-wrapper","children":[["$","div",null,{"className":"footer-col footer-col-1","children":["$","ul",null,{"className":"contact-list","children":["$","li",null,{"className":"p-name","children":"McFuzzySquirrel's Playground"}]}]}],["$","div",null,{"className":"footer-col footer-col-2","children":["$","ul",null,{"className":"social-media-list","children":["$","li",null,{"children":["$","a",null,{"href":"https://github.com/McFuzzySquirrel","children":"GitHub · McFuzzySquirrel"}]}]}]}],["$","div",null,{"className":"footer-col footer-col-3","children":["$","p",null,{"children":"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing."}]}]]}]]}]]}],["$","$L6",null,{}]]}]]}]]}],"p":false,"v":null},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$Lf",null,{"children":"$L10"}],["$","$L12",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$c",null,{"name":"Next.Metadata","children":"$L13"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$14",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"bDcOMyoGFbvlXyWGtf3n3"}
+8:C
+15:T27d1,<blockquote>
+<p>What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement.</p>
+</blockquote>
+<h2 id="the-unexpected-journey-of-building-skill-forge">The Unexpected Journey of Building Skill Forge</h2>
+<p>So I have been quite recently, but only because I been on an exciting journey.  </p>
+<p><img
+	src="/assets/images/2026-08-10-the-unexpected-journey/inception.png"
+	alt="McFuzzySquirrelr character looking at a spinning top"
+	style="max-width: 420px; width: 100%; height: auto; display: block; margin: 1rem auto;"
+/></p>
+<p>A really interesting side quest I’ve been exploring recently is something I’m calling <strong>Skill Forge</strong>. Initially I had a simple goal: make it easier to build high-quality reusable AI skills, but during this journey it turned into an experiment in self-improving systems.  </p>
+<p>The first thing I wanted was obvious: if AI agents are going to rely on skills, then those skills need to be consistent, well structured, documented, and follow agreed best practices. So rather than expecting someone (including me) to remember everything, I wondered…  </p>
+<p><em>What if the AI could help enforce those standards itself, reliably?</em>  </p>
+<p>So that led to the first piece of the puzzle (and one that was going to be the key to everything): a <strong>Skill Reviewer</strong> skill which analyses a skill against a growing set of best practices and provides feedback on what could be improved. Once I had that working, the next step felt natural: why not build a <strong>Skill Creator</strong> that uses those same best practices from the outset, producing better skills automatically instead of relying on review afterwards? </p>
+<p>And then things became slightly more… interesting.  </p>
+<p>The first thing to remember is that best practices aren’t static forever. As we learn more, they evolve and when they evolve, then we need to ask: <strong>who keeps the reviewer up to date?</strong>  </p>
+<p>Amusingly the answer, was…<em>A skill.</em>  </p>
+<p>So I went on and built an administrative skill whose job is to review and improve the best practices themselves. Those improvements feed back into the Skill Reviewer, which in turn improves the Skill Creator.  </p>
+<p>Now if you have ever watched the movie Inception, at this point it started feeling a little like AI inception:  </p>
+<ul>
+<li>A reviewer reviews skills.  </li>
+<li>A creator creates skills using the reviewer’s guidance.  </li>
+<li>An administrator updates the guidance used by the reviewer.  </li>
+<li>The improved reviewer produces better guidance for the creator.  </li>
+<li>The cycle repeats.</li>
+</ul>
+<p>So now the entire system has become capable of evolving without rewriting every individual skill, pretty cool.  </p>
+<p>One of the biggest hands-on learning experience during this project came from playing with <strong>skills that invoke command-line tools</strong>.  </p>
+<p>I always knew that we could execute scripts, but never really needed them before, but what about installing and running a CLI? So I experimented, and once I successfully had a skill install and execute a CLI as part of its workflow, something clicked. Skills no longer needed to be passive instruction sets, <strong>they could orchestrate real tooling</strong>.  </p>
+<p>So know, instead of simply telling an agent <em>how</em> to perform a task, a skill can prepare its own environment, invoke specialist tools, process their output, and integrate the results back into the workflow. It becomes an executable capability rather than just documented knowledge. For me, this is a significant shift in how I think about skills.  </p>
+<p><strong>But there is more</strong>: the other concept I’m becoming increasingly interested in is the idea of a <strong>root skill</strong>.  </p>
+<p>Rather than every skill carrying its own copy of common guidance and conventions, imagine a foundational skill that defines the shared principles for a team or an organisation. Every other skill inherits from it.  </p>
+<ul>
+<li>When your standards or rules evolve, you update the root once. Every future skill automatically benefits.</li>
+</ul>
+<p>Now combine that with the administrative improvement loop, and you have a mechanism for continuously refining your team or organisational knowledge. Over time, teams could build their own opinionated best practices while still keeping every generated skill aligned - it’s still an experiment, and I suspect I’ll discover plenty of flaws along the way, but that’s exactly what makes it fun.  </p>
+<p>I always find that the most valuable projects I do aren’t the ones that solve today’s problem, but the ones that change how I think about tomorrow’s from what I learn from them.  </p>
+<p>I’m excited to see where this leads. Right now it feels less like building individual skills and more like building a system that learns how to build better skills over time.  </p>
+<p>One aspect of Skill Forge that I’m particularly happy with is the distinction between <strong>mechanical validation</strong> and <strong>AI judgement</strong>.  </p>
+<p>The review process isn’t simply asking an LLM, <em>“Is this a good skill?”</em> Instead, the first layer is deliberately deterministic. It performs mechanical checks against a set of objective best practices derived from the <a href="https://agentskills.io">Agent Skills community guidance</a>. These are things that either pass or fail: </p>
+<ul>
+<li>structure</li>
+<li>required files</li>
+<li>metadata</li>
+<li>conventions</li>
+<li>documentation</li>
+<li>and other repeatable rules.</li>
+</ul>
+<p>That means the foundation is predictable and consistent. Every skill is evaluated against the same criteria every time, without the variability that naturally comes from prompting an LLM.  </p>
+<p>Only once those objective checks have been satisfied does the AI move into the more subjective space with its semantic understanding: </p>
+<ul>
+<li>helping improve wording</li>
+<li>refining instructions</li>
+<li>suggesting better approaches</li>
+<li>or generating new capabilities.</li>
+</ul>
+<p>This separation is important. AI shouldn’t be responsible for everything. Where deterministic validation is possible, we should use deterministic validation. Save the model’s reasoning for the parts where creativity, context, and judgement genuinely add value.  </p>
+<p>Another reason I chose this approach is that the mechanical review is based on the best practices emerging from the <a href="https://agentskills.io">Agent Skills community</a>. While the ecosystem is still evolving, this once feels like one of the strongest foundations available today for reusable, composable AI skills. Building on an open community standard means Skill Forge isn’t inventing its own conventions, it starts with shared practices and leaves room for you, your team or your organisations to layer specific unique standards on top.  </p>
+<p>This combination: a deterministic foundation, AI-assisted refinement, and a continuously evolving set of best practices, this is what makes the whole feedback loop work.  </p>
+<p>Skill Forge is just the first implementation of a more general architecture.  </p>
+<h3 id="so-whats-next-beyond-skill-forge">So what’s next: beyond Skill Forge</h3>
+<p>Surprisingly, the most exciting outcome of this experiment isn’t Skill Forge itself, it’s the pattern that emerged.  </p>
+<p>What started as a way to create better AI skills has become a blueprint that could be applied to almost any domain where AI and deterministic software work together.  </p>
+<p>The pattern looks something like this:  </p>
+<ol>
+<li><strong>Define a deterministic foundation.</strong> Establish the objective rules that can be mechanically validated.  </li>
+<li><strong>Use AI where reasoning adds value.</strong> Let models create, refine, or make contextual decisions rather than enforcing structure.  </li>
+<li><strong>Capture feedback.</strong> Observe what works, what fails, and where improvements can be made.  </li>
+<li><strong>Improve the guidance.</strong> Feed those learnings back into the rules, prompts, and best practices.  </li>
+<li><strong>Repeat.</strong> Every cycle produces a better system than the one before.</li>
+</ol>
+<p>Once I started looking for it, I realised this pattern extends well beyond skills.  </p>
+<p>Imagine applying it to software engineering. Coding standards evolve through feedback, code reviews become increasingly aligned with organisational practices, and new projects automatically inherit those improvements.  </p>
+<p>Or documentation. AI drafts content, deterministic validation ensures required sections and formatting are present, reviewers refine the guidance, and every future document benefits.  </p>
+<p>The same idea could apply to architecture decision records, security reviews, infra as code, educational content, business processes, or even organisational policies.  </p>
+<p>In each case, the objective checks remain deterministic while AI focuses on reasoning, synthesis, and creativity. It’s a system that continuously improves how it performs a task.  </p>
+<p>Skill Forge started as a destination but became a journey where I discovered along the way, proof that the pattern works.  </p>
+<p>If you’re interested, the repositories are public:  </p>
+<ul>
+<li><strong>Skill Forge</strong> explores the skill creation and review pipeline: <a href="https://github.com/McFuzzySquirrel/skill-forge">Skill Forge</a>.  </li>
+<li><strong>McFuzzy Agent Forge</strong> integrates these capabilities into a broader agent engineering workflow, including the architecture decision describing the integration <a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">McFuzzy Agent Forge</a></li>
+</ul>
+<p>This became a much bigger idea than Skill Forge, and I thought  it’s was one worth telling.  </p>
+<hr>
+<p><strong>Project:</strong> <a href="https://github.com/McFuzzySquirrel/skill-forge">Skill Forge on GitHub</a></p>
+a:["$","article",null,{"className":"post h-entry","itemScope":true,"itemType":"https://schema.org/BlogPosting","children":[["$","header",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title p-name","itemProp":"name headline","children":"The unexpected journey of building Skill Forge"}],["$","p",null,{"className":"post-meta","children":[false,["$","time",null,{"className":"dt-published","dateTime":"2026-08-10T14:40:00.000Z","itemProp":"datePublished","children":"Aug 10, 2026"}]," · ",["$","span",null,{"className":"reading-time","title":"1150 words","children":[5," min read"]}]]}],["$","div",null,{"className":"post-card-tags","children":[["$","span","ai",{"className":"post-card-tag","children":"ai"}],["$","span","agents",{"className":"post-card-tag","children":"agents"}],["$","span","skill-forge",{"className":"post-card-tag","children":"skill-forge"}],["$","span","llm",{"className":"post-card-tag","children":"llm"}],["$","span","automation",{"className":"post-card-tag","children":"automation"}],["$","span","knowledge-systems",{"className":"post-card-tag","children":"knowledge-systems"}],["$","span","software-engineering",{"className":"post-card-tag","children":"software-engineering"}]]}]]}],false,["$","div",null,{"className":"post-content e-content","itemProp":"articleBody","dangerouslySetInnerHTML":{"__html":"$15"}}],"$L16","$L17"]}]
+16:["$","nav",null,{"className":"post-nav","aria-label":"Post navigation","children":[["$","a",null,{"className":"post-nav-link post-nav-prev","href":"/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html","children":[["$","span",null,{"className":"post-nav-label","children":"← Previous"}],["$","span",null,{"className":"post-nav-title","children":"Knowledge Dungeon: Turning Study Notes into an Explorable World"}]]}],["$","a",null,{"className":"post-nav-link post-nav-next","href":"/personal/project/2026/10/06/reflecting-on-myforge.html","children":[["$","span",null,{"className":"post-nav-label","children":"Next →"}],["$","span",null,{"className":"post-nav-title","children":"Reflecting on MyForge: From Agent Forge to the Value Chain"}]]}]]}]
+17:["$","a",null,{"className":"u-url","href":"/personal/project/2026/08/10/the-unexpected-journey.html","hidden":true}]
+10:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+d:null
+13:[["$","title","0",{"children":"The unexpected journey of building Skill Forge | McFuzzySquirrel's Playground"}],["$","meta","1",{"name":"description","content":"What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement."}],["$","link","2",{"rel":"canonical","href":"https://mcfuzzysquirrel.github.io/personal/project/2026/08/10/the-unexpected-journey.html"}],["$","meta","3",{"property":"og:title","content":"The unexpected journey of building Skill Forge | McFuzzySquirrel's Playground"}],["$","meta","4",{"property":"og:description","content":"What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement."}],["$","meta","5",{"property":"og:type","content":"article"}],["$","meta","6",{"property":"article:published_time","content":"2026-08-10T14:40:00.000Z"}],["$","meta","7",{"property":"article:tag","content":"ai"}],["$","meta","8",{"property":"article:tag","content":"agents"}],["$","meta","9",{"property":"article:tag","content":"skill-forge"}],["$","meta","10",{"property":"article:tag","content":"llm"}],["$","meta","11",{"property":"article:tag","content":"automation"}],["$","meta","12",{"property":"article:tag","content":"knowledge-systems"}],["$","meta","13",{"property":"article:tag","content":"software-engineering"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"The unexpected journey of building Skill Forge | McFuzzySquirrel's Playground"}],["$","meta","16",{"name":"twitter:description","content":"What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, and a broader pattern that blends deterministic validation with AI judgement."}]]

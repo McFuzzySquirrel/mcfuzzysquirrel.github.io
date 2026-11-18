@@ -11,3 +11,9 @@ vendor/bundle/
 # OS/editor noise
 .DS_Store
 Gemfile.lock
+/.docs_index.sqlite
+
+# Next.js build output
+node_modules/
+.next/
+out/

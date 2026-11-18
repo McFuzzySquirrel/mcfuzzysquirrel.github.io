@@ -1,0 +1,28 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3k0w55c8q_zhq.js"
+3:I[25731,["$2"],"default"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[64079,["$2"],"default"]
+d:I[97367,["$2"],"OutletBoundary"]
+e:"$Sreact.suspense"
+11:"ViewportBoundary"
+12:I[97367,["$2"],"$11"]
+13:"MetadataBoundary"
+14:I[97367,["$2"],"$13"]
+:HL["/assets/main.css","style"]
+8:X
+b:X
+b:C
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","div",null,{"className":"container","children":[["$","h1",null,{"children":"404"}],["$","p",null,{"children":["$","strong",null,{"children":"Page not found :("}]}],["$","p",null,{"children":"The requested page could not be found."}]]}],null,["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]]}],"p":"$@10","v":null,"s":"$8"}}]]
+9:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@a","v":"$b","s":"$8"},"c":"$Qc"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3k0w55c8q_zhq.js","async":true}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":["$","link",null,{"rel":"stylesheet","href":"/assets/main.css"}]}],["$","body",null,{"id":"top","children":[["$","$L3",null,{}],["$","main",null,{"className":"page-content","aria-label":"Content","children":["$","div",null,{"className":"wrapper","children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}],"notFound":[["$","div",null,{"className":"container","children":[["$","h1",null,{"children":"404"}],["$","p",null,{"children":["$","strong",null,{"children":"Page not found :("}]}],["$","p",null,{"children":"The requested page could not be found."}]]}],[]]}]}]}],["$","footer",null,{"className":"site-footer h-card","children":[["$","data",null,{"className":"u-url","href":"/"}],["$","div",null,{"className":"wrapper","children":[["$","h2",null,{"className":"footer-heading","children":"McFuzzySquirrel's Playground"}],["$","div",null,{"className":"footer-col-wrapper","children":[["$","div",null,{"className":"footer-col footer-col-1","children":["$","ul",null,{"className":"contact-list","children":["$","li",null,{"className":"p-name","children":"McFuzzySquirrel's Playground"}]}]}],["$","div",null,{"className":"footer-col footer-col-2","children":["$","ul",null,{"className":"social-media-list","children":["$","li",null,{"children":["$","a",null,{"href":"https://github.com/McFuzzySquirrel","children":"GitHub · McFuzzySquirrel"}]}]}]}],["$","div",null,{"className":"footer-col footer-col-3","children":["$","p",null,{"children":"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing."}]}]]}]]}]]}],["$","$L6",null,{}]]}]]}]]}],"p":"$@7","v":null,"s":"$8"},"c":"$Q9"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L12",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L14",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"McFuzzySquirrel's Playground"}],["$","meta","1",{"name":"description","content":"AI experiments, useful tools, strange prototypes, and honest notes from learning by doing."}]]}]}],null]}],null]}],"p":"$@15","v":null,"s":"$8"}},"a":"$@16","u":"$@17","b":"bDcOMyoGFbvlXyWGtf3n3"}
+f:null
+8:300
+17:true
+8:C
+16:0
+a:"$undefined"
+7:"$undefined"
+15:"$undefined"
+10:"$undefined"
