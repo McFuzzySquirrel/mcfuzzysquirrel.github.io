@@ -33,4 +33,6 @@ Posts are served at `/blog/<slug>/`. Old Jekyll-style post URLs redirect to the
 new URLs automatically.
 
 See [docs/local-authoring.md](docs/local-authoring.md) for the full authoring
-and publishing workflow.
+and publishing workflow. The OpenCode project skill at
+`.opencode/skills/blog-publisher/SKILL.md` covers the same loop for agents,
+including a draft scaffolder.

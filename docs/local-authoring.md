@@ -92,3 +92,21 @@ the build:
 - `/personal/.../*.html` redirects from old post URLs
 - `feed.xml`, `search-index.json`, `sitemap-index.xml`
 - hashed CSS under `_astro/`
+
+## Agent skill
+
+OpenCode includes a project skill for the full writing and publishing loop:
+`.opencode/skills/blog-publisher/SKILL.md`.
+
+It covers drafting, previewing, checking, syncing the `gh-pages` output, and
+verifying the live site. It also ships a scaffolder:
+
+```sh
+node .opencode/skills/blog-publisher/scripts/new-post.mjs \
+  --title "What I learned from the build" \
+  --categories personal,project \
+  --tags "ai,agents"
+```
+
+New posts are drafts by default. Add `--publish` when the post should go into
+production builds. Use `--dry-run` to inspect the generated file first.
