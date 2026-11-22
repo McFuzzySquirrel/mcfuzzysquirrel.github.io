@@ -13,13 +13,13 @@ const total = totalPages(posts);
 
 <BaseLayout
   title="Blog"
-  description="Build notes, experiments, and lessons learned along the way."
+  description="Notes on what I built, what broke, and what I’d try next."
 >
   <div class="shell">
     <PageHeader
       kicker="Notes from the workshop"
       title="Blog"
-      intro="Build notes, experiments, and lessons learned along the way."
+      intro="Notes on what I built, what broke, and what I’d try next."
     />
     <BlogArchive posts={pagePosts(posts, 1)} tags={tags} currentPage={1} totalPages={total} />
   </div>

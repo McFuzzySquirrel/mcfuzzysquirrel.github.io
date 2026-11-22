@@ -2,7 +2,7 @@ export const SITE = {
   title: "McFuzzySquirrel's Playground",
   shortTitle: "McFuzzySquirrel",
   description:
-    "AI experiments, useful tools, strange prototypes, and honest notes from learning by doing.",
+    "AI experiments, useful tools, strange prototypes, and notes from building them in public.",
   author: "Doug McCusker",
   intro:
     "I turn questions into working software: AI experiments, useful tools, and the occasional strange prototype.",

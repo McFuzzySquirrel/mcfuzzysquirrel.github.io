@@ -26,13 +26,13 @@ const tags = [...new Set(posts.flatMap((post) => post.tags))].sort((left, right)
 
 <BaseLayout
   title={`Blog – Page ${page}`}
-  description={`Page ${page} of build notes, experiments, and lessons learned along the way.`}
+  description={`Page ${page} of notes on what I built, what broke, and what I’d try next.`}
 >
   <div class="shell">
     <PageHeader
       kicker="Notes from the workshop"
       title="Blog"
-      intro={`Build notes, experiments, and lessons learned along the way. Page ${page} of ${total}.`}
+      intro={`Notes on what I built, what broke, and what I’d try next. Page ${page} of ${total}.`}
     />
     <BlogArchive
       posts={pagePosts(posts, page)}

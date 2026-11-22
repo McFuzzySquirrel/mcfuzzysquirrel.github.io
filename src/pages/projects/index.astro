@@ -9,13 +9,13 @@ const projects = await getProjects();
 
 <BaseLayout
   title="Projects"
-  description="A curated selection of projects built to explore ideas, solve practical problems, and learn by making."
+  description="Projects I’ve built to solve a problem, test an idea, or learn something by making it."
 >
   <div class="shell">
     <PageHeader
       kicker="On the workbench"
       title="Projects"
-      intro="A curated selection of projects built to explore ideas, solve practical problems, and learn by making."
+      intro="Projects I’ve built to solve a problem, test an idea, or learn something by making it."
     />
     <div class="project-grid project-grid-large">
       {projects.map((project) => <ProjectCard project={project} />)}
