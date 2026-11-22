@@ -2,6 +2,9 @@
 
 ## Draft
 
+- [ ] The discovery brief is confirmed: premise, reader, takeaway, shape, and
+  evidence.
+- [ ] Sensitive details are removed or cleared for publication.
 - [ ] The post is in `src/content/blog/YYYY-MM-DD-slug.md`.
 - [ ] `title`, `date`, `categories`, and `tags` are present.
 - [ ] `draft: true` is set while the post is unfinished.

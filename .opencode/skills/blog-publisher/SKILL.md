@@ -9,19 +9,58 @@ This skill covers the whole loop for the Astro blog in this repository: draft,
 preview, check, publish, and verify. Read `docs/local-authoring.md` for the
 current commands and `src/content.config.ts` for the frontmatter schema.
 
-## Before writing
+## Discovery interview
 
-Ask for the parts you cannot infer:
+Do not start writing from a one-line topic. Run a short discovery interview
+first. The goal is a confirmed story brief, not a questionnaire.
 
-- The story: what happened, what changed, or what the reader should learn.
-- The reader: another builder, a collaborator, a future version of the author.
-- The takeaway: the one thing the reader should remember.
-- Any screenshots, diagrams, or repo links.
-- Whether the post is a draft or ready to publish.
+Read `references/discovery-interview.md` before the first question round.
 
-If the author supplies a rough draft, read it fully before editing. Preserve
-their voice: first person, practical, specific, comfortable with uncertainty.
-These are build stories, not marketing pages.
+### How to run it
+
+1. Read everything the author supplied: draft, notes, repo, PR, screenshots,
+   transcript, or outline. Extract what is already known.
+2. Ask only about gaps, contradictions, and decisions the material cannot
+   answer. Never ask for a fact that is already in the reference.
+3. Ask in rounds of three or four questions. Use the author's own terms and
+   quote the line or artifact that prompted the question.
+4. Reflect each answer back in one sentence before moving on. If an answer is
+   vague, ask for a number, example, or decision.
+5. Branch by post type: build story, experiment, reflection, tutorial,
+   announcement, or postmortem. The reference has a question set for each.
+6. Stop when you can write a brief with a title direction, premise, reader,
+   takeaway, sections, evidence, exclusions, images and links, categories,
+   tags, and draft or publish status.
+7. Show the brief and ask: "What is wrong or missing?" Do not scaffold or draft
+   until the author confirms it, unless they explicitly say "just write it."
+8. If the author says "just write it," state the assumptions you are making and
+   draft. Do not keep interviewing.
+
+### Must-ask areas
+
+- The change: what happened, what was believed before, what is believed now.
+- The reader: who this is for and what they already know.
+- The evidence: the number, error, screenshot, commit, or result that makes it
+  credible.
+- The shape: build story, experiment, reflection, tutorial, announcement, or
+  postmortem.
+- The boundary: anything private, client-owned, unreleased, or under NDA.
+- The packaging: title direction, categories, tags, images, links, length.
+- The publish plan: draft or live, timing, review, series.
+
+### Reference material
+
+- **Draft:** read it fully. Ask about missing evidence, repeated points,
+  unsupported claims, and anything that sounds unlike the author.
+- **Repo or PR:** inspect README, commits, diffs, docs, tests, and screenshots.
+  Ask what should be public and what should stay out.
+- **Notes or transcript:** extract decisions, numbers, quotes, and dead ends.
+  Ask which are publishable.
+- **Screenshots:** check for secrets, stale UI, and missing context. Ask for a
+  caption and alt text.
+
+Preserve the author's voice: first person, practical, specific, comfortable with
+uncertainty. These are build stories, not marketing pages.
 
 Before the final polish, load the `no-ai-slop` skill and run an edit pass. Ask it
 to preserve the author's cadence and technical detail. Do not sand every edge
@@ -187,6 +226,8 @@ Also confirm the post is in `feed.xml` and that its images return `200`.
 
 ## Supporting files
 
+- `references/discovery-interview.md`: the question bank and branching by post
+  type.
 - `references/post-template.md`: frontmatter and section skeleton.
 - `references/publishing-checklist.md`: the short checklist to run before and
   after publishing.

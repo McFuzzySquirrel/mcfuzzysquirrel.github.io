@@ -98,8 +98,9 @@ the build:
 OpenCode includes a project skill for the full writing and publishing loop:
 `.opencode/skills/blog-publisher/SKILL.md`.
 
-It covers drafting, previewing, checking, syncing the `gh-pages` output, and
-verifying the live site. It also ships a scaffolder:
+It starts with a short discovery interview, then covers drafting, previewing,
+checking, syncing the `gh-pages` output, and verifying the live site. It also
+ships a scaffolder:
 
 ```sh
 node .opencode/skills/blog-publisher/scripts/new-post.mjs \
