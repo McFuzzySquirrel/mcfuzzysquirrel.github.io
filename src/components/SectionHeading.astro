@@ -1,0 +1,21 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  id?: string;
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const { kicker, title, id, actionHref, actionLabel } = Astro.props;
+---
+
+<div class="section-heading">
+  <div>
+    {kicker && <p class="kicker">{kicker}</p>}
+    <h2 id={id}>{title}</h2>
+  </div>
+  {actionHref && actionLabel && (
+    <a class="text-link" href={actionHref}>{actionLabel} <span aria-hidden="true">↗</span></a>
+  )}
+</div>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogArchive from "../../components/BlogArchive.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { getPosts, pagePosts, totalPages } from "../../lib/posts";
+
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap((post) => post.tags))].sort((left, right) =>
+  left.localeCompare(right)
+);
+const total = totalPages(posts);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Build notes, experiments, and lessons learned along the way."
+>
+  <div class="shell">
+    <PageHeader
+      kicker="Notes from the workshop"
+      title="Blog"
+      intro="Build notes, experiments, and lessons learned along the way."
+    />
+    <BlogArchive posts={pagePosts(posts, 1)} tags={tags} currentPage={1} totalPages={total} />
+  </div>
+</BaseLayout>

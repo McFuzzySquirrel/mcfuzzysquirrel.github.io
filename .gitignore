@@ -1,19 +1,17 @@
-# Jekyll build output
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# Dependencies and build output
+node_modules/
+dist/
+out/
+.next/
 
-# Local dependency installs and config
-.bundle/
-vendor/bundle/
+# Astro
+.astro/
+
+# Local tooling
+.docs_index.sqlite
+*sqlite
+scripts/__pycache__/
+tests/__pycache__/
 
 # OS/editor noise
 .DS_Store
-Gemfile.lock
-/.docs_index.sqlite
-
-# Next.js build output
-node_modules/
-.next/
-out/

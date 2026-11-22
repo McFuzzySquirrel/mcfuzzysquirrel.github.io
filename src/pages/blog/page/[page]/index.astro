@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import BlogArchive from "../../../../components/BlogArchive.astro";
+import PageHeader from "../../../../components/PageHeader.astro";
+import { getPosts, pagePosts, totalPages } from "../../../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const total = totalPages(posts);
+
+  return Array.from({ length: Math.max(0, total - 1) }, (_, index) => {
+    const page = index + 2;
+    return {
+      params: { page: String(page) },
+      props: { page, total }
+    };
+  });
+}
+
+const { page, total } = Astro.props;
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap((post) => post.tags))].sort((left, right) =>
+  left.localeCompare(right)
+);
+---
+
+<BaseLayout
+  title={`Blog – Page ${page}`}
+  description={`Page ${page} of build notes, experiments, and lessons learned along the way.`}
+>
+  <div class="shell">
+    <PageHeader
+      kicker="Notes from the workshop"
+      title="Blog"
+      intro={`Build notes, experiments, and lessons learned along the way. Page ${page} of ${total}.`}
+    />
+    <BlogArchive
+      posts={pagePosts(posts, page)}
+      tags={tags}
+      currentPage={page}
+      totalPages={total}
+    />
+  </div>
+</BaseLayout>

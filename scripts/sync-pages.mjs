@@ -151,7 +151,7 @@ async function main() {
   }).trim();
   await syncGeneratedSite({
     repositoryRoot,
-    outputDirectory: resolve(repositoryRoot, "out"),
+    outputDirectory: resolve(repositoryRoot, "dist"),
     branchName
   });
   console.log("Static export synced to the gh-pages branch root. Review the diff, then commit and push.");

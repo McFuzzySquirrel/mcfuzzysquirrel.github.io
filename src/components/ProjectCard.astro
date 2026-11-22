@@ -1,0 +1,28 @@
+---
+import type { ProjectView } from "../lib/projects";
+
+interface Props {
+  project: ProjectView;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+---
+
+<article class:list={["project-card", { "project-card-featured": featured }]}>
+  {featured && <span class="featured-stamp" aria-hidden="true">Featured</span>}
+  <div class="project-card-top">
+    <span class="bench-number" aria-hidden="true">{String(project.order).padStart(2, "0")}</span>
+    {project.collaboration && <span class="project-credit">{project.collaboration}</span>}
+  </div>
+  <h3 class="project-card-title">
+    <a href={project.repositoryUrl} target="_blank" rel="noreferrer">{project.title}</a>
+  </h3>
+  <p class="project-card-description">{project.description}</p>
+  {project.role && <p class="project-role">{project.role}</p>}
+  <ul class="project-links">
+    <li><a href={project.repositoryUrl} target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a></li>
+    {project.demoUrl && <li><a href={project.demoUrl} target="_blank" rel="noreferrer">Try the demo <span aria-hidden="true">↗</span></a></li>}
+    {project.storyUrl && <li><a href={project.storyUrl}>Build story</a></li>}
+  </ul>
+</article>

@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { SITE } from "../../lib/site";
+---
+
+<BaseLayout
+  title="About"
+  description="About McFuzzySquirrel's Playground and learning by building in public."
+>
+  <div class="shell">
+    <PageHeader
+      kicker="About the workshop"
+      title="Learning out loud, one build at a time"
+      intro="McFuzzySquirrel's Playground is my place to build in public: a friendly workshop for AI experiments, useful tools, creative prototypes, and the lessons that come with making them."
+    />
+
+    <div class="about-layout">
+      <div class="about-copy prose">
+        <p>
+          I&rsquo;m Doug McCusker. I learn by turning questions into working software, then sharing the process &mdash;
+          not just the polished result. Here you&rsquo;ll find what worked, what didn&rsquo;t, and what I learned along
+          the way.
+        </p>
+        <p>
+          Most of my projects explore AI agents, practical developer tools, local-first workflows, and creative
+          technology. Some are useful answers to real problems; others are experiments pursued out of curiosity. All
+          are part of learning by doing.
+        </p>
+
+        <h2>How this workshop runs</h2>
+        <ul>
+          <li><strong>Build in public.</strong> Notes go up while the idea is still warm, not after it is framed.</li>
+          <li><strong>Show the decisions.</strong> The interesting part is usually why something changed.</li>
+          <li><strong>Keep it useful.</strong> A tool earns its bench space by solving a real problem.</li>
+          <li><strong>Stay curious.</strong> &ldquo;I wonder if&hellip;&rdquo; is a valid starting point.</li>
+        </ul>
+
+        <h2>Explore</h2>
+        <ul>
+          <li>Browse <a href="/projects/">Projects</a> for a curated look at what I&rsquo;m building.</li>
+          <li>Read the <a href="/blog/">Blog</a> for the stories, decisions, and discoveries behind the work.</li>
+        </ul>
+
+        <h2>Find me elsewhere</h2>
+        <ul>
+          <li>GitHub: <a href={SITE.github} target="_blank" rel="noreferrer">McFuzzySquirrel</a></li>
+          <li>LinkedIn: <a href={SITE.linkedin} target="_blank" rel="noreferrer">Doug McCusker</a></li>
+        </ul>
+
+        <p>If a project sparks a question or gives you an idea to try, I&rsquo;d be glad to hear about it.</p>
+      </div>
+
+      <figure class="about-portrait">
+        <img
+          src="/assets/images/2026-08-10-the-unexpected-journey/inception.png"
+          alt="A curious squirrel watching a spinning top on a workbench"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+        <figcaption><span class="bench-tag">Curious by default</span> Most ideas start as a what-if.</figcaption>
+      </figure>
+    </div>
+  </div>
+</BaseLayout>

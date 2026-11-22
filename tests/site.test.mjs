@@ -1,116 +1,263 @@
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
+import { extname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
 import test from "node:test";
-import { getPosts, getProjects } from "../src/lib/content.js";
-import { filterPostsByTag } from "../src/lib/tag-filter.js";
 import { syncGeneratedSite } from "../scripts/sync-pages.mjs";
 
-const root = process.cwd();
-const output = resolve(root, "out");
-const expectedPostUrls = [
-  "/personal/project/2026/10/06/reflecting-on-myforge.html",
-  "/personal/project/2026/08/10/the-unexpected-journey.html",
-  "/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html",
-  "/personal/project/2026/04/18/revisiting-vibn-rocket-game-17-months-later.html",
-  "/personal/tools/2026/04/10/complete-story-engineering-journey-system.html",
-  "/personal/workflow/2026/03/26/ai-assisted-research.html",
-  "/personal/update/2026/03/20/story-of-agent-forge.html",
-  "/personal/update/2026/03/17/offline-ai-tutor-ezansiedgeai-ejs.html"
+const output = resolve("dist");
+
+const posts = [
+  {
+    slug: "reflecting-on-myforge",
+    legacy: "/personal/project/2026/10/06/reflecting-on-myforge.html",
+    title: "Reflecting on MyForge: From Agent Forge to the Value Chain"
+  },
+  {
+    slug: "the-unexpected-journey",
+    legacy: "/personal/project/2026/08/10/the-unexpected-journey.html",
+    title: "The unexpected journey of building Skill Forge"
+  },
+  {
+    slug: "knowledge-dungeon-from-notes-to-explorable-world",
+    legacy: "/personal/project/2026/05/30/knowledge-dungeon-from-notes-to-explorable-world.html",
+    title: "Knowledge Dungeon: Turning Study Notes into an Explorable World"
+  },
+  {
+    slug: "revisiting-vibn-rocket-game-17-months-later",
+    legacy: "/personal/project/2026/04/18/revisiting-vibn-rocket-game-17-months-later.html",
+    title: "Revisiting Vib'N: From a Pitch Experiment to a Rocket Game, 17 Months Later"
+  },
+  {
+    slug: "complete-story-engineering-journey-system",
+    legacy: "/personal/tools/2026/04/10/complete-story-engineering-journey-system.html",
+    title: "The Complete Story of the Engineering Journey System"
+  },
+  {
+    slug: "ai-assisted-research",
+    legacy: "/personal/workflow/2026/03/26/ai-assisted-research.html",
+    title: "The AI-Assisted Research Habit: From Questions to Informed Decisions"
+  },
+  {
+    slug: "story-of-agent-forge",
+    legacy: "/personal/update/2026/03/20/story-of-agent-forge.html",
+    title: "The Story of Agent Forge: Building an AI Development Team from Scratch"
+  },
+  {
+    slug: "offline-ai-tutor-ezansiedgeai-ejs",
+    legacy: "/personal/update/2026/03/17/offline-ai-tutor-ezansiedgeai-ejs.html",
+    title: "What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything"
+  }
 ];
 
 function outputPath(url) {
-  const relative = url.replace(/^\/+/, "");
-  return resolve(output, url.endsWith("/") ? join(relative, "index.html") : relative);
+  const clean = url.split("#")[0].split("?")[0];
+  const relative = clean.replace(/^\/+/, "");
+  const target = resolve(output, relative);
+  if (clean === "/" || clean.endsWith("/")) return join(target, "index.html");
+  return target;
+}
+
+function decodeHtml(value) {
+  return value
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 }
 
 async function page(url) {
   return readFile(outputPath(url), "utf8");
 }
 
-test("exports every existing post URL as a static HTML file", async () => {
-  assert.deepEqual(getPosts().map((post) => post.url), expectedPostUrls);
-  for (const url of expectedPostUrls) {
-    await assert.doesNotReject(readFile(outputPath(url)));
+async function fileExists(path) {
+  try {
+    return (await stat(path)).isFile();
+  } catch {
+    return false;
+  }
+}
+
+async function htmlFiles(directory) {
+  const files = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...(await htmlFiles(path)));
+    else if (entry.name.endsWith(".html")) files.push(path);
+  }
+  return files;
+}
+
+test("builds every post at its new URL and leaves a redirect at the old URL", async () => {
+  for (const post of posts) {
+    const modern = await page(`/blog/${post.slug}/`);
+    const heading = modern.match(/<h1>([\s\S]*?)<\/h1>/)?.[1] ?? "";
+    assert.equal(decodeHtml(heading.trim()), post.title);
+    assert.ok(modern.includes(`rel="canonical" href="https://mcfuzzysquirrel.github.io/blog/${post.slug}/"`));
+
+    const legacy = await page(post.legacy);
+    assert.match(legacy, /<meta name="robots" content="noindex">/);
+    assert.match(legacy, new RegExp(`http-equiv="refresh" content="0; url=/blog/${post.slug}/"`));
+    assert.match(legacy, new RegExp(`window.location.replace\\(`));
+    assert.ok(
+      legacy.includes(`<link rel="canonical" href="https://mcfuzzysquirrel.github.io/blog/${post.slug}/">`)
+    );
   }
 });
 
-test("exports the existing page routes, feed, Jekyll bypass, and site images", async () => {
-  for (const route of ["/", "/blog/", "/projects/", "/about/", "/404.html"]) {
-    await assert.doesNotReject(readFile(outputPath(route)));
+test("exports the main pages, feed, search index, sitemap, favicon, and static assets", async () => {
+  for (const route of ["/", "/blog/", "/blog/page/2/", "/projects/", "/about/", "/404.html"]) {
+    assert.ok(await fileExists(outputPath(route)), `Missing route ${route}`);
   }
-  await assert.doesNotReject(readFile(resolve(output, "feed.xml")));
-  await assert.doesNotReject(readFile(resolve(output, ".nojekyll")));
-  await assert.doesNotReject(readFile(resolve(output, "assets/images/squirrel-blacksmith.jpeg")));
+
+  for (const file of [
+    "feed.xml",
+    "search-index.json",
+    "sitemap-index.xml",
+    "sitemap-0.xml",
+    "robots.txt",
+    "favicon.svg",
+    ".nojekyll",
+    "assets/images/squirrel-blacksmith.jpeg",
+    "assets/images/squirrel-coder.jpg"
+  ]) {
+    assert.ok(await fileExists(resolve(output, file)), `Missing ${file}`);
+  }
 });
 
-test("renders blog filtering, RSS, metadata, table of contents, and post navigation", async () => {
+test("renders search, tag filtering, pagination, dark mode, and RSS affordances", async () => {
   const blog = await page("/blog/");
-  const post = await page(expectedPostUrls[6]);
+  const secondPage = await page("/blog/page/2/");
 
-  assert.match(blog, /data-filter="all"/);
-  assert.match(blog, /aria-label="Filter posts by tag"/);
+  assert.match(blog, /data-search-input/);
+  assert.match(blog, /data-tag="all"/);
+  assert.match(blog, /data-pagination/);
+  assert.match(blog, /data-theme-toggle/);
+  assert.match(blog, /\/search-index\.json/);
   assert.match(blog, /href="\/feed\.xml"/);
-  assert.match(post, /itemtype="https:\/\/schema\.org\/BlogPosting"/i);
-  assert.match(post, /Table of Contents/);
+  assert.match(blog, /prefers-color-scheme: dark/);
+  assert.match(secondPage, /rel="prev" href="\/blog\/"/);
+  assert.doesNotMatch(secondPage, /rel="next"/);
+});
+
+test("renders post metadata, table of contents, related posts, navigation, and structured data", async () => {
+  const post = await page("/blog/story-of-agent-forge/");
+
+  assert.match(post, /"@type":"BlogPosting"/);
+  assert.match(post, /Table of contents/);
   assert.match(post, /href="#the-spark"/);
   assert.match(post, /aria-label="Post navigation"/);
+  assert.match(post, /More from the workbench/);
   assert.match(post, /min read/);
+  assert.match(post, /Blog/);
 });
 
-test("keeps projects ordered and exposes all original homepage sections", async () => {
+test("keeps project ordering and the home page sections", async () => {
   const home = await page("/");
   const projectsPage = await page("/projects/");
-  const projectNames = getProjects().map((project) => project.title);
-  const positions = projectNames.map((name) => projectsPage.indexOf(name));
 
-  assert.equal(projectNames.length, 8);
+  const projectFiles = (await readdir(resolve("src/content/projects"))).filter((name) =>
+    name.endsWith(".md")
+  );
+  const projects = [];
+  for (const file of projectFiles) {
+    const source = await readFile(resolve("src/content/projects", file), "utf8");
+    const title = source.match(/^title:\s*(.+)$/m)?.[1].trim();
+    const order = Number(source.match(/^order:\s*(\d+)/m)?.[1] ?? 0);
+    projects.push({ title, order });
+  }
+  projects.sort((left, right) => left.order - right.order);
+
+  assert.equal(projects.length, 8);
+  const positions = projects.map(({ title }) => projectsPage.indexOf(title));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual(positions, [...positions].sort((left, right) => left - right));
+
   for (const section of ["home-introduction", "featured-project", "project-showcase", "recent-writing"]) {
-    assert.ok(home.includes(`id="${section}"`), `Missing homepage section ${section}`);
+    assert.ok(home.includes(`id="${section}"`), `Missing home section ${section}`);
   }
 });
 
-test("excludes draft posts from production output but includes them for local preview", async () => {
-  const contentRoot = await mkdtemp(join(tmpdir(), "static-site-content-"));
-  try {
-    await mkdir(join(contentRoot, "_posts"));
-    await mkdir(join(contentRoot, "_drafts"));
-    await writeFile(
-      join(contentRoot, "_posts", "2026-01-02-public-post.markdown"),
-      "---\ntitle: Public post\ndate: 2026-01-02 12:00:00 +0200\ncategories: personal project\n---\nPublic body\n"
-    );
-    await writeFile(
-      join(contentRoot, "_drafts", "private-post.markdown"),
-      "---\ntitle: Private preview\n---\nDraft body\n"
-    );
-
-    const published = getPosts({ contentRoot });
-    const withDrafts = getPosts({ contentRoot, includeDrafts: true });
-
-    assert.equal(published.length, 1);
-    assert.equal(published[0].url, "/personal/project/2026/01/02/public-post.html");
-    const preview = withDrafts.find((post) => post.draft);
-    assert.ok(preview);
-    assert.equal(preview.previewUrl, "/drafts/private-post");
-  } finally {
-    await rm(contentRoot, { recursive: true, force: true });
+test("feed and sitemap advertise the new URLs without legacy redirects", async () => {
+  const feed = await readFile(resolve(output, "feed.xml"), "utf8");
+  assert.equal((feed.match(/<item>/g) ?? []).length, posts.length);
+  for (const post of posts) {
+    assert.ok(feed.includes(`https://mcfuzzysquirrel.github.io/blog/${post.slug}/`));
+    assert.ok(!feed.includes(post.legacy));
   }
 
-  const outputFiles = await readdir(output);
-  assert.ok(!outputFiles.includes("drafts.html"));
+  const sitemap = await readFile(resolve(output, "sitemap-0.xml"), "utf8");
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  assert.ok(locations.length >= posts.length + 4);
+  assert.ok(locations.every((location) => location.endsWith("/")));
+  assert.ok(locations.every((location) => !location.includes("/personal/")));
+  for (const post of posts) {
+    assert.ok(locations.includes(`https://mcfuzzysquirrel.github.io/blog/${post.slug}/`));
+  }
 });
 
-test("filters posts by exact tag and restores the full list for All", () => {
-  const posts = [
-    { title: "One", tags: ["AI agents", "tools"] },
-    { title: "Two", tags: ["writing"] }
-  ];
+test("search index covers published posts and points at built pages", async () => {
+  const index = JSON.parse(await readFile(resolve(output, "search-index.json"), "utf8"));
 
-  assert.deepEqual(filterPostsByTag(posts, "AI agents"), [posts[0]]);
-  assert.deepEqual(filterPostsByTag(posts, "all"), posts);
+  assert.equal(index.length, posts.length);
+  for (const item of index) {
+    assert.ok(item.title);
+    assert.ok(item.excerpt);
+    assert.ok(item.search.includes(item.title.toLowerCase()));
+    assert.match(item.url, /^\/blog\/[a-z0-9-]+\/$/);
+    assert.ok(await fileExists(outputPath(`/blog/${item.url.split("/")[2]}/`)));
+  }
+});
+
+test("all internal links resolve to a built file", async () => {
+  const files = await htmlFiles(output);
+  const failures = [];
+
+  for (const file of files) {
+    const html = await readFile(file, "utf8");
+    const links = [...html.matchAll(/(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
+
+    for (const link of links) {
+      if (
+        !link.startsWith("/") ||
+        link.startsWith("//") ||
+        link.startsWith("/#") ||
+        link.includes("${")
+      ) {
+        continue;
+      }
+
+      const clean = link.split("#")[0].split("?")[0];
+      if (!clean) continue;
+
+      let target = outputPath(clean);
+      if (!extname(clean) && !clean.endsWith("/")) {
+        const asDirectory = join(target, "index.html");
+        const asFile = `${target}.html`;
+        if (await fileExists(asDirectory)) target = asDirectory;
+        else if (await fileExists(asFile)) target = asFile;
+      }
+
+      if (!(await fileExists(target))) {
+        failures.push(`${file.replace(`${output}/`, "")} -> ${link}`);
+      }
+    }
+  }
+
+  assert.deepEqual(failures, []);
+});
+
+test("no Next.js or React runtime artifacts remain in the build", async () => {
+  const files = await readdir(output);
+  assert.ok(!files.includes("_next"));
+  assert.deepEqual(
+    files.filter((name) => name.endsWith(".txt")),
+    ["robots.txt"]
+  );
+
+  const home = await page("/");
+  assert.doesNotMatch(home, /__NEXT_DATA__|_next\/static/);
 });
 
 test("syncs generated pages without deleting modified or unowned files", async () => {

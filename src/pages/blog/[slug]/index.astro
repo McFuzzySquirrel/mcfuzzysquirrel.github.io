@@ -1,0 +1,119 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PostCard from "../../../components/PostCard.astro";
+import TableOfContents from "../../../components/TableOfContents.astro";
+import { getPosts, relatedPosts, type PostView } from "../../../lib/posts";
+import { SITE } from "../../../lib/site";
+
+interface Props {
+  post: PostView;
+}
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const posts = await getPosts();
+const index = posts.findIndex((candidate) => candidate.slug === post.slug);
+const newerPost = index > 0 ? posts[index - 1] : null;
+const olderPost = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
+const related = relatedPosts(post, posts, 3).filter(
+  (candidate) => candidate.slug !== newerPost?.slug && candidate.slug !== olderPost?.slug
+);
+
+const siteUrl = Astro.site ?? new URL(SITE.url);
+const articleUrl = new URL(post.url, siteUrl).toString();
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.excerpt,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  url: articleUrl,
+  mainEntityOfPage: articleUrl,
+  author: {
+    "@type": "Person",
+    name: SITE.author,
+    url: new URL("/about/", siteUrl).toString()
+  },
+  keywords: post.tags.join(", "),
+  image: new URL("/assets/images/squirrel-blacksmith.jpeg", siteUrl).toString()
+};
+---
+
+<BaseLayout title={post.data.title} description={post.excerpt} type="article" image="/assets/images/squirrel-blacksmith.jpeg">
+  <div class="shell">
+    <article class="post">
+      <header class="post-header">
+        <p class="kicker">
+          {post.categories.length > 0 ? post.categories.join(" · ") : "Workshop notes"}
+        </p>
+        <h1>{post.data.title}</h1>
+        <p class="post-meta">
+          <time datetime={post.isoDate}>{post.dateLabel}</time>
+          <span aria-hidden="true">·</span>
+          <span>{post.readingMinutes} min read</span>
+          {post.data.draft && <span class="draft-badge">Draft</span>}
+        </p>
+        {post.tags.length > 0 && (
+          <ul class="tag-list" aria-label="Tags">
+            {post.tags.map((tag) => (
+              <li><a class="tag-chip" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a></li>
+            ))}
+          </ul>
+        )}
+      </header>
+
+      <div class="post-layout">
+        <div class="post-body prose">
+          <Content />
+        </div>
+        <aside class="post-aside">
+          <TableOfContents headings={headings} />
+        </aside>
+      </div>
+
+      {related.length > 0 && (
+        <section class="related-posts" aria-labelledby="related-title">
+          <div class="section-heading">
+            <div>
+              <p class="kicker">Keep tinkering</p>
+              <h2 id="related-title">More from the workbench</h2>
+            </div>
+          </div>
+          <div class="post-grid">
+            {related.map((candidate) => <PostCard post={candidate} compact />)}
+          </div>
+        </section>
+      )}
+
+      {!post.data.draft && (olderPost || newerPost) && (
+        <nav class="post-nav" aria-label="Post navigation">
+          {olderPost ? (
+            <a class="post-nav-link post-nav-previous" rel="prev" href={olderPost.url}>
+              <span>← Older note</span>
+              <strong>{olderPost.data.title}</strong>
+            </a>
+          ) : <span />}
+          {newerPost ? (
+            <a class="post-nav-link post-nav-next" rel="next" href={newerPost.url}>
+              <span>Newer note →</span>
+              <strong>{newerPost.data.title}</strong>
+            </a>
+          ) : <span />}
+        </nav>
+      )}
+    </article>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</BaseLayout>

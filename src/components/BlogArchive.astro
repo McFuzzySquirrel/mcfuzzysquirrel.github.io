@@ -1,0 +1,244 @@
+---
+import type { PostView } from "../lib/posts";
+import Pagination from "./Pagination.astro";
+import PostCard from "./PostCard.astro";
+
+interface Props {
+  posts: PostView[];
+  tags: string[];
+  currentPage: number;
+  totalPages: number;
+}
+
+const { posts, tags, currentPage, totalPages } = Astro.props;
+---
+
+<section class="archive" data-archive>
+  <div class="archive-controls">
+    <label class="search-field">
+      <span class="sr-only">Search notes</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <path d="m16 16 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <input
+        type="search"
+        data-search-input
+        placeholder="Search the workshop notes…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </label>
+
+    <div class="tag-filter" role="group" aria-label="Filter notes by tag">
+      <button class="tag-chip is-active" type="button" data-tag="all" aria-pressed="true">All</button>
+      {tags.map((tag) => (
+        <button class="tag-chip" type="button" data-tag={tag} aria-pressed="false">{tag}</button>
+      ))}
+    </div>
+  </div>
+
+  <p class="archive-status" data-archive-status aria-live="polite"></p>
+
+  <ul class="post-list" data-archive-list>
+    {posts.map((post) => (
+      <li><PostCard post={post} heading="h2" /></li>
+    ))}
+  </ul>
+
+  <ul class="post-list search-results" data-search-results hidden></ul>
+
+  <div data-pagination-wrapper>
+    <Pagination currentPage={currentPage} totalPages={totalPages} />
+  </div>
+</section>
+
+<script>
+  type SearchItem = {
+    title: string;
+    url: string;
+    date: string;
+    dateLabel: string;
+    readingMinutes: number;
+    tags: string[];
+    excerpt: string;
+    search: string;
+  };
+
+  const archive = document.querySelector<HTMLElement>("[data-archive]");
+
+  if (archive) {
+    const input = archive.querySelector<HTMLInputElement>("[data-search-input]");
+    const status = archive.querySelector<HTMLElement>("[data-archive-status]");
+    const list = archive.querySelector<HTMLElement>("[data-archive-list]");
+    const results = archive.querySelector<HTMLElement>("[data-search-results]");
+    const pagination = archive.querySelector<HTMLElement>("[data-pagination-wrapper]");
+    const tagButtons = Array.from(archive.querySelectorAll<HTMLButtonElement>("[data-tag]"));
+
+    let indexPromise: Promise<SearchItem[]> | undefined;
+    let activeTag = "all";
+    let query = "";
+    let debounceTimer: number | undefined;
+
+    function syncTagButtons() {
+      for (const button of tagButtons) {
+        const isActive = (button.dataset.tag ?? "all") === activeTag;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      }
+    }
+
+    function updateUrl() {
+      const url = new URL(window.location.href);
+      if (query.trim()) url.searchParams.set("q", query.trim());
+      else url.searchParams.delete("q");
+      if (activeTag !== "all") url.searchParams.set("tag", activeTag);
+      else url.searchParams.delete("tag");
+      window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+
+    function setStatus(message: string) {
+      if (status) status.textContent = message;
+    }
+
+    function showServerList() {
+      if (list) list.hidden = false;
+      if (results) {
+        results.hidden = true;
+        results.replaceChildren();
+      }
+      if (pagination) pagination.hidden = false;
+      setStatus("");
+      updateUrl();
+    }
+
+    function makeCard(item: SearchItem) {
+      const wrapper = document.createElement("li");
+      const card = document.createElement("article");
+      card.className = "post-card";
+
+      const kicker = document.createElement("p");
+      kicker.className = "post-card-kicker";
+      const time = document.createElement("time");
+      time.dateTime = item.date;
+      time.textContent = item.dateLabel;
+      const dot = document.createElement("span");
+      dot.setAttribute("aria-hidden", "true");
+      dot.textContent = "·";
+      const reading = document.createElement("span");
+      reading.textContent = `${item.readingMinutes} min read`;
+      kicker.append(time, dot, reading);
+
+      const heading = document.createElement("h2");
+      heading.className = "post-card-title";
+      const link = document.createElement("a");
+      link.href = item.url;
+      link.textContent = item.title;
+      heading.append(link);
+
+      const excerpt = document.createElement("p");
+      excerpt.className = "post-card-excerpt";
+      excerpt.textContent = item.excerpt;
+
+      card.append(kicker, heading, excerpt);
+
+      if (item.tags.length > 0) {
+        const tagList = document.createElement("ul");
+        tagList.className = "tag-list";
+        tagList.setAttribute("aria-label", "Tags");
+        for (const tag of item.tags) {
+          const tagItem = document.createElement("li");
+          tagItem.className = "tag-chip tag-chip-static";
+          tagItem.textContent = tag;
+          tagList.append(tagItem);
+        }
+        card.append(tagList);
+      }
+
+      wrapper.append(card);
+      return wrapper;
+    }
+
+    function loadIndex() {
+      indexPromise ??= fetch("/search-index.json").then((response) => {
+        if (!response.ok) throw new Error(`Search index unavailable (${response.status})`);
+        return response.json() as Promise<SearchItem[]>;
+      });
+      return indexPromise;
+    }
+
+    function matches(item: SearchItem) {
+      const tagMatch =
+        activeTag === "all" ||
+        item.tags.some((tag) => tag.toLowerCase() === activeTag.toLowerCase());
+      const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+      return tagMatch && tokens.every((token) => item.search.includes(token));
+    }
+
+    async function applyFilters() {
+      if (!query.trim() && activeTag === "all") {
+        showServerList();
+        return;
+      }
+
+      setStatus("Searching the bench…");
+      try {
+        const index = await loadIndex();
+        const found = index.filter(matches);
+        results?.replaceChildren(...found.map(makeCard));
+        if (list) list.hidden = true;
+        if (results) results.hidden = false;
+        if (pagination) pagination.hidden = true;
+        setStatus(
+          found.length === 0
+            ? "No notes match that search yet."
+            : `${found.length} note${found.length === 1 ? "" : "s"} found`
+        );
+        updateUrl();
+      } catch {
+        setStatus("Search is unavailable right now. Browse the notes below.");
+        showServerList();
+      }
+    }
+
+    for (const button of tagButtons) {
+      button.addEventListener("click", () => {
+        activeTag = button.dataset.tag ?? "all";
+        syncTagButtons();
+        void applyFilters();
+      });
+    }
+
+    input?.addEventListener("input", () => {
+      query = input.value;
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => void applyFilters(), 120);
+    });
+
+    input?.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      input.value = "";
+      query = "";
+      void applyFilters();
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get("q") ?? "";
+    const initialTag = params.get("tag") ?? "all";
+
+    if (initialQuery) {
+      query = initialQuery;
+      if (input) input.value = initialQuery;
+    }
+
+    if (tagButtons.some((button) => button.dataset.tag === initialTag)) {
+      activeTag = initialTag;
+    }
+
+    syncTagButtons();
+
+    if (query || activeTag !== "all") {
+      void applyFilters();
+    }
+  }
+</script>

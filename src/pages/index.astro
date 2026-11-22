@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { getPosts } from "../lib/posts";
+import { getProjects } from "../lib/projects";
+import { SITE } from "../lib/site";
+
+const projects = await getProjects();
+const posts = await getPosts();
+const [featured, ...otherProjects] = projects;
+const recentPosts = posts.slice(0, 3);
+---
+
+<BaseLayout description={SITE.description}>
+  <div class="shell home">
+    <section class="hero" id="home-introduction" aria-labelledby="home-title">
+      <div class="hero-copy">
+        <p class="kicker">Notes from the workshop · Learning in public</p>
+        <h1 id="home-title">McFuzzySquirrel&rsquo;s <span class="highlight">Playground</span></h1>
+        <p class="hero-tagline">{SITE.intro}</p>
+        <p class="hero-note">
+          Some builds solve a real problem. Others start with &ldquo;I wonder if&hellip;&rdquo;. All of them are honest
+          snapshots of learning by doing.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/projects/">Explore all projects</a>
+          <a class="button button-ghost" href="/blog/">Read the blog</a>
+        </div>
+      </div>
+
+      <figure class="hero-art">
+        <div class="hero-art-frame">
+          <img
+            src="/assets/images/squirrel-blacksmith.jpeg"
+            alt="A squirrel blacksmith forging an idea in a cozy workshop"
+            width="1023"
+            height="731"
+            fetchpriority="high"
+          />
+        </div>
+        <figcaption>
+          <span class="bench-tag">Workshop mascot</span>
+          The blacksmith, mid-idea.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="workshop-strip" aria-label="How this workshop works">
+      <p><strong>Build in public.</strong> Share the process, not just the polish.</p>
+      <p><strong>Make it useful.</strong> Tools should earn their bench space.</p>
+      <p><strong>Stay curious.</strong> &ldquo;I wonder if&hellip;&rdquo; is a valid starting point.</p>
+    </section>
+
+    {featured && (
+      <section class="home-section" id="featured-project" aria-labelledby="featured-project-title">
+        <SectionHeading kicker="On the workbench · 01" title="Featured project" id="featured-project-title" />
+        <ProjectCard project={featured} featured />
+      </section>
+    )}
+
+    <section class="home-section" id="project-showcase" aria-labelledby="project-showcase-title">
+      <SectionHeading
+        kicker="More from the workbench · 02"
+        title="Selected projects"
+        id="project-showcase-title"
+        actionHref="/projects/"
+        actionLabel="All projects"
+      />
+      <div class="project-grid">
+        {otherProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+
+    <section class="home-section" id="recent-writing" aria-labelledby="recent-writing-title">
+      <SectionHeading
+        kicker="Fresh notes · 03"
+        title="Recent build stories"
+        id="recent-writing-title"
+        actionHref="/blog/"
+        actionLabel="More writing"
+      />
+      <div class="post-grid">
+        {recentPosts.map((post) => <PostCard post={post} compact />)}
+      </div>
+    </section>
+
+    <section class="home-cta" aria-labelledby="home-cta-title">
+      <div>
+        <p class="kicker">Pull up a stool</p>
+        <h2 id="home-cta-title">The workshop is always open.</h2>
+        <p>
+          Browse the projects, read the build stories, or find me on GitHub. If something sparks a question, I would
+          love to hear about it.
+        </p>
+      </div>
+      <a class="button button-primary" href="/about/">About the workshop</a>
+    </section>
+  </div>
+</BaseLayout>

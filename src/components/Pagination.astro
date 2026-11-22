@@ -1,0 +1,39 @@
+---
+import { pageUrl } from "../lib/posts";
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props;
+const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Blog pagination" data-pagination>
+    <div class="pagination-side pagination-previous">
+      {currentPage > 1 && (
+        <a class="text-link" rel="prev" href={pageUrl(currentPage - 1)}>← Newer notes</a>
+      )}
+    </div>
+    <ol class="pagination-pages">
+      {pages.map((page) => (
+        <li>
+          <a
+            class:list={["pagination-page", { "is-current": page === currentPage }]}
+            href={pageUrl(page)}
+            aria-current={page === currentPage ? "page" : undefined}
+          >
+            {page}
+          </a>
+        </li>
+      ))}
+    </ol>
+    <div class="pagination-side pagination-next">
+      {currentPage < totalPages && (
+        <a class="text-link" rel="next" href={pageUrl(currentPage + 1)}>Older notes →</a>
+      )}
+    </div>
+  </nav>
+)}

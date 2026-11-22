@@ -1,0 +1,27 @@
+---
+import { NAV_LINKS, SITE } from "../lib/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <div class="footer-brand">
+      <p class="footer-title">{SITE.title}</p>
+      <p class="footer-note">{SITE.description}</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      {NAV_LINKS.filter((link) => link.href !== "/").map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+      <a href={SITE.feed}>RSS</a>
+    </nav>
+    <div class="footer-social">
+      <a href={SITE.github} rel="me noreferrer" target="_blank">GitHub</a>
+      <a href={SITE.linkedin} rel="me noreferrer" target="_blank">LinkedIn</a>
+    </div>
+    <p class="footer-fineprint">
+      © {year} {SITE.author}. Built with Astro, written by hand, and kept deliberately small.
+    </p>
+  </div>
+</footer>

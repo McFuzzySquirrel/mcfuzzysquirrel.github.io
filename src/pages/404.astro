@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The page you were looking for is not on the workbench."
+  noindex
+>
+  <div class="shell">
+    <section class="not-found">
+      <p class="kicker">404 · Bench cleared</p>
+      <h1>That tool isn&rsquo;t on the bench.</h1>
+      <p>
+        The page you were looking for may have moved, been renamed, or never made it out of the workshop.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/">Back to the workshop</a>
+        <a class="button button-ghost" href="/blog/">Read the blog</a>
+      </div>
+      <p class="not-found-links">
+        Try <a href="/projects/">Projects</a>, <a href="/blog/">Blog</a>, or <a href="/about/">About</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

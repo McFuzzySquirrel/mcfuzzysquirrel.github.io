@@ -1,0 +1,37 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+---
+
+{items.length > 1 && (
+  <nav class="toc" aria-label="Table of contents">
+    <details>
+      <summary>On this page</summary>
+      <ol>
+        {items.map((heading) => (
+          <li class:list={[`toc-depth-${heading.depth}`]}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  </nav>
+)}
+
+<script>
+  const toc = document.querySelector<HTMLDetailsElement>(".toc details");
+
+  if (toc && window.matchMedia("(min-width: 1000px)").matches) {
+    toc.open = true;
+  }
+</script>

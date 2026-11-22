@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getProjects } from "../../lib/projects";
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+  title="Projects"
+  description="A curated selection of projects built to explore ideas, solve practical problems, and learn by making."
+>
+  <div class="shell">
+    <PageHeader
+      kicker="On the workbench"
+      title="Projects"
+      intro="A curated selection of projects built to explore ideas, solve practical problems, and learn by making."
+    />
+    <div class="project-grid project-grid-large">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import BackToTop from "../components/BackToTop.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { SITE } from "../lib/site";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = "/assets/images/squirrel-blacksmith.jpeg",
+  type = "website",
+  noindex = false
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(Astro.url.pathname, siteUrl);
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const ogImage = new URL(image, siteUrl);
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.title} RSS feed`} href={SITE.feed} />
+    <link rel="author" href="/about/" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#f6efe0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main" class="site-main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <BackToTop />
+  </body>
+</html>
