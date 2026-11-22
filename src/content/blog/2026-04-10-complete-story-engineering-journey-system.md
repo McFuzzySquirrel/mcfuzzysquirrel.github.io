@@ -11,7 +11,7 @@ The Engineering Journey System (EJS) started as a frustration: every AI coding s
 
 <!--more-->
 
-## A Chronicle of Building Agent-Collaborative Learning Infrastructure
+## Building the Engineering Journey System
 
 **Project:** Engineering Journey System (EJS)
 **Narrative spans:** 2026-02-05 to 2026-04-10 (65 days)
@@ -22,15 +22,15 @@ The Engineering Journey System (EJS) started as a frustration: every AI coding s
 
 ---
 
-## Prologue: Why This Story Matters
+## Prologue
 
-The Engineering Journey System is both a documentation artifact and a philosophy. It captures the premise that *how* humans and AI agents collaborate is as important as *what* they build—and that this record becomes valuable infrastructure for the next session, the next developer, and the next agent. This story chronicles the journey of building EJS itself, which is itself a test of the system it creates.
+The Engineering Journey System is both a documentation artifact and a philosophy. It captures the premise that *how* humans and AI agents collaborate is as important as *what* they build, and that this record becomes valuable infrastructure for the next session, the next developer, and the next agent. This story chronicles the journey of building EJS, which is also a test of the system it creates.
 
 ---
 
 ## The Arc: Foundation (February 5–10)
 
-@mcfuzzysquirrel began with a simple observation: collaboration between humans and agents was leaving an infrastructure gap. Decisions were being made, but the *reasoning trail*—the prompts, responses, outcomes, and alternatives considered—was being lost or reconstructed imperfectly from memory.
+@mcfuzzysquirrel began with a simple observation: collaboration between humans and agents was leaving an infrastructure gap. Decisions were being made, but the *reasoning trail* (the prompts, responses, outcomes, and alternatives considered) was being lost or reconstructed imperfectly from memory.
 
 ### Session 1: Mandatory Interaction Capture (Feb 5)
 The first decision was simple but crucial: **make interaction capture mandatory in every Session Journey**. @mcfuzzysquirrel noticed that journeys were missing a summary of the back-and-forth between human and agent. GitHub Copilot suggested updating the journey template and agent instructions to make the interaction trail explicit.
@@ -52,17 +52,17 @@ This change rippled through the entire EJS stack: agent profile, skill, instruct
 ### Session 3: Sub-Agent Decision Capture Protocol (Feb 10, Session 1)
 When @mcfuzzysquirrel asked "How do we ensure sub-agents capture their decisions in multi-agent processes?", GitHub Copilot identified a critical gap: sub-agents' reasoning was lost. The agent delegated repository exploration to the explore sub-agent, which revealed the issue precisely: existing EJS contracts documented multi-agent scenarios but had no structured protocol for sub-agent decision capture or inter-agent handoff tracking.
 
-GitHub Copilot designed **Sub-Agent Contributions** section for the journey template with per-agent fields: task delegated, decisions made, alternatives considered, outcome, and handoffs to other agents. This was paired with a new machine extract (`SUB_AGENT_EXTRACT`) to enable downstream tools to analyze sub-agent collaboration patterns.
+GitHub Copilot designed a **Sub-Agent Contributions** section for the journey template with per-agent fields: task delegated, decisions made, alternatives considered, outcome, and handoffs to other agents. This was paired with a new machine extract (`SUB_AGENT_EXTRACT`) to enable downstream tools to analyze sub-agent collaboration patterns.
 
 **ADR 0012** captured this as a distinct decision category: sub-agent reasoning is as important as main-agent reasoning.
 
-### Session 4: Proof of Concept—3D Asteroids Game (Feb 10, Session 2)
-To validate the Sub-Agent Decision Capture Protocol in a real scenario, @mcfuzzysquirrel asked GitHub Copilot to build a 3D Asteroids game using Babylon.js with multiple specialized sub-agents. This was brilliant test design—a task that *naturally* required:
+### Session 4: 3D Asteroids Proof of Concept (Feb 10, Session 2)
+To validate the Sub-Agent Decision Capture Protocol in a real scenario, @mcfuzzysquirrel asked GitHub Copilot to build a 3D Asteroids game using Babylon.js with multiple specialized sub-agents. The task naturally required:
 - **explore agent:** Game architecture design (single-file, procedural meshes, chase camera)
 - **general-purpose agent:** Complete game implementation (715-line index.html with SolidParticleSystem starfield, collision detection, wave progression)
 - **task agent:** Build validation (server setup, CDN verification)
 
-The handoff chain was clean: explore agent's design decisions → general-purpose agent used them as context → general-purpose agent's implementation → task agent validated. Each sub-agent's reasoning was captured as it happened. When the main agent discovered the CDN was blocked in the sandbox, it pivoted to local npm-installed Babylon.js files—a decision point that the protocol captured precisely.
+The handoff chain was clean: explore agent's design decisions → general-purpose agent used them as context → general-purpose agent's implementation → task agent validated. Each sub-agent's reasoning was captured as it happened. When the main agent discovered the CDN was blocked in the sandbox, it pivoted to local npm-installed Babylon.js files. The protocol captured that decision point precisely.
 
 **Result:** The protocol worked. Sub-agent decisions, alternatives, and handoff chains were fully captured for the first time.
 
@@ -93,14 +93,14 @@ GitHub Copilot researched the GitHub Copilot platform and discovered three tiers
 
 The implementation included bootstrap scripts (`scripts/bootstrap-ejs.sh` for bash, `scripts/bootstrap-ejs.ps1` for PowerShell) that append the EJS recording contract to existing `copilot-instructions.md` files without replacing them.
 
-**Key learning:** Custom agents cannot persist across agent switches—they're session-scoped. So Tier 1 (always-on via instructions) became the most reliable layer, supported by optional Tier 2/3 invocations.
+**Key learning:** Custom agents cannot persist across agent switches. They are session-scoped. So Tier 1 (always-on via instructions) became the most reliable layer, supported by optional Tier 2/3 invocations.
 
 ---
 
 ## The Arc: Platform Understanding (March 11–30)
 
 ### Session 7: Agent vs. Skill Concepts (March 11)
-@mcfuzzysquirrel asked GitHub Copilot to research whether EJS should use GitHub's "agent" or "skill" concepts. The repository had 533 references to "agent" but 21 references to "skill"—with the skill files planned but unimplemented.
+@mcfuzzysquirrel asked GitHub Copilot to research whether EJS should use GitHub's "agent" or "skill" concepts. The repository had 533 references to "agent" but 21 references to "skill", with the skill files planned but unimplemented.
 
 GitHub Copilot and the explore sub-agent discovered that GitHub explicitly designed these as *complementary* mechanisms:
 - **Custom Instructions** (`.github/copilot-instructions.md`): Always-on, lightweight behavior
@@ -115,7 +115,7 @@ GitHub Copilot then investigated whether GitHub's new **Copilot Coding Agent hoo
 The key insight: **deterministic ≠ semantic**. Hooks excel at guaranteed structural tasks (file creation, DB sync), but cannot perform semantic tasks (understanding context, writing rationale, evaluating ADR rubrics). The recommendation: use hooks as a new **Layer 0** below the existing instruction/skill/agent layers.
 
 ### Session 9: Implement Copilot Hooks as Layer 0 (March 30, Session 2)
-@mcfuzzysquirrel selected **Option B: Lifecycle Bookends + Sub-Agent Capture**—four hooks to handle session initialization, validation, and sub-agent event logging. **ADR 0016** documented this as a layered reliability architecture:
+@mcfuzzysquirrel selected **Option B: Lifecycle Bookends + Sub-Agent Capture**, four hooks to handle session initialization, validation, and sub-agent event logging. **ADR 0016** documented this as a layered reliability architecture:
 
 | Layer | Mechanism | Responsibility |
 |-------|-----------|-----------------|
@@ -135,7 +135,7 @@ The hooks layer guaranteed that every session would have a journey file scaffold
 
 GitHub Copilot quantified the redundancy and presented three options:
 - **Option A (Micro-Instruction)**: Reduce to ~30 lines, move structural detail to templates
-- **Option B (Consolidated)**: Merge skills into instructions (increases always-on context—rejected)
+- **Option B (Consolidated)**: Merge skills into instructions (increases always-on context, rejected)
 - **Option C (Hybrid)**: Micro-instruction + sub-agent delegation fragment
 
 The recommendation: **Option A + sub-agent fragment from Option C**. Move from "tell agents everything they need to know" to "tell agents WHAT to capture and WHERE; templates define HOW."
@@ -151,7 +151,7 @@ GitHub Copilot executed a 5-phase implementation plan:
 End result: The micro-instruction now covers 6 core EJS behaviors in ~197 words. The wrapup skill and templates carry all the procedural detail. **ADR 0015** documented that 54/54 tests passed with zero regressions.
 
 ### Session 12: Remove Git Hooks (April 8, Session 2)
-With Copilot hooks now handling structural automation deterministically, the old git hooks (`.githooks/post-commit`, `.githooks/pre-push`) became redundant. They only reminded developers about missing journey files—something Copilot hooks now guaranteed.
+With Copilot hooks now handling structural automation deterministically, the old git hooks (`.githooks/post-commit`, `.githooks/pre-push`) became redundant. They only reminded developers about missing journey files, something Copilot hooks now guaranteed.
 
 @mcfuzzysquirrel made the architectural decision: **remove the git hooks**. When a deterministic platform mechanism supersedes an optional manual mechanism, keeping the manual one adds maintenance burden without value.
 
@@ -167,7 +167,7 @@ With Copilot hooks now handling structural automation deterministically, the old
 GitHub Copilot systematically dismantled this hypothesis:
 - Measured JSON encoding overhead: 20–50% **larger** for equivalent narrative text
 - Confirmed SQLite database already has all query commands (`sync`, `list`, `get`, `search`, `summary-journeys`)
-- Found that `summary-journeys` truncates intent at 300 characters—insufficient for understanding sessions
+- Found that `summary-journeys` truncates intent at 300 characters, which is insufficient for understanding sessions
 
 **The key insight:** Format doesn't matter for context efficiency. What matters is whether agents actually use the database. The DB abstraction layer decouples file format from query efficiency.
 
@@ -183,7 +183,7 @@ GitHub Copilot implemented the `story` command for `adr-db.py`. Per-session, it 
 
 The implementation required careful regex work to handle variations in agent writing styles (e.g., `**Technical insights:**` with the closing `**` *after* the colon). Four iterations refined the extraction logic until it worked cleanly on all 16 existing session files.
 
-Updated `copilot-instructions.md` to reference `story` explicitly, making DB-first not just a principle but actionable: agents now know which command to run first.
+Updated `copilot-instructions.md` to reference `story` explicitly. DB-first is now actionable: agents know which command to run first.
 
 ### Session 15: Create ADR 0018 (April 10, Session 1)
 @mcfuzzysquirrel requested an ADR documenting all these changes. GitHub Copilot analyzed the diff from PR #19 (15 files modified, 1,558 insertions) and structured **ADR 0018** around three related decisions that together reinforce the DB-first architecture:
@@ -207,8 +207,8 @@ Each layer has a distinct responsibility. The cleanest architecture respects the
 ### Theme 2: Question Assumptions, Measure First
 Multiple research sessions (JSON format, agent vs. skill) showed the value of asking "why?" and measuring before migrating:
 - JSON format looked promising but measured as 20–50% *larger* for text
-- SQLite database was already built—the gap was behavioral enforcement, not technology
-- "Format = efficiency" hypothesis broke under scrutiny; the DB abstraction layer was the real efficiency play
+- SQLite database was already built. The gap was behavioral enforcement, not technology
+- "Format = efficiency" hypothesis broke under scrutiny; the DB abstraction layer delivered the real efficiency gain
 
 ### Theme 3: Sub-Agent Blindness is Real
 Sessions 3–4 and later session 9 revealed a structural problem: sub-agents don't receive parent agent instructions, so their decisions vanish unless explicitly captured. The Sub-Agent Decision Capture Protocol (ADR 0012) and the `subagentStop` hook (ADR 0016) directly addressed this gap.
@@ -261,7 +261,7 @@ Each layer has a distinct mechanism:
 
 ### Supporting Infrastructure
 - **SQLite Database (`scripts/adr-db.py`):** Context-efficient query interface with `story` as primary command
-- **Bootstrap Scripts:** `bootstrap-ejs.sh` (bash), `bootstrap-ejs.ps1` (PowerShell)—enable non-competitive adoption into existing repos
+- **Bootstrap Scripts:** `bootstrap-ejs.sh` (bash) and `bootstrap-ejs.ps1` (PowerShell), which enable non-competitive adoption into existing repos
 - **Journey Template & ADRs:** Document decisions, alternatives, and learnings
 - **Session Lifecycle Patterns:** Guide agents on when/how to record
 
@@ -269,21 +269,21 @@ Each layer has a distinct mechanism:
 
 ## Where It Stands (April 10, 2026)
 
-@mcfuzzysquirrel and GitHub Copilot have built an infrastructure that captures the entire evolution of itself. Each decision is documented with alternatives, rationale, consequences, and learnings. Sub-agents' contributions are tracked. The system is layered, with each layer knowing its job. Context efficiency has been optimized through separation of concerns—the always-on instruction budget was cut 79% while preserving all functionality.
+@mcfuzzysquirrel and GitHub Copilot have built infrastructure that captures the entire evolution of itself. Each decision is documented with alternatives, rationale, consequences, and learnings. Sub-agents' contributions are tracked. The system is layered, with each layer knowing its job. Context efficiency has been optimized through separation of concerns. The always-on instruction budget was cut 79% while preserving all functionality.
 
 The 3D Asteroids game validated the core assumption: humans and agents *can* collaborate on non-trivial work while capturing the full reasoning trail. The SQLite database proved agents can query past decisions efficiently without reading full markdown files. The Copilot hooks proved that deterministic layer 0 guarantees can sit beneath semantic layers 1–3 without interference.
 
-Most importantly, the system is **designed for reuse**. The bootstrap scripts allow other repositories to adopt EJS layering into their existing instruction and agent setup. The research documents and ADRs provide evidence-based rationale for every major decision, so future agents (and humans) can understand not just *what* was built but *why*.
+The system is also designed for reuse. The bootstrap scripts allow other repositories to adopt EJS layering into their existing instruction and agent setup. The research documents and ADRs provide evidence-based rationale for every major decision, so future agents (and humans) can understand what was built and why.
 
 ---
 
 ## Epilogue: The Meta-Journey
 
-The Engineering Journey System was built by capturing its own engineering journey. This story is itself an artifact of the system—extracted from 23 journey sessions, 9 ADRs, and the SQLite database that indexes them all. The fact that this narrative can exist, can be queried and generated from structured data, was the entire point.
+The Engineering Journey System was built by capturing its own engineering journey. This story is itself an artifact of the system, extracted from 23 journey sessions, 9 ADRs, and the SQLite database that indexes them all. That the narrative can be queried and generated from structured data is the point.
 
-The hypothesis worked: Infrastructure for capturing human-agent collaboration *can* be lightweight, reusable, and non-invasive. It can be layered from deterministic platform mechanisms (hooks) up through semantic AI reasoning (agents and skills). Most importantly, it *works* at scale—from a single decision in a single session to a complete project history across dozens of sessions and multiple specialized agents.
+The hypothesis worked: infrastructure for capturing human-agent collaboration *can* be lightweight, reusable, and non-invasive. It can be layered from deterministic platform mechanisms (hooks) up through semantic AI reasoning (agents and skills). It also *works* at scale, from a single decision in a single session to a complete project history across dozens of sessions and multiple specialized agents.
 
-On April 10, @mcfuzzysquirrel sat at a significant waypoint. The EJS foundation was solid. The question for the next phase is not *whether* it works, but *how far* it can scale—and whether the patterns discovered here transfer to larger teams, more complex workflows, and agents beyond Copilot.
+On April 10, @mcfuzzysquirrel sat at a significant waypoint. The EJS foundation was solid. The question for the next phase is how far it can scale, and whether the patterns discovered here transfer to larger teams, more complex workflows, and agents beyond Copilot.
 
 ---
 

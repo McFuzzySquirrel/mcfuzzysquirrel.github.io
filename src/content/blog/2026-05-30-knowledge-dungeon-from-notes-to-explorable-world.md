@@ -5,7 +5,7 @@ categories: [personal, project]
 tags: [knowledge dungeon, educational gaming, procedural generation, knowledge mapping, repo-dungeon]
 ---
 
-> *What if notes were not pages to read, but a world to explore?*
+> *What if notes were a world to explore instead of pages to read?*
 
 I have been building a project called **Knowledge Dungeon**, and it has evolved far beyond a simple study tool.
 
@@ -17,7 +17,7 @@ The result is a procedurally generated 2D dungeon crawler where the dungeon itse
 
 ## From Repo-Dungeon Idea to Playable Learning World
 
-**A special note**: I am in no way any good at graphics, so dont expect anything groundbreaking in that space ***but it is fun!***
+**A special note:** I am not good at graphics, so don't expect anything groundbreaking there, ***but it is fun!***
 
 The earliest concept was "repo-dungeon": turning structured information from GitHub public repo(s) and later local git repos into navigable space. At first, this was mostly an experiment in representation. Could content relationships become map topology? Could navigation through a world stand in for navigation through ideas?
 
@@ -34,15 +34,15 @@ As the prototype evolved, it became a playable system with game loops, progressi
 That experiment provided the foundation for several core ideas that now power this project:
 
 - Information first, visuals second: generation starts from relationships in the source material, then maps those relationships into navigable world structures.
-- Exploration as comprehension: movement and discovery are treated as part of understanding, not just presentation.
+- Exploration as comprehension: movement and discovery are part of understanding rather than presentation.
 - Spatialized knowledge: related concepts are placed in ways that help reveal clusters, boundaries, and paths through a topic.
 - Reusable generation pipeline: parsing, relationship modeling, and layout logic from the original experiment were adapted and extended for educational content.
 
-In short, repo-dungeon was the proof of concept. Knowledge Dungeon is the expanded version where the same principle is applied to learning experiences, gameplay systems, and deeper content interaction.
+Repo-dungeon was the proof of concept. Knowledge Dungeon is the expanded version where the same principle is applied to learning experiences, gameplay systems, and deeper content interaction.
 
 ## What Is Built So Far
 
-Here are some of the core features currently in place:
+The core features currently in place:
 
 - Procedurally generated dungeon layouts driven by knowledge content.
 - A playable RPG-style exploration experience built with web technologies and packaged for desktop.
@@ -55,7 +55,7 @@ Here are some of the core features currently in place:
 
 ## Areas This Brings Together
 
-I love how many long-running interests converged in one project, I have an ongoing belief that everything is connected:
+Many of my long-running interests converged in one project. I have an ongoing belief that everything is connected:
 
 - Conversational learning.
 - Knowledge graphs and content relationships.
@@ -64,15 +64,15 @@ I love how many long-running interests converged in one project, I have an ongoi
 - Educational gaming.
 - Open-source experimentation.
 
-Instead of asking learners to adapt to traditional study workflows, the goal is to adapt learning to something naturally engaging: exploration, discovery, progression, and curiosity - while keeping the core benefits of not taking and structured thinking.
+Instead of asking learners to adapt to traditional study workflows, the goal is to adapt learning to something naturally engaging: exploration, discovery, progression, and curiosity, while keeping the benefits of note-taking and structured thinking.
 
 ## A Practical Spinout: Repo Mapping for Developers
 
-Of course, I cant let it just be one thing and one cool outcome was not part of the game itself, but could be valuable and definately is fun.
+Of course, I can't let it be just one thing. One cool outcome was not part of the game itself, but it could be valuable, and it is definitely fun.
 
-While building Knowledge Dungeon, I created reusable SKILL.md that can analyze a software repository and generate a navigable mind map of its structure, relationships, and architecture. Instead of reading hundreds of files line by line to understand an unfamiliar codebase, developers can quickly visualize how parts connect - you can then import it into Knowledge Dungeon!
+While building Knowledge Dungeon, I created a reusable SKILL.md that can analyze a software repository and generate a navigable mind map of its structure, relationships, and architecture. Instead of reading hundreds of files line by line to understand an unfamiliar codebase, developers can quickly visualize how parts connect. You can then import the map into Knowledge Dungeon.
 
-This becomes a practical second application of the same core idea:
+This is a practical second application of the same core idea:
 
 - Helping developers understand their own repositories.
 - Accelerating onboarding into existing projects.
@@ -84,7 +84,7 @@ The underlying principle is the same in both contexts: transform information int
 
 Whether the source material is study notes, a textbook, or a software repository, the objective is consistent: make understanding feel like exploration and discovery.
 
-Knowledge Dungeon is still evolving, but it already demonstrates a practical intersection of game development, knowledge mapping, and education. More importantly, it shows that study material can become a world you walk through, not just a document you read.
+Knowledge Dungeon is still evolving, but it already shows how game development, knowledge mapping, and education can meet. Study material can become a world you walk through instead of a document you read.
 
 ---
 

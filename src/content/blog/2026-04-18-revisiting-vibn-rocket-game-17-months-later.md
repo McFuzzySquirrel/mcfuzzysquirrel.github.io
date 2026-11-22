@@ -5,7 +5,7 @@ categories: [personal, project]
 tags: [agent forge, game development, voice, AI orchestration, revisiting projects]
 ---
 
-> *A hackathon challenge, a kid's idea about rockets, and seventeen months of "I'll get to it eventually", this is the story of what happened when I finally did.*
+> *A hackathon challenge, a kid's idea about rockets, and seventeen months of "I'll get to it eventually." This is the story of what happened when I finally did.*
 
 It started at a hackathon in November 2024: someone challenged me to build an app that helps people sing, in an afternoon. We did it. My son play-tested it with me, the dogs lost their minds, and between the laughter he asked: *"Can we change it into a rocket game?"*
 
@@ -21,7 +21,7 @@ This was November 2024. AI-assisted coding was still in its early days, useful, 
 
 It was rough, it was fun, and it proved the concept. We got something working in an afternoon. That alone felt like a win.
 
-Here's what that looked like, the landing page and the active pitch detection view:
+The landing page and the active pitch detection view:
 
 <img
 	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/00-original-app.png"
@@ -35,7 +35,7 @@ Here's what that looked like, the landing page and the active pitch detection vi
 	style="width: 100%; max-width: 420px; height: auto; display: block; margin: 1rem auto;"
 />
 
-A circular pitch needle, colored note bars (Do through Ti), frequency ranges displayed in the corner, and a "Choose File" upload that never quite worked. Simple, functional, honest.
+A circular pitch needle, colored note bars (Do through Ti), frequency ranges displayed in the corner, and a "Choose File" upload that never quite worked. Simple, functional, and a little rough.
 
 **The original tech stack:**
 - React 17 with Create React App
@@ -50,7 +50,7 @@ But looking back, that hackathon moment is what makes the rest of this story int
 
 
 
-## The Question That Changed Everything
+## The Rocket Question
 
 My son play-tested the original with me right after that hackathon. We stood in the lounge singing Do, Re, Mi into a laptop while the dogs, convinced we were in some kind of distress, barked and circled us. It was such a good laugh. And somewhere between the chaos and the off-key singing, he asked:
 
@@ -60,9 +60,9 @@ I always meant to revisit it. Life got in the way, as it does. The repo sat unto
 
 Fast forward to April 2026. I'd spent the intervening months building **[Agent Forge](/blog/story-of-agent-forge/)**, a framework for turning ideas into coordinated AI development teams. I'd been itching to test it on something real. And my son's question was still sitting there, unanswered.
 
-A rocket game. Powered by singing. The idea was immediately compelling: keep the core mechanic (sing a note, get feedback) but wrap it in something that feels like a *game*. A rocket that climbs when you hit the right notes. Hazards when you miss. A score. A reason to try again.
+A rocket game powered by singing was immediately compelling: keep the core mechanic (sing a note, get feedback) but wrap it in something that feels like a *game*. A rocket that climbs when you hit the right notes. Hazards when you miss. A score. A reason to try again.
 
-This was the perfect test case. Not a toy demo, but a real project with audio constraints, browser APIs, game logic, and accessibility requirements.
+This was a real project with audio constraints, browser APIs, game logic, and accessibility requirements.
 
 Could a team of AI specialists, orchestrated through a PRD, actually rebuild this thing into a real game?
 
@@ -72,7 +72,7 @@ Could a team of AI specialists, orchestrated through a PRD, actually rebuild thi
 
 ### Step 1: The PRD
 
-Following the Agent Forge workflow, the first step wasn't code. It was requirements.
+Following the Agent Forge workflow, the first step was requirements.
 
 I sat down with the `forge-build-prd` skill and described the vision: a retro-inspired singing game where solfege notes control a rocket. The PRD interview process asked the right questions: who's the player, what's the core loop, what are the non-functional requirements, how does difficulty scale, what about accessibility?
 
@@ -101,11 +101,11 @@ Every one of the 52 PRD requirements was mapped to exactly one owning agent. No 
 
 The project orchestrator coordinated the build across three phases:
 
-**Phase 1: Foundation:** The project architect migrated from Create React App to Vite, set up React Router, established the shared type system, and created shell screens for all five routes.
+**Phase 1: Foundation.** The project architect migrated from Create React App to Vite, set up React Router, established the shared type system, and created shell screens for all five routes.
 
-**Phase 2: Core Systems:** The audio engineer built real-time pitch detection. The gameplay engineer wired it into a run loop with rocket physics, hazards, and boosts. The UI developer built the HUD. The progression engineer added scoring and persistence.
+**Phase 2: Core Systems.** The audio engineer built real-time pitch detection. The gameplay engineer wired it into a run loop with rocket physics, hazards, and boosts. The UI developer built the HUD. The progression engineer added scoring and persistence.
 
-**Phase 3: Polish:** Difficulty tuning, calibration presets, milestone detection, retro styling, and full acceptance testing.
+**Phase 3: Polish.** Difficulty tuning, calibration presets, milestone detection, retro styling, and full acceptance testing.
 
 Each agent worked within its defined boundaries, verified its work with typecheck/test/build, and handed off to the next. The orchestrator tracked progress and ensured prerequisites were met before each phase.
 
@@ -113,9 +113,9 @@ Each agent worked within its defined boundaries, verified its work with typechec
 
 ## What Got Built: Vib'N Rocket to the Moon
 
-Here's what a run through the game looks like today:
+A run through the game today:
 
-### Home:The Launch Pad
+### Home: The Launch Pad
 
 <img
 	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/01-home.png"
@@ -125,7 +125,7 @@ Here's what a run through the game looks like today:
 
 Pick your difficulty, check your stats, and launch a mission. The retro-styled interface shows your best scores, active difficulty, and voice profile status.
 
-### Game:Active Mission
+### Game: Active Mission
 
 <img
 	src="https://raw.githubusercontent.com/McFuzzySquirrel/viben/main/docs/screenshots/02-game.png"
@@ -178,7 +178,7 @@ Your run history, personal bests, milestones unlocked, and trend tracking across
 
 ## The Human in the Loop: Iterating After Launch
 
-Here's the part that surprised me most. The agents built a working game. But *playing* the game revealed problems that no PRD could predict.
+The agents built a working game. Playing it revealed problems no PRD could predict.
 
 ### "Easy Mode Is Too Hard"
 
@@ -188,9 +188,9 @@ The first time I tried Easy difficulty, I couldn't complete a run. The note wind
 
 ### "Classification Out of Range"
 
-During voice calibration, singing "Do" in my natural register threw an error:the system expected notes within standard solfege ranges and rejected anything outside them. But that's the whole point of calibration: capturing *your* range, even if it doesn't match the textbook.
+During voice calibration, singing "Do" in my natural register threw an error: the system expected notes within standard solfege ranges and rejected anything outside them. But that's the whole point of calibration: capturing *your* range, even if it doesn't match the textbook.
 
-**Fix:** Changed the capture filter to accept any frequency with a valid pitch reading, not just frequencies that already match a known note classification.
+**Fix:** Changed the capture filter to accept any frequency with a valid pitch reading, including frequencies that do not match a known note classification.
 
 ### "The Game Doesn't Use My Calibrated Voice"
 
@@ -200,13 +200,13 @@ After recording a voice profile, I started a game and... it used standard freque
 
 ### "I Run Out of Breath"
 
-The game prompts notes back to back with no pause. After 30 seconds, you're gasping. This is a singing game, players need to breathe.
+The game prompts notes back to back with no pause. After 30 seconds, you're gasping. This is a singing game; players need to breathe.
 
 **Fix:** Added a configurable breathing gap between notes. During the gap, the game shows "Breathe..." with a countdown, physics stay neutral, and no metrics are recorded. Easy gets 900ms between notes, Normal 600ms, Hard just 350ms.
 
 Every one of these fixes was something I discovered by *being the player*. The AI agents built the system correctly according to spec. But the spec didn't know what it feels like to sing into a laptop microphone with an imperfect voice in a quiet room that isn't actually quiet.
 
-**This is the human-in-the-loop pattern that I think matters most:** AI builds the system, human tests the experience, human feeds back, AI iterates. Not human vs AI: human *with* AI, each doing what they're good at.
+**This is the human-in-the-loop pattern that I think matters most:** AI builds the system, human tests the experience, human feeds back, AI iterates. Human *with* AI, each doing what they're good at.
 
 
 
@@ -235,10 +235,10 @@ The original was a proof of concept. The rework is a game.
 
 ## What I'd Do Next
 
-This is a working prototype, not a finished product. Here's what's on my mind:
+This is a working prototype.
 
 ### Mobile Support
-The game currently targets desktop browsers. But singing games are inherently mobile, you're already holding your phone near your face. Touch-friendly controls, responsive layout, and mobile audio handling would make this much more accessible.
+The game currently targets desktop browsers. But singing games are inherently mobile: you're already holding your phone near your face. Touch-friendly controls, responsive layout, and mobile audio handling would make this much more accessible.
 
 ### A Cleaner, More Focused UI
 The current UI works but tries to show everything at once. I'd like to simplify: fewer numbers on the HUD, more visual feedback (the rocket itself telling you how you're doing), and a more guided first-time experience.
@@ -258,9 +258,9 @@ Local multiplayer is in the PRD but unimplemented. Two players, same device, tra
 
 Two things stand out from this project:
 
-**1. Old projects are seeds, not failures.** That weekend experiment in 2024 wasn't abandoned, it was waiting. The core mechanic (browser pitch detection) was solid. It just needed a purpose. Sometimes the best thing you can do for a project is walk away and come back with fresh eyes and better tools.
+**1. Old projects are seeds.** That weekend experiment in 2024 was not abandoned. It was waiting. The core mechanic (browser pitch detection) was solid. It just needed a purpose. Sometimes the best thing you can do for a project is walk away and come back with fresh eyes and better tools.
 
-**2. Agent Forge works on real projects.** This wasn't a demo or a tutorial app. It had browser APIs, real-time audio processing, game physics, accessibility requirements, and the kind of edge cases you only find by playing. Eight agents, coordinated through a PRD, built a playable game. The human still needed to be in the loop: testing, feeding back, iterating, but the agents handled the heavy lifting of structured implementation.
+**2. Agent Forge works on real projects.** It had browser APIs, real-time audio processing, game physics, accessibility requirements, and the kind of edge cases you only find by playing. Eight agents, coordinated through a PRD, built a playable game. The human still needed to be in the loop: testing, feeding back, iterating, but the agents handled the heavy lifting of structured implementation.
 
 My son hasn't beaten Hard mode yet. Neither have I. But the rocket flies, and that's a start.
 

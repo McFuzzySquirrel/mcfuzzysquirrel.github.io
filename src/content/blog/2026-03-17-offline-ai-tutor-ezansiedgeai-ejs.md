@@ -32,13 +32,11 @@ So the question I am trying to answer is simple, but heavily constrained:
 
 > Can a small language model, running entirely on a cheap Android phone, with no internet connection, tutor a learner through a South African CAPS curriculum?
 
-Today. Not in the distant future. Not on expensive hardware most people cannot buy or support.
+Today, not in the distant future, and not on expensive hardware most people cannot buy or support.
 
 ### So what is the answer?
 
-The answer is **maybe**.
-
-And maybe needs to be tested first.
+The answer is **maybe**, and maybe needs to be tested first.
 
 Intent, vision, and specs are important, but feasibility matters more. If it is not feasible, you risk building an impressive but ineffective hobby project.
 
@@ -69,7 +67,7 @@ https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embeddin
 
 ### 2. Retrieval is the quality multiplier
 
-RAG helps create an accuracy guarantee.
+RAG improves accuracy by grounding responses in retrieved content.
 
 Instead of relying on model memory alone (and risking hallucinations), the plan is to embed CAPS content locally, retrieve relevant chunks, and ground every generation call.
 
@@ -141,9 +139,9 @@ https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embeddin
 
 ### Why I built EJS
 
-Decisions are where knowledge lives, not code.
+Decisions carry the knowledge.
 
-Code is output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.
+Code is the output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.
 
 Traditionally, this disappears into chats, meetings, or memory. With multiple agents, this problem can grow as context windows and logs evolve.
 
@@ -154,10 +152,10 @@ I wanted to preserve:
 - Trade-offs considered but not chosen
 - Agent influence versus human overrides/corrections
 
-EJS captures this reality with low friction and strong auditability:
+EJS captures this with low friction and strong auditability:
 
 - One Session Journey per session: initialized at start, updated throughout, finalized at end
-- ADRs only for significant decisions: conditional and numbered to keep the ADR ledger curated
+- ADRs only for significant decisions: conditional and numbered to keep the ADR ledger small
 - Repo-portable and tool-agnostic structure: usable in GitHub web, VS Code, and team workflows
 - Non-competing observer model: EJS records silently and does not override existing agent instructions
 
@@ -171,7 +169,7 @@ EJS captures this reality with low friction and strong auditability:
 
 I use GitHub Copilot as my primary engineering collaborator.
 
-EJS changes the collaboration dynamic in a specific way: Copilot does not just write code. It documents reasoning during the session.
+EJS changes the collaboration dynamic: Copilot writes code and documents its reasoning during the session.
 
 Pattern reference:
 https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md
@@ -264,7 +262,7 @@ Small means:
 
 - It runs on the phone in a learner's pocket
 - It does not require reliable internet, data budgets, or stable power
-- It is curriculum-bounded, not trying to know everything, but trying to explain the right thing well enough for a learner right now
+- It is curriculum-bounded, built to explain the right thing well enough for a learner right now rather than to know everything
 
 In this project, small is the most ambitious thing I can build.
 
@@ -300,7 +298,7 @@ To do that, I assembled a specialized agent team with clearly scoped ownership:
 - Android UI engineer
 - QA test engineer
 
-As mentioned earlier, this team is highly specialized by design.
+This team is highly specialized by design.
 
 ## Switching to GitHub Copilot CLI
 
@@ -336,8 +334,8 @@ All of my projects exist for one core reason: learning through experimentation.
 
 Each repository starts with questions like: Is this possible? I wonder if...?
 
-Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All are honest reflections of learning in progress.
+Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All of them show the work while it is still in progress.
 
-Expect some projects to be messy, others structured, all of them real.
+Some projects will be messy, others structured, but all of them are real.
 
 Feel free to reuse, modify, and build on anything here in your own repositories.

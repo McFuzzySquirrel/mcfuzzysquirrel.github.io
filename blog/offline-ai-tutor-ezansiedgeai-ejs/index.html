@@ -27,10 +27,9 @@
 <blockquote>
 <p>Can a small language model, running entirely on a cheap Android phone, with no internet connection, tutor a learner through a South African CAPS curriculum?</p>
 </blockquote>
-<p>Today. Not in the distant future. Not on expensive hardware most people cannot buy or support.</p>
+<p>Today, not in the distant future, and not on expensive hardware most people cannot buy or support.</p>
 <h3 id="so-what-is-the-answer">So what is the answer?</h3>
-<p>The answer is <strong>maybe</strong>.</p>
-<p>And maybe needs to be tested first.</p>
+<p>The answer is <strong>maybe</strong>, and maybe needs to be tested first.</p>
 <p>Intent, vision, and specs are important, but feasibility matters more. If it is not feasible, you risk building an impressive but ineffective hobby project.</p>
 <p>That is why I am using a spike-driven engineering approach: time-boxed research experiments to reduce risk, clarify requirements, and improve estimates before deeper implementation.</p>
 <p>A useful reference: Agile spikes help teams deliver knowledge so teams can deliver products.</p>
@@ -46,7 +45,7 @@
 <p>You can review the model tests and results in the LLM spike report:
 <a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md">https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md</a></p>
 <h3 id="2-retrieval-is-the-quality-multiplier">2. Retrieval is the quality multiplier</h3>
-<p>RAG helps create an accuracy guarantee.</p>
+<p>RAG improves accuracy by grounding responses in retrieved content.</p>
 <p>Instead of relying on model memory alone (and risking hallucinations), the plan is to embed CAPS content locally, retrieve relevant chunks, and ground every generation call.</p>
 <p>In that setup, the LLM is the reasoning and language engine. The content pack is the source of truth.</p>
 <p>Feasibility target:</p>
@@ -98,8 +97,8 @@
 <p>You can view current journey records and ADRs for eZansiEdgeAI Small here:
 <a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs">https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs</a></p>
 <h3 id="why-i-built-ejs">Why I built EJS</h3>
-<p>Decisions are where knowledge lives, not code.</p>
-<p>Code is output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.</p>
+<p>Decisions carry the knowledge.</p>
+<p>Code is the output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.</p>
 <p>Traditionally, this disappears into chats, meetings, or memory. With multiple agents, this problem can grow as context windows and logs evolve.</p>
 <p>I wanted to preserve:</p>
 <ul>
@@ -108,10 +107,10 @@
 <li>Trade-offs considered but not chosen</li>
 <li>Agent influence versus human overrides/corrections</li>
 </ul>
-<p>EJS captures this reality with low friction and strong auditability:</p>
+<p>EJS captures this with low friction and strong auditability:</p>
 <ul>
 <li>One Session Journey per session: initialized at start, updated throughout, finalized at end</li>
-<li>ADRs only for significant decisions: conditional and numbered to keep the ADR ledger curated</li>
+<li>ADRs only for significant decisions: conditional and numbered to keep the ADR ledger small</li>
 <li>Repo-portable and tool-agnostic structure: usable in GitHub web, VS Code, and team workflows</li>
 <li>Non-competing observer model: EJS records silently and does not override existing agent instructions</li>
 </ul>
@@ -123,7 +122,7 @@
 </ul>
 <h2 id="how-this-changed-my-work-with-ai">How this changed my work with AI</h2>
 <p>I use GitHub Copilot as my primary engineering collaborator.</p>
-<p>EJS changes the collaboration dynamic in a specific way: Copilot does not just write code. It documents reasoning during the session.</p>
+<p>EJS changes the collaboration dynamic: Copilot writes code and documents its reasoning during the session.</p>
 <p>Pattern reference:
 <a href="https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md">https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md</a></p>
 <p>Every decision made in a session gets recorded. ADRs get created when decisions happen, not days later. Benchmark results and iterations are logged while fresh.</p>
@@ -184,7 +183,7 @@
 <ul>
 <li>It runs on the phone in a learner’s pocket</li>
 <li>It does not require reliable internet, data budgets, or stable power</li>
-<li>It is curriculum-bounded, not trying to know everything, but trying to explain the right thing well enough for a learner right now</li>
+<li>It is curriculum-bounded, built to explain the right thing well enough for a learner right now rather than to know everything</li>
 </ul>
 <p>In this project, small is the most ambitious thing I can build.</p>
 <h2 id="the-product-requirements-document">The Product Requirements Document</h2>
@@ -213,7 +212,7 @@
 <li>Android UI engineer</li>
 <li>QA test engineer</li>
 </ul>
-<p>As mentioned earlier, this team is highly specialized by design.</p>
+<p>This team is highly specialized by design.</p>
 <h2 id="switching-to-github-copilot-cli">Switching to GitHub Copilot CLI</h2>
 <p>Most earlier work happened in VS Code.</p>
 <p>For this phase, I shifted to GitHub Copilot CLI because it is optimized for autonomous multi-agent operation while keeping a familiar workflow.</p>
@@ -236,7 +235,7 @@
 <p>Special thanks to Nabeel Prior for encouragement, thoughtful input, and support throughout this journey.</p>
 <p>All of my projects exist for one core reason: learning through experimentation.</p>
 <p>Each repository starts with questions like: Is this possible? I wonder if…?</p>
-<p>Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All are honest reflections of learning in progress.</p>
-<p>Expect some projects to be messy, others structured, all of them real.</p>
+<p>Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All of them show the work while it is still in progress.</p>
+<p>Some projects will be messy, others structured, but all of them are real.</p>
 <p>Feel free to reuse, modify, and build on anything here in your own repositories.</p>
 </div><aside class="post-aside"><nav class="toc" aria-label="Table of contents"><details><summary>On this page</summary><ol><li class="toc-depth-2"><a href="#ezansiedgeai-small">eZansiEdgeAI Small</a></li><li class="toc-depth-3"><a href="#what-am-i-trying-to-solve">What am I trying to solve?</a></li><li class="toc-depth-3"><a href="#so-what-is-the-answer">So what is the answer?</a></li><li class="toc-depth-2"><a href="#what-i-am-betting-on">What I am betting on</a></li><li class="toc-depth-3"><a href="#1-small-models-can-be-good-enough-for-curriculum-bounded-tutoring">1. Small models can be good enough for curriculum-bounded tutoring</a></li><li class="toc-depth-3"><a href="#2-retrieval-is-the-quality-multiplier">2. Retrieval is the quality multiplier</a></li><li class="toc-depth-3"><a href="#3-the-hardware-floor-is-achievable">3. The hardware floor is achievable</a></li><li class="toc-depth-3"><a href="#4-storage-constraints-must-be-honest">4. Storage constraints must be honest</a></li><li class="toc-depth-2"><a href="#the-system-i-built-to-remember-everything-engineering-journey-system-ejs">The System I Built to Remember Everything: Engineering Journey System (EJS)</a></li><li class="toc-depth-3"><a href="#why-i-built-ejs">Why I built EJS</a></li><li class="toc-depth-3"><a href="#what-ejs-captures">What EJS captures</a></li><li class="toc-depth-2"><a href="#how-this-changed-my-work-with-ai">How this changed my work with AI</a></li><li class="toc-depth-2"><a href="#what-i-am-learning-about-ai-assisted-engineering">What I am learning about AI-assisted engineering</a></li><li class="toc-depth-3"><a href="#the-quality-of-output-depends-on-the-quality-of-constraints">The quality of output depends on the quality of constraints</a></li><li class="toc-depth-3"><a href="#human-and-agent-both-need-memory">Human and agent both need memory</a></li><li class="toc-depth-3"><a href="#incremental-recording-beats-end-of-session-reconstruction">Incremental recording beats end-of-session reconstruction</a></li><li class="toc-depth-3"><a href="#rejection-is-as-valuable-as-adoption">Rejection is as valuable as adoption</a></li><li class="toc-depth-2"><a href="#the-bigger-picture">The bigger picture</a></li><li class="toc-depth-2"><a href="#where-this-goes-next">Where this goes next</a></li><li class="toc-depth-2"><a href="#a-note-on-what-small-means">A note on what Small means</a></li><li class="toc-depth-2"><a href="#the-product-requirements-document">The Product Requirements Document</a></li><li class="toc-depth-2"><a href="#phase-1-bring-in-the-agent-team">Phase 1: Bring in the agent team</a></li><li class="toc-depth-2"><a href="#switching-to-github-copilot-cli">Switching to GitHub Copilot CLI</a></li><li class="toc-depth-2"><a href="#notes">Notes</a></li></ol></details></nav><script type="module">var e=document.querySelector(`.toc details`);e&&window.matchMedia(`(min-width: 1000px)`).matches&&(e.open=!0);</script></aside></div><section class="related-posts" aria-labelledby="related-title"><div class="section-heading"><div><p class="kicker">Keep tinkering</p><h2 id="related-title">More from the workbench</h2></div></div><div class="post-grid"><article class="post-card post-card-compact"><p class="post-card-kicker"><time datetime="2026-10-06T19:55:00.000Z">Oct 6, 2026</time><span aria-hidden="true">·</span><span>5 min read</span></p><h3 class="post-card-title"><a href="/blog/reflecting-on-myforge/">Reflecting on MyForge: From Agent Forge to the Value Chain</a></h3><p class="post-card-excerpt">A reflection on how MyForge has evolved from Agent Forge, what it does, and where it fits in the broader value chain.</p><ul class="tag-list" aria-label="Tags"><li class="tag-chip tag-chip-static">myforge</li><li class="tag-chip tag-chip-static">agent forge</li><li class="tag-chip tag-chip-static">AI agents</li><li class="tag-chip tag-chip-static">value chain</li></ul></article><article class="post-card post-card-compact"><p class="post-card-kicker"><time datetime="2026-08-10T14:40:00.000Z">Aug 10, 2026</time><span aria-hidden="true">·</span><span>5 min read</span></p><h3 class="post-card-title"><a href="/blog/the-unexpected-journey/">The unexpected journey of building Skill Forge</a></h3><p class="post-card-excerpt">What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, an…</p><ul class="tag-list" aria-label="Tags"><li class="tag-chip tag-chip-static">ai</li><li class="tag-chip tag-chip-static">agents</li><li class="tag-chip tag-chip-static">skill-forge</li><li class="tag-chip tag-chip-static">llm</li><li class="tag-chip tag-chip-static">automation</li><li class="tag-chip tag-chip-static">knowledge-systems</li><li class="tag-chip tag-chip-static">software-engineering</li></ul></article></div></section><nav class="post-nav" aria-label="Post navigation"><span></span><a class="post-nav-link post-nav-next" rel="next" href="/blog/story-of-agent-forge/"><span>Newer note →</span><strong>The Story of Agent Forge: Building an AI Development Team from Scratch</strong></a></nav></article></div><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything","description":"Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am le…","datePublished":"2026-03-17T21:10:00.000Z","dateModified":"2026-03-17T21:10:00.000Z","url":"https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/","mainEntityOfPage":"https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/","author":{"@type":"Person","name":"Doug McCusker","url":"https://mcfuzzysquirrel.github.io/about/"},"keywords":"edge AI, education, practical tools","image":"https://mcfuzzysquirrel.github.io/assets/images/squirrel-blacksmith.jpeg"}</script></main><footer class="site-footer"><div class="shell footer-inner"><div class="footer-brand"><p class="footer-title">McFuzzySquirrel&#39;s Playground</p><p class="footer-note">AI experiments, useful tools, strange prototypes, and notes from building them in public.</p></div><nav class="footer-nav" aria-label="Footer"><a href="/blog/">Blog</a><a href="/projects/">Projects</a><a href="/about/">About</a><a href="/feed.xml">RSS</a></nav><div class="footer-social"><a href="https://github.com/McFuzzySquirrel" rel="me noreferrer" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/doug-mccusker-05054a21/" rel="me noreferrer" target="_blank">LinkedIn</a></div><p class="footer-fineprint">© 2026 Doug McCusker. Built with Astro.</p></div></footer><a href="#top" class="back-to-top" data-back-to-top aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><script type="module">var e=document.querySelector(`[data-back-to-top]`);function t(){e?.classList.toggle(`is-visible`,window.scrollY>520)}window.addEventListener(`scroll`,t,{passive:!0}),t();</script></body></html>
