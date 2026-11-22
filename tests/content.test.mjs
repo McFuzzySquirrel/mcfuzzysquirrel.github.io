@@ -27,9 +27,21 @@ function field(source, name) {
   return source.match(new RegExp(`^${name}:\\s*(.+)$`, "m"))?.[1]?.trim() ?? "";
 }
 
-test("migrated posts keep their titles, dates, arrays, and no Jekyll layout metadata", async () => {
+test("posts keep their titles, dates, arrays, and no Jekyll layout metadata", async () => {
   const files = (await readdir(join(contentRoot, "blog"))).filter((name) => name.endsWith(".md"));
-  assert.equal(files.length, 8);
+  const originalPosts = [
+    "2026-03-17-offline-ai-tutor-ezansiedgeai-ejs.md",
+    "2026-03-20-story-of-agent-forge.md",
+    "2026-03-26-ai-assisted-research.md",
+    "2026-04-10-complete-story-engineering-journey-system.md",
+    "2026-04-18-revisiting-vibn-rocket-game-17-months-later.md",
+    "2026-05-30-knowledge-dungeon-from-notes-to-explorable-world.md",
+    "2026-08-10-the-unexpected-journey.md",
+    "2026-10-06-reflecting-on-myforge.md"
+  ];
+  for (const file of originalPosts) {
+    assert.ok(files.includes(file), `Missing migrated post: ${file}`);
+  }
 
   const slugs = new Set();
   for (const file of files) {

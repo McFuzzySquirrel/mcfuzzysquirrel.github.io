@@ -1322,6 +1322,13 @@ button.tag-chip:hover {
   box-shadow: var(--shadow);
 }
 
+.prose .post-logo {
+  width: 11rem;
+  max-width: 40%;
+  height: auto;
+  margin: 0 0 0.5rem;
+}
+
 .prose figure {
   margin: 1.5rem 0;
 }

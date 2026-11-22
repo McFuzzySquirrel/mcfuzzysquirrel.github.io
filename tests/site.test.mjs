@@ -9,6 +9,11 @@ const output = resolve("dist");
 
 const posts = [
   {
+    slug: "skill-loom",
+    legacy: "/personal/project/2026/11/22/skill-loom.html",
+    title: "Skill Loom: Weaving Skills into Repeatable Chains and Shared Workflows"
+  },
+  {
     slug: "reflecting-on-myforge",
     legacy: "/personal/project/2026/10/06/reflecting-on-myforge.html",
     title: "Reflecting on MyForge: From Agent Forge to the Value Chain"

@@ -140,7 +140,10 @@ npm test
 ```
 
 `npm test` builds the site and verifies every post URL, legacy redirect, feed,
-sitemap, search index, and internal link.
+sitemap, search index, and internal link. `tests/site.test.mjs` keeps a baseline
+list of the original posts. When you publish a new post, add its slug and legacy
+URL to that list, or update the test to derive the published list from
+`src/content/blog`.
 
 ## Publish
 
