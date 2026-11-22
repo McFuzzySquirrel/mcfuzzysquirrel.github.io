@@ -10,7 +10,18 @@ const { project, featured = false } = Astro.props;
 ---
 
 <article class:list={["project-card", { "project-card-featured": featured }]}>
-  {featured && <span class="featured-stamp" aria-hidden="true">Featured</span>}
+  {featured && (
+    <img
+      class="featured-stamp"
+      src="/assets/images/featured-acorn-badge.png"
+      alt=""
+      width="320"
+      height="320"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  )}
   <div class="project-card-top">
     <span class="bench-number" aria-hidden="true">{String(project.order).padStart(2, "0")}</span>
     <div class="project-card-badges">
