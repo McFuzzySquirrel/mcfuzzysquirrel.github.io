@@ -729,6 +729,22 @@ button {
   color: var(--color-accent);
 }
 
+.project-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.project-logo {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
 .project-credit {
   font-size: 0.7rem;
   font-weight: 700;

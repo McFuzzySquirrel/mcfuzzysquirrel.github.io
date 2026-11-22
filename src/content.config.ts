@@ -40,6 +40,7 @@ const projects = defineCollection({
     description: z.string(),
     repository_url: z.url(),
     demo_url: z.url().optional(),
+    logo: z.string().optional(),
     story_url: z.string().optional(),
     collaboration: z.string().optional(),
     role: z.string().optional()

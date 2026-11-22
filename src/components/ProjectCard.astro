@@ -13,7 +13,12 @@ const { project, featured = false } = Astro.props;
   {featured && <span class="featured-stamp" aria-hidden="true">Featured</span>}
   <div class="project-card-top">
     <span class="bench-number" aria-hidden="true">{String(project.order).padStart(2, "0")}</span>
-    {project.collaboration && <span class="project-credit">{project.collaboration}</span>}
+    <div class="project-card-badges">
+      {project.logo && (
+        <img class="project-logo" src={project.logo} alt={`${project.title} logo`} width="64" height="64" loading="lazy" />
+      )}
+      {project.collaboration && <span class="project-credit">{project.collaboration}</span>}
+    </div>
   </div>
   <h3 class="project-card-title">
     <a href={project.repositoryUrl} target="_blank" rel="noreferrer">{project.title}</a>

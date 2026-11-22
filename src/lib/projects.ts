@@ -7,6 +7,7 @@ export type ProjectView = {
   description: string;
   repositoryUrl: string;
   demoUrl: string | null;
+  logo: string | null;
   storyUrl: string | null;
   collaboration: string | null;
   role: string | null;
@@ -23,6 +24,7 @@ export async function getProjects(): Promise<ProjectView[]> {
       description: project.data.description,
       repositoryUrl: project.data.repository_url,
       demoUrl: project.data.demo_url ?? null,
+      logo: project.data.logo ?? null,
       storyUrl: project.data.story_url ?? null,
       collaboration: project.data.collaboration ?? null,
       role: project.data.role ?? null
