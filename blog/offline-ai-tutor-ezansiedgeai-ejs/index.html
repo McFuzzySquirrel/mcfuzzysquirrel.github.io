@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>What I&#39;m Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything | McFuzzySquirrel&#39;s Playground</title><meta name="description" content="Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am le…"><link rel="canonical" href="https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="McFuzzySquirrel's Playground RSS feed" href="/feed.xml"><link rel="author" href="/about/"><meta name="theme-color" content="#f6efe0" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)"><meta property="og:site_name" content="McFuzzySquirrel's Playground"><meta property="og:title" content="What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything | McFuzzySquirrel's Playground"><meta property="og:description" content="Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am le…"><meta property="og:type" content="article"><meta property="og:url" content="https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/"><meta property="og:image" content="https://mcfuzzysquirrel.github.io/assets/images/squirrel-blacksmith.jpeg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything | McFuzzySquirrel's Playground"><meta name="twitter:description" content="Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am le…"><meta name="twitter:image" content="https://mcfuzzysquirrel.github.io/assets/images/squirrel-blacksmith.jpeg"><script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.slOt7DUD.css"></head><body id="top"><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell header-inner"><a class="brand" href="/" aria-label="McFuzzySquirrel's Playground home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="M8.2 13.4C8.2 8.7 11.7 5 16 5s7.8 3.7 7.8 8.4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"></path><path d="M6.8 13.6h18.4c0 8.2-3.4 13.7-9.2 16.2-5.8-2.5-9.2-8-9.2-16.2Z" fill="currentColor" opacity=".16"></path><path d="M6.8 13.6h18.4c0 8.2-3.4 13.7-9.2 16.2-5.8-2.5-9.2-8-9.2-16.2Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"></path><path d="M10.4 13.6c1.4 1 3.2 1.5 5.6 1.5s4.2-.5 5.6-1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="brand-text"><strong>McFuzzySquirrel</strong><small>Playground</small></span></a><div class="header-actions"><nav class="site-nav desktop-nav" aria-label="Primary"><a class="nav-link" href="/">Home</a><a class="nav-link is-active" href="/blog/" aria-current="page">Blog</a><a class="nav-link" href="/projects/">Projects</a><a class="nav-link" href="/about/">About</a></nav><details class="mobile-nav"><summary aria-label="Open navigation menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span>Menu</span></summary><nav aria-label="Mobile primary"><a class="nav-link" href="/">Home</a><a class="nav-link is-active" href="/blog/" aria-current="page">Blog</a><a class="nav-link" href="/projects/">Projects</a><a class="nav-link" href="/about/">About</a></nav></details><button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark theme" aria-pressed="false"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="currentColor"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.4A8.4 8.4 0 0 1 9.6 4a8.5 8.5 0 1 0 10.4 10.4Z" fill="currentColor"></path></svg></button></div></div></header><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`),n=window.matchMedia(`(prefers-color-scheme: dark)`);function r(){return e.dataset.theme===`dark`?`dark`:`light`}function i(){if(!t)return;let e=r()===`dark`;t.setAttribute(`aria-pressed`,String(e)),t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.title=e?`Switch to light theme`:`Switch to dark theme`}t?.addEventListener(`click`,()=>{let t=r()===`dark`?`light`:`dark`;e.dataset.theme=t,e.style.colorScheme=t;try{localStorage.setItem(`theme`,t)}catch{}i()}),n.addEventListener?.(`change`,t=>{try{if(localStorage.getItem(`theme`))return}catch{}e.dataset.theme=t.matches?`dark`:`light`,e.style.colorScheme=e.dataset.theme,i()}),i();</script><main id="main" class="site-main"><div class="shell"><article class="post"><header class="post-header"><p class="kicker">personal · update</p><h1>What I&#39;m Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything</h1><p class="post-meta"><time datetime="2026-03-17T21:10:00.000Z">Mar 17, 2026</time><span aria-hidden="true">·</span><span>6 min read</span></p><ul class="tag-list" aria-label="Tags"><li><a class="tag-chip" href="/blog/?tag=edge%20AI">edge AI</a></li><li><a class="tag-chip" href="/blog/?tag=education">education</a></li><li><a class="tag-chip" href="/blog/?tag=practical%20tools">practical tools</a></li></ul></header><div class="post-layout"><div class="post-body prose"><p><em>Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am learning that may be useful to others, so this will evolve as the project evolves.</em></p>
+<p>I am testing a simple but high-stakes question: can a learner in South Africa get a useful AI maths tutor on a low-cost Android phone, fully offline, with no subscription and no internet dependency?</p>
+<p>This post shares what I have measured so far, what is working, what changed after real spike data, and how I built a companion system to preserve every decision so progress compounds instead of resetting every session.</p>
+<!--more-->
+<p>This article covers two systems:</p>
+<ol>
+<li><strong>eZansiEdgeAI Small</strong>: the solution I am investigating and building to bring AI to the edge of access, with AI agents working from a comprehensive vision.</li>
+<li><strong>Engineering Journey System (EJS)</strong>: the system I built to track what AI agents are doing, in collaboration with me and with each other. I now use this in all my projects.</li>
+</ol>
+<h2 id="ezansiedgeai-small">eZansiEdgeAI Small</h2>
+<h3 id="what-am-i-trying-to-solve">What am I trying to solve?</h3>
+<p>South Africa has a learning crisis that predates load-shedding, predates COVID, and predates most technology conversations.</p>
+<p>Too many learners sit in under-resourced classrooms, go home to households without reliable internet, and do not have access to a patient, knowledgeable tutor who can explain things in a way that makes sense to them, right now, for free.</p>
+<p>Yes, there is a global EdTech boom. But it often bypasses these learners. Many solutions require internet. Cloud AI often requires subscriptions and data plans. Even many so-called offline apps are thin wrappers that still need to phone home when anything interesting happens.</p>
+<p>So the question I am trying to answer is simple, but heavily constrained:</p>
+<blockquote>
+<p>Can a small language model, running entirely on a cheap Android phone, with no internet connection, tutor a learner through a South African CAPS curriculum?</p>
+</blockquote>
+<p>Today. Not in the distant future. Not on expensive hardware most people cannot buy or support.</p>
+<h3 id="so-what-is-the-answer">So what is the answer?</h3>
+<p>The answer is <strong>maybe</strong>.</p>
+<p>And maybe needs to be tested first.</p>
+<p>Intent, vision, and specs are important, but feasibility matters more. If it is not feasible, you risk building an impressive but ineffective hobby project.</p>
+<p>That is why I am using a spike-driven engineering approach: time-boxed research experiments to reduce risk, clarify requirements, and improve estimates before deeper implementation.</p>
+<p>A useful reference: Agile spikes help teams deliver knowledge so teams can deliver products.</p>
+<h2 id="what-i-am-betting-on">What I am betting on</h2>
+<p>I deliberately picked a hard starting point: <strong>Grade 6 CAPS maths</strong>.</p>
+<h3 id="1-small-models-can-be-good-enough-for-curriculum-bounded-tutoring">1. Small models can be good enough for curriculum-bounded tutoring</h3>
+<p>A general-purpose LLM must know everything. A curriculum tutor only needs to know bounded material: fractions, decimals, basic geometry, patterns, measurement.</p>
+<p>That is a tractable domain.</p>
+<p>A smaller model running on-device, grounded by retrieval that feeds the right curriculum chunks, might be sufficient even if benchmark scores are not flashy.</p>
+<p>After benchmarking several candidates, I selected <strong>Qwen2.5-1.5B</strong>.</p>
+<p>Running Qwen2.5-1.5B locally for the first time, watching it generate coherent maths explanations in under 10 seconds, entirely offline, was a major moment.</p>
+<p>The model works. RAM budget fits on 4 GB hardware. The bigger challenges are prompt design, curriculum grounding, and Android runtime integration.</p>
+<p>You can review the model tests and results in the LLM spike report:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md">https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-001-llm-inference/reports/spike-report.md</a></p>
+<h3 id="2-retrieval-is-the-quality-multiplier">2. Retrieval is the quality multiplier</h3>
+<p>RAG helps create an accuracy guarantee.</p>
+<p>Instead of relying on model memory alone (and risking hallucinations), the plan is to embed CAPS content locally, retrieve relevant chunks, and ground every generation call.</p>
+<p>In that setup, the LLM is the reasoning and language engine. The content pack is the source of truth.</p>
+<p>Feasibility target:</p>
+<ul>
+<li>Tiny embedding model + local vector store on-device alongside the LLM</li>
+<li>
+<blockquote>
+<p>= 80% retrieval accuracy on curriculum content</p>
+</blockquote>
+</li>
+<li>Fit within RAM and storage budgets</li>
+</ul>
+<p>After benchmarking candidates, I selected <strong>all-MiniLM-L6-v2</strong> with <strong>FAISS Flat</strong> as the V1 vector store.</p>
+<p>You can review those benchmark results here:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-002-embedding-retrieval/reports/spike-report.md">https://github.com/McFuzzySquirrel/ezansiedgeai-small/blob/spike/p0-002-embedding-retrieval/spikes/p0-002-embedding-retrieval/reports/spike-report.md</a></p>
+<p>This result surprised me: all-MiniLM-L6-v2 achieved <strong>100% top-3 retrieval accuracy</strong> on 20 handcrafted Grade 6 CAPS maths queries.</p>
+<p>Fractions, decimals, geometry, and measurement all returned correct chunks in top-3 every time.</p>
+<p>That tells me the retrieval architecture is viable before writing Android integration code.</p>
+<p>I still expect real-world issues later (for example, curriculum completeness), but feasibility is confirmed.</p>
+<h3 id="3-the-hardware-floor-is-achievable">3. The hardware floor is achievable</h3>
+<p>Original target was 3 GB devices. That left only <strong>209 MB RAM headroom</strong> after loading the LLM, effectively a project-killer constraint.</p>
+<p>Embedding/retrieval spike measured actual embedding cost:</p>
+<ul>
+<li>all-MiniLM-L6-v2 peak RAM: <strong>554 MB</strong></li>
+</ul>
+<p>This made the right decision obvious: raise minimum device floor to <strong>4 GB RAM</strong>.</p>
+<p>Headroom shifted from <strong>209 MB</strong> to <strong>1,161 MB</strong>. Risk profile changed dramatically.</p>
+<p>Current measured feasibility snapshot:</p>
+<ul>
+<li>Qwen2.5-1.5B: <strong>1,839 MB RAM</strong>, ~8 second responses on x86 host</li>
+<li>all-MiniLM-L6-v2: <strong>87 MB on disk</strong>, <strong>554 MB peak RAM</strong></li>
+<li>Total first-launch download: ~<strong>1.15 GB</strong></li>
+</ul>
+<p>That is feasible on affordable 4 GB devices in the South African market.</p>
+<h3 id="4-storage-constraints-must-be-honest">4. Storage constraints must be honest</h3>
+<p>An early constraint was APK &lt;= 150 MB installed.</p>
+<p>That was written before Qwen2.5 measurements. Ambitious, but wrong.</p>
+<p>Rather than architecting around a false target, I redefined packaging:</p>
+<ul>
+<li>APK &lt;= 50 MB</li>
+<li>First-launch model downloads &lt;= 1.2 GB</li>
+<li>Content packs &lt;= 200 MB each</li>
+</ul>
+<p>This mirrors how mobile games handle large asset packs. It is a practical compromise based on measured feasibility.</p>
+<h2 id="the-system-i-built-to-remember-everything-engineering-journey-system-ejs">The System I Built to Remember Everything: Engineering Journey System (EJS)</h2>
+<p>This part is harder to explain, but equally important.</p>
+<p>EJS is a separate project focused on capturing human-to-agent and agent-to-agent collaboration.</p>
+<p>I want to know what agents are doing, both for auditability and as a learning system for myself (and hopefully for the agents over time).</p>
+<p>You can view current journey records and ADRs for eZansiEdgeAI Small here:
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs">https://github.com/McFuzzySquirrel/ezansiedgeai-small/tree/spike/p0-002-embedding-retrieval/ejs-docs</a></p>
+<h3 id="why-i-built-ejs">Why I built EJS</h3>
+<p>Decisions are where knowledge lives, not code.</p>
+<p>Code is output. The reasoning that produced it, constraints considered, alternatives rejected, and experiments that changed direction can disappear quickly.</p>
+<p>Traditionally, this disappears into chats, meetings, or memory. With multiple agents, this problem can grow as context windows and logs evolve.</p>
+<p>I wanted to preserve:</p>
+<ul>
+<li>Prompt/response trail and the why behind changes</li>
+<li>Experiments attempted, evidence observed, and pivots made</li>
+<li>Trade-offs considered but not chosen</li>
+<li>Agent influence versus human overrides/corrections</li>
+</ul>
+<p>EJS captures this reality with low friction and strong auditability:</p>
+<ul>
+<li>One Session Journey per session: initialized at start, updated throughout, finalized at end</li>
+<li>ADRs only for significant decisions: conditional and numbered to keep the ADR ledger curated</li>
+<li>Repo-portable and tool-agnostic structure: usable in GitHub web, VS Code, and team workflows</li>
+<li>Non-competing observer model: EJS records silently and does not override existing agent instructions</li>
+</ul>
+<h3 id="what-ejs-captures">What EJS captures</h3>
+<ul>
+<li><strong>Architecture Decision Records (ADRs)</strong>: significant decisions with context, alternatives, and consequences</li>
+<li><strong>Session Journey files</strong>: running logs of what was tried, changed, learned, and suggested (including adoption/rejection)</li>
+<li><strong>Searchable decision database</strong>: Python indexing of ADRs into a queryable store so new sessions can ask, have we already decided this?</li>
+</ul>
+<h2 id="how-this-changed-my-work-with-ai">How this changed my work with AI</h2>
+<p>I use GitHub Copilot as my primary engineering collaborator.</p>
+<p>EJS changes the collaboration dynamic in a specific way: Copilot does not just write code. It documents reasoning during the session.</p>
+<p>Pattern reference:
+<a href="https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md">https://github.com/McFuzzySquirrel/Engineering-Journey-System/blob/main/ejs-docs/session-lifecycle-patterns.md</a></p>
+<p>Every decision made in a session gets recorded. ADRs get created when decisions happen, not days later. Benchmark results and iterations are logged while fresh.</p>
+<p>The result is auditable AI collaboration.</p>
+<p>Example: I can inspect ADR-0007 and see exactly why all-MiniLM-L6-v2 was chosen over bge-small-en-v1.5, based on recorded evidence at decision time.</p>
+<h2 id="what-i-am-learning-about-ai-assisted-engineering">What I am learning about AI-assisted engineering</h2>
+<h3 id="the-quality-of-output-depends-on-the-quality-of-constraints">The quality of output depends on the quality of constraints</h3>
+<p>With vague briefs, Copilot gives vague plans.</p>
+<p>With measurable constraints (RAM in MB, latency in ms, accuracy thresholds), it gives testable plans.</p>
+<p>EJS reinforces this discipline. You cannot write a decision record without a reason, and you cannot state the reason without understanding the constraint.</p>
+<h3 id="human-and-agent-both-need-memory">Human and agent both need memory</h3>
+<p>A single LLM session is effectively stateless.</p>
+<p>It will not reliably remember earlier decisions, rejection rationales, or measured headroom.</p>
+<p>EJS session files and ADRs provide persistent memory. Starting each session with that context immediately improves collaboration quality.</p>
+<h3 id="incremental-recording-beats-end-of-session-reconstruction">Incremental recording beats end-of-session reconstruction</h3>
+<p>I tested both.</p>
+<p>Reconstructed notes are thin, lose pivots, and miss near-turning points.</p>
+<p>Capturing at decision-time is richer, more accurate, and more useful.</p>
+<h3 id="rejection-is-as-valuable-as-adoption">Rejection is as valuable as adoption</h3>
+<p>The EJS Agent Influence section records both.</p>
+<p>That has become some of the highest-value data in the system.</p>
+<p>When Copilot proposed tiered device strategies for RAM fallback, I rejected that in favor of a simpler 4 GB floor raise. That rejection and rationale are now explicit, so future sessions do not re-propose it without context.</p>
+<h2 id="the-bigger-picture">The bigger picture</h2>
+<p>This project sits at the intersection of three priorities:</p>
+<ol>
+<li><strong>Equitable access to learning</strong></li>
+</ol>
+<p>The learners this is for do not have easy fallbacks. No tutor, no stable data budget, no guaranteed power.</p>
+<ol start="2">
+<li><strong>Honest engineering</strong></li>
+</ol>
+<p>Edge AI in education often demos well on high-end hardware and fails on target devices.</p>
+<p>Spike-first methodology (measure first, decide second, build third) is the only approach I trust for this work.</p>
+<ol start="3">
+<li><strong>Compounding knowledge</strong></li>
+</ol>
+<p>EJS is a bet that project two benefits from project one, and project three benefits from project two.</p>
+<p>Decisions made today should not need to be rediscovered next year.</p>
+<h2 id="where-this-goes-next">Where this goes next</h2>
+<p>Phase 0 spikes validated technical bets one by one.</p>
+<p>Next step is building the real content pack: CAPS Grade 6 fractions content with precomputed embeddings, then:</p>
+<ul>
+<li>Wire LLM + embedding + content pack into an end-to-end pipeline</li>
+<li>Validate battery and thermal behavior on actual Android hardware</li>
+</ul>
+<p>If I can sustain this end-to-end loop under 15 seconds offline (question -&gt; retrieve -&gt; grounded tutoring response), Phase 1 begins:</p>
+<ul>
+<li>Android app</li>
+<li>Learner interaction model</li>
+<li>Teacher dashboard</li>
+<li>Content authoring tools</li>
+</ul>
+<p>None of that matters without a sound foundation. Spikes are that foundation.</p>
+<h2 id="a-note-on-what-small-means">A note on what Small means</h2>
+<p>eZansiEdgeAI Small is named intentionally.</p>
+<p>eZansi means down below or from the south in Zulu, grounding where this is built and who it is for.</p>
+<p>Small means:</p>
+<ul>
+<li>It runs on the phone in a learner’s pocket</li>
+<li>It does not require reliable internet, data budgets, or stable power</li>
+<li>It is curriculum-bounded, not trying to know everything, but trying to explain the right thing well enough for a learner right now</li>
+</ul>
+<p>In this project, small is the most ambitious thing I can build.</p>
+<h2 id="the-product-requirements-document">The Product Requirements Document</h2>
+<p>Up to now, I have been operating from a detailed project vision that functioned like a PRD.</p>
+<p>For the next phase, I need broader collaboration, and that requires a structured source of truth. So I created a consolidated PRD that:</p>
+<ul>
+<li>Unifies vision, architecture decisions (ADR-0001 to ADR-0008), Phase 0 spike results, engineering principles, and product documentation</li>
+<li>Is self-contained enough that developers, AI agents, and stakeholders can understand V1 scope from this document alone</li>
+</ul>
+<p>Note: You can view the full PRD in the repository.</p>
+<h2 id="phase-1-bring-in-the-agent-team">Phase 1: Bring in the agent team</h2>
+<p>Feasibility testing has transitioned from spikes into a validated, working local end-to-end AI pipeline with strong foundations for scaling.</p>
+<p>Highlights so far:</p>
+<ul>
+<li><strong>Content Pack Builder</strong>: SQLite-based chunks -&gt; embeddings -&gt; FAISS -&gt; pack pipeline, with 100% validation accuracy and strong local performance</li>
+<li><strong>End-to-End pipeline</strong>: embed -&gt; retrieve -&gt; generate using local models, including hardware constraint mitigation through CPU fallback and measurable reporting</li>
+</ul>
+<p>Next objective is a minimal but usable fully offline Android app for grounded maths tutoring.</p>
+<p>To do that, I assembled a specialized agent team with clearly scoped ownership:</p>
+<ul>
+<li>Project orchestrator</li>
+<li>Project architect</li>
+<li>Learner data engineer</li>
+<li>Content pack engineer</li>
+<li>AI pipeline engineer</li>
+<li>Android UI engineer</li>
+<li>QA test engineer</li>
+</ul>
+<p>As mentioned earlier, this team is highly specialized by design.</p>
+<h2 id="switching-to-github-copilot-cli">Switching to GitHub Copilot CLI</h2>
+<p>Most earlier work happened in VS Code.</p>
+<p>For this phase, I shifted to GitHub Copilot CLI because it is optimized for autonomous multi-agent operation while keeping a familiar workflow.</p>
+<p>The first step was running the Project Orchestrator for Phase 1. It has already organized specialist agent sequencing based on implementation dependencies and phase objectives.</p>
+<p>If you want to learn how this team was created, see McFuzzy Agent Forge:
+<a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge</a></p>
+<p>It transforms a PRD into a specialized team of custom agents and reusable skills with clear ownership and collaboration patterns.</p>
+<p>There is more in progress, and I will post updates as it evolves.</p>
+<h2 id="notes">Notes</h2>
+<p>This article reflects the state of the project as of March 2026.</p>
+<p>Repositories:</p>
+<ul>
+<li>eZansiEdgeAI Small (spike results, ADRs, session journals):
+<a href="https://github.com/McFuzzySquirrel/ezansiedgeai-small">https://github.com/McFuzzySquirrel/ezansiedgeai-small</a></li>
+<li>Engineering Journey System (EJS):
+<a href="https://github.com/McFuzzySquirrel/Engineering-Journey-System">https://github.com/McFuzzySquirrel/Engineering-Journey-System</a></li>
+<li>McFuzzy Agent Forge:
+<a href="https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge">https://github.com/McFuzzySquirrel/mcfuzzy-agent-forge</a></li>
+</ul>
+<p>Special thanks to Nabeel Prior for encouragement, thoughtful input, and support throughout this journey.</p>
+<p>All of my projects exist for one core reason: learning through experimentation.</p>
+<p>Each repository starts with questions like: Is this possible? I wonder if…?</p>
+<p>Sometimes these projects aim to solve practical problems. Sometimes they are curiosity-driven rabbit holes. All are honest reflections of learning in progress.</p>
+<p>Expect some projects to be messy, others structured, all of them real.</p>
+<p>Feel free to reuse, modify, and build on anything here in your own repositories.</p>
+</div><aside class="post-aside"><nav class="toc" aria-label="Table of contents"><details><summary>On this page</summary><ol><li class="toc-depth-2"><a href="#ezansiedgeai-small">eZansiEdgeAI Small</a></li><li class="toc-depth-3"><a href="#what-am-i-trying-to-solve">What am I trying to solve?</a></li><li class="toc-depth-3"><a href="#so-what-is-the-answer">So what is the answer?</a></li><li class="toc-depth-2"><a href="#what-i-am-betting-on">What I am betting on</a></li><li class="toc-depth-3"><a href="#1-small-models-can-be-good-enough-for-curriculum-bounded-tutoring">1. Small models can be good enough for curriculum-bounded tutoring</a></li><li class="toc-depth-3"><a href="#2-retrieval-is-the-quality-multiplier">2. Retrieval is the quality multiplier</a></li><li class="toc-depth-3"><a href="#3-the-hardware-floor-is-achievable">3. The hardware floor is achievable</a></li><li class="toc-depth-3"><a href="#4-storage-constraints-must-be-honest">4. Storage constraints must be honest</a></li><li class="toc-depth-2"><a href="#the-system-i-built-to-remember-everything-engineering-journey-system-ejs">The System I Built to Remember Everything: Engineering Journey System (EJS)</a></li><li class="toc-depth-3"><a href="#why-i-built-ejs">Why I built EJS</a></li><li class="toc-depth-3"><a href="#what-ejs-captures">What EJS captures</a></li><li class="toc-depth-2"><a href="#how-this-changed-my-work-with-ai">How this changed my work with AI</a></li><li class="toc-depth-2"><a href="#what-i-am-learning-about-ai-assisted-engineering">What I am learning about AI-assisted engineering</a></li><li class="toc-depth-3"><a href="#the-quality-of-output-depends-on-the-quality-of-constraints">The quality of output depends on the quality of constraints</a></li><li class="toc-depth-3"><a href="#human-and-agent-both-need-memory">Human and agent both need memory</a></li><li class="toc-depth-3"><a href="#incremental-recording-beats-end-of-session-reconstruction">Incremental recording beats end-of-session reconstruction</a></li><li class="toc-depth-3"><a href="#rejection-is-as-valuable-as-adoption">Rejection is as valuable as adoption</a></li><li class="toc-depth-2"><a href="#the-bigger-picture">The bigger picture</a></li><li class="toc-depth-2"><a href="#where-this-goes-next">Where this goes next</a></li><li class="toc-depth-2"><a href="#a-note-on-what-small-means">A note on what Small means</a></li><li class="toc-depth-2"><a href="#the-product-requirements-document">The Product Requirements Document</a></li><li class="toc-depth-2"><a href="#phase-1-bring-in-the-agent-team">Phase 1: Bring in the agent team</a></li><li class="toc-depth-2"><a href="#switching-to-github-copilot-cli">Switching to GitHub Copilot CLI</a></li><li class="toc-depth-2"><a href="#notes">Notes</a></li></ol></details></nav><script type="module">var e=document.querySelector(`.toc details`);e&&window.matchMedia(`(min-width: 1000px)`).matches&&(e.open=!0);</script></aside></div><section class="related-posts" aria-labelledby="related-title"><div class="section-heading"><div><p class="kicker">Keep tinkering</p><h2 id="related-title">More from the workbench</h2></div></div><div class="post-grid"><article class="post-card post-card-compact"><p class="post-card-kicker"><time datetime="2026-10-06T19:55:00.000Z">Oct 6, 2026</time><span aria-hidden="true">·</span><span>6 min read</span></p><h3 class="post-card-title"><a href="/blog/reflecting-on-myforge/">Reflecting on MyForge: From Agent Forge to the Value Chain</a></h3><p class="post-card-excerpt">A reflection on how MyForge has evolved from Agent Forge, what it does, and where it fits in the broader value chain.</p><ul class="tag-list" aria-label="Tags"><li class="tag-chip tag-chip-static">myforge</li><li class="tag-chip tag-chip-static">agent forge</li><li class="tag-chip tag-chip-static">AI agents</li><li class="tag-chip tag-chip-static">value chain</li></ul></article><article class="post-card post-card-compact"><p class="post-card-kicker"><time datetime="2026-08-10T14:40:00.000Z">Aug 10, 2026</time><span aria-hidden="true">·</span><span>5 min read</span></p><h3 class="post-card-title"><a href="/blog/the-unexpected-journey/">The unexpected journey of building Skill Forge</a></h3><p class="post-card-excerpt">What started as a simple idea for building better AI skills became a deeper experiment in self-improving systems. Along the way, I explored review loops, CLI-powered skills, root skills, an…</p><ul class="tag-list" aria-label="Tags"><li class="tag-chip tag-chip-static">ai</li><li class="tag-chip tag-chip-static">agents</li><li class="tag-chip tag-chip-static">skill-forge</li><li class="tag-chip tag-chip-static">llm</li><li class="tag-chip tag-chip-static">automation</li><li class="tag-chip tag-chip-static">knowledge-systems</li><li class="tag-chip tag-chip-static">software-engineering</li></ul></article></div></section><nav class="post-nav" aria-label="Post navigation"><span></span><a class="post-nav-link post-nav-next" rel="next" href="/blog/story-of-agent-forge/"><span>Newer note →</span><strong>The Story of Agent Forge: Building an AI Development Team from Scratch</strong></a></nav></article></div><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What I'm Learning from Building an Offline AI Tutor for South African Learners, and the System I Built to Remember Everything","description":"Note: this is a work in progress. My agents and I are currently in the feasibility testing phase, the spike if you will. Vision matters, but only if it works. There is already a lot I am le…","datePublished":"2026-03-17T21:10:00.000Z","dateModified":"2026-03-17T21:10:00.000Z","url":"https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/","mainEntityOfPage":"https://mcfuzzysquirrel.github.io/blog/offline-ai-tutor-ezansiedgeai-ejs/","author":{"@type":"Person","name":"Doug McCusker","url":"https://mcfuzzysquirrel.github.io/about/"},"keywords":"edge AI, education, practical tools","image":"https://mcfuzzysquirrel.github.io/assets/images/squirrel-blacksmith.jpeg"}</script></main><footer class="site-footer"><div class="shell footer-inner"><div class="footer-brand"><p class="footer-title">McFuzzySquirrel&#39;s Playground</p><p class="footer-note">AI experiments, useful tools, strange prototypes, and honest notes from learning by doing.</p></div><nav class="footer-nav" aria-label="Footer"><a href="/blog/">Blog</a><a href="/projects/">Projects</a><a href="/about/">About</a><a href="/feed.xml">RSS</a></nav><div class="footer-social"><a href="https://github.com/McFuzzySquirrel" rel="me noreferrer" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/doug-mccusker-05054a21/" rel="me noreferrer" target="_blank">LinkedIn</a></div><p class="footer-fineprint">© 2026 Doug McCusker. Built with Astro, written by hand, and kept deliberately small.</p></div></footer><a href="#top" class="back-to-top" data-back-to-top aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><script type="module">var e=document.querySelector(`[data-back-to-top]`);function t(){e?.classList.toggle(`is-visible`,window.scrollY>520)}window.addEventListener(`scroll`,t,{passive:!0}),t();</script></body></html>
