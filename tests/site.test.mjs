@@ -9,6 +9,11 @@ const output = resolve("dist");
 
 const posts = [
   {
+    slug: "when-the-engine-was-fine-and-the-ui-wasnt",
+    legacy: "/personal/project/2026/11/23/when-the-engine-was-fine-and-the-ui-wasnt.html",
+    title: "When the Engine Was Fine and the UI Wasn't"
+  },
+  {
     slug: "skill-loom",
     legacy: "/personal/project/2026/11/22/skill-loom.html",
     title: "Skill Loom: Weaving Skills into Repeatable Chains and Shared Workflows"
