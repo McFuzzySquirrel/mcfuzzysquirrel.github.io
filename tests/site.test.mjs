@@ -9,6 +9,11 @@ const output = resolve("dist");
 
 const posts = [
   {
+    slug: "microsoft-azure-skills-experiment",
+    legacy: "/personal/project/2026/11/24/microsoft-azure-skills-experiment.html",
+    title: "Microsoft Azure Skills, a Plan, and an Experiment"
+  },
+  {
     slug: "when-the-engine-was-fine-and-the-ui-wasnt",
     legacy: "/personal/project/2026/11/23/when-the-engine-was-fine-and-the-ui-wasnt.html",
     title: "When the Engine Was Fine and the UI Wasn't"
@@ -179,8 +184,8 @@ test("keeps project ordering and the home page sections", async () => {
   }
   projects.sort((left, right) => left.order - right.order);
 
-  assert.equal(projects.length, 8);
-  const positions = projects.map(({ title }) => projectsPage.indexOf(title));
+  assert.equal(projects.length, 9);
+  const positions = projects.map(({ title }) => projectsPage.indexOf(`>${title}</a>`));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual(positions, [...positions].sort((left, right) => left - right));
 

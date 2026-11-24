@@ -60,7 +60,7 @@ test("posts keep their titles, dates, arrays, and no Jekyll layout metadata", as
 
 test("projects remain ordered and point their build stories at new URLs", async () => {
   const files = (await readdir(join(contentRoot, "projects"))).filter((name) => name.endsWith(".md"));
-  assert.equal(files.length, 8);
+  assert.equal(files.length, 9);
 
   const projects = [];
   for (const file of files) {
@@ -74,7 +74,7 @@ test("projects remain ordered and point their build stories at new URLs", async 
   }
 
   projects.sort((left, right) => left.order - right.order);
-  assert.deepEqual(projects.map((project) => project.order), [1, 2, 3, 4, 5, 6, 7, 8]);
+  assert.deepEqual(projects.map((project) => project.order), [1, 2, 3, 4, 5, 6, 7, 8, 9]);
   assert.ok(projects.every((project) => project.title));
 
   for (const project of projects.filter((candidate) => candidate.storyUrl)) {
